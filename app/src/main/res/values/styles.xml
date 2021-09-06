@@ -1,0 +1,23 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- 该主题只能在启动MainActivity时使用，在onCreate时应该替换掉该主题 -->
+    <style name="AppTheme.Launcher" >
+        <item name="android:windowBackground">@drawable/windows_bg</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="FishActivityTheme" parent="Theme.AppCompat.NoActionBar" >
+
+    </style>
+
+    <style name="FullScreenTheme" parent="@style/Theme.MaterialComponents.NoActionBar" >
+        <item name="windowNoTitle">true</item>
+    </style>
+</resources>

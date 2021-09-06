@@ -1,0 +1,9 @@
+include ':design'
+include ':android-view'
+include ':base'
+include ':support'
+include ':my-views'
+include ':util'
+include ':dialog'
+include ':app'
+rootProject.name = "android-demo"

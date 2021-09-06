@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/ll_bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <TextView android:layout_width="match_parent"
+              android:layout_height="80dp"
+              android:background="@android:color/holo_red_light"
+              android:gravity="center"
+              android:text="上拉解锁隐藏功能"
+              android:textColor="@android:color/white"
+              android:textSize="20sp"/>
+    <TextView android:layout_width="match_parent"
+              android:layout_height="80dp"
+              android:background="@android:color/holo_blue_light"
+              android:gravity="center"
+              android:text="a"
+              android:textSize="20sp"/>
+    <TextView android:layout_width="match_parent"
+              android:layout_height="80dp"
+              android:background="@android:color/holo_orange_dark"
+              android:gravity="center"
+              android:text="b"
+              android:textSize="20sp"/>
+    <TextView android:layout_width="match_parent"
+              android:layout_height="80dp"
+              android:background="@android:color/holo_green_light"
+              android:gravity="center"
+              android:text="c"
+              android:textSize="20sp"/>
+</LinearLayout>

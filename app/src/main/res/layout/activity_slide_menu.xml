@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#BDBDBD"
+        tools:context=".SlideMenuActivity">
+
+    <com.hc.my_views.SlidingMenu
+            android:orientation="horizontal"
+            app:menuMarginRight="40dp"
+            app:cartoon="true"
+            app:shadow="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <include layout="@layout/slide_menu" />
+            <include layout="@layout/slide_menu_content" />
+        </LinearLayout>
+    </com.hc.my_views.SlidingMenu>
+</androidx.constraintlayout.widget.ConstraintLayout>

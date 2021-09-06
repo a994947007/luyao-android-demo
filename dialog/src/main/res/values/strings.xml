@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bsd_v1_intro">这是一个普通的BottomSheetDialog，支持点击外围影藏，可拖拽面板</string>
+</resources>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.hc.android_view">
+
+    <application>
+        <activity android:name="com.hc.recyclerView.MoreTypeActivity">
+        </activity>
+        <activity android:name="com.hc.recyclerView.RecyclerActivity">
+        </activity>
+        <activity android:name="com.hc.nested_recycler_fragment.RecyclerNestedScrollActivity">
+        </activity>
+    </application>
+
+</manifest>

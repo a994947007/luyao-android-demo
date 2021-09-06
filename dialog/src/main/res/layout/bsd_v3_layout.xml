@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/dialog_drawable">
+    <TextView android:layout_width="wrap_content" android:layout_height="100dp"
+                android:text="生命周期: onCreate（此时getDialog == null）、 onCreateDialog、onCreateView、onDestroyView、onDestroy"/>
+</LinearLayout>

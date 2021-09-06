@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.hc.android_demo">
+
+    <application
+        android:name="com.hc.base.BaseApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".NestedScrollViewActivity"
+            android:exported="true" />
+        <activity
+            android:name=".DrawerLayoutActivity"
+            android:exported="true"
+            android:theme="@style/FullScreenTheme" />
+        <activity
+            android:name=".MaterialViewActivity"
+            android:exported="true"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+        <activity
+            android:name=".MaterialDesignActivity"
+            android:exported="true" />
+        <activity
+            android:name=".CoordinateLayoutActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".CustomLayoutActivity" />
+        <activity
+            android:name=".FishActivity"
+            android:theme="@style/FishActivityTheme" />
+        <activity android:name=".VerticalDrawerRecyclerView" />
+        <activity android:name=".SlideMenuActivity" />
+        <activity android:name=".LetterActivity" />
+        <activity android:name=".RatingBarActivity" />
+        <activity android:name=".ProgressActivity" />
+        <activity android:name=".TextActivity" />
+        <activity android:name=".GridImageLayoutActivity" />
+        <activity android:name=".LazyActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.Launcher">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 渐变文字，自定义属性 -->
+    <declare-styleable name="GradientTextView">
+        <attr name="android:text"/>
+        <attr name="android:textSize"/>
+        <attr name="android:textColor"/>
+        <attr name="gravity">
+            <flag name="center" value="0"/>
+            <flag name="left" value="1"/>
+            <flag name="top" value="2"/>
+            <flag name="right" value="4"/>
+            <flag name="bottom" value="8"/>
+        </attr>
+
+        <!--
+        或者使用
+        <declare-styleable name="MyTextView">
+            <attr name=“text" format="string" />
+        </declare-styleable>
+
+        https://blog.csdn.net/bzlj2912009596/article/details/80518650
+        -->
+    </declare-styleable>
+
+    <declare-styleable name="ProgressView">
+        <attr name="backgroundColor" format="color"/>
+        <attr name="foregroundColor" format="color"/>
+        <attr name="progressText" format="string"/>
+        <attr name="progressTextColor" format="color"/>
+        <attr name="progressTextSize" format="dimension"/>
+        <attr name="edgeWidth" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="ProgressView2">
+        <attr name="progressColor" format="color"/>
+        <attr name="cirClePadding" format="dimension"/>
+        <attr name="sideWidth" format="dimension"/>
+    </declare-styleable>
+    
+    <declare-styleable name="ProgressView3">
+        <attr name="drawInterval" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="RatingBar">
+        <attr name="starNum" format="integer" />
+        <attr name="starPadding" format="dimension" />
+        <attr name="starNormal" format="reference" />
+        <attr name="starFocus" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="LetterSlideBar">
+        <attr name="letterPadding" format="dimension" />
+        <attr name="android:textSize" />
+    </declare-styleable>
+
+    <declare-styleable name="SlidingMenu">
+        <attr name="menuMarginRight" format="dimension" />
+        <attr name="cartoon" format="boolean" />
+        <attr name="shadow" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="CircleImageView">
+        <attr name="border" format="dimension" />
+        <attr name="borderColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="BehaviorCoordinateLayout">
+        <attr name="layout_behavior" format="string"/>
+    </declare-styleable>
+</resources>
