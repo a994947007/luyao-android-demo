@@ -11,6 +11,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".CustomNestedScrollViewActivity"
+            android:exported="true" />
+        <activity
+            android:name=".FullScreenDialogActivity"
+            android:exported="true" />
+        <activity
             android:name=".NestedScrollViewActivity"
             android:exported="true" />
         <activity

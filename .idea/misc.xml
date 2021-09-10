@@ -4,17 +4,23 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/activity_coordinate_layout.xml" value="0.3411458333333333" />
+        <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/activity_custom_nested_scroll_view.xml" value="0.6197564276048715" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/activity_drawer_layout.xml" value="0.20933333333333334" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/activity_fish.xml" value="0.3953125" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/activity_float_action_button.xml" value="0.39427083333333335" />
+        <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/activity_full_screen_dialog.xml" value="0.43125" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/activity_material_design.xml" value="0.4161458333333333" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/activity_nested_scroll_view.xml" value="0.7010416666666667" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/activity_slide_menu.xml" value="0.33490011750881316" />
+        <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/activity_vertical_drawer_recycler_view.xml" value="0.4328125" />
+        <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/dialog_full_screen.xml" value="0.615036231884058" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/slide_menu.xml" value="0.5846920289855072" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/menu/bottom_menu.xml" value="0.39427083333333335" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/menu/bottom_nav.xml" value="0.39427083333333335" />
         <entry key="..\:/IDEA CODE/androiddemo/design/src/main/res/drawable/eye_selector.xml" value="0.33125" />
         <entry key="..\:/IDEA CODE/androiddemo/design/src/main/res/drawable/eye_tint.xml" value="0.33125" />
+        <entry key="..\:/IDEA CODE/androiddemo/dialog/src/main/res/drawable/dialog_drawable.xml" value="0.44895833333333335" />
+        <entry key="..\:/IDEA CODE/androiddemo/dialog/src/main/res/layout/bsd_v3_layout.xml" value="0.4328125" />
       </map>
     </option>
   </component>

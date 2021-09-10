@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
         items.add(new Pair<>("浮Button、SnackBar、Material输入框", this::onClickMaterialActivityButton));
         items.add(new Pair<>("DrawerLayout，网易云音乐侧边栏", this::onClickDrawerLayoutActivity));
         items.add(new Pair<>("NestedScrollView嵌套滑动", this::onClickNestedScrollViewActivity));
+        items.add(new Pair<>("自定义NestedScrollView", this::onClickCustomNestedScrollViewActivity));
+        items.add(new Pair<>("全屏Dialog和全屏DialogFragment", this::onClickFullScreenDialogActivity));
     }
 
     @Override
@@ -183,5 +185,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void onClickNestedScrollViewActivity(View view) {
         startActivity(new Intent(MainActivity.this, NestedScrollViewActivity.class));
+    }
+
+    private void onClickFullScreenDialogActivity(View view) {
+        startActivity(new Intent(MainActivity.this, FullScreenDialogActivity.class));
+    }
+
+    private void onClickCustomNestedScrollViewActivity(View view) {
+        startActivity(new Intent(MainActivity.this, CustomNestedScrollViewActivity.class));
     }
 }
