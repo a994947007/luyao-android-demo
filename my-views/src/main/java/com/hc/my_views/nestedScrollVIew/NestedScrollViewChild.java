@@ -47,6 +47,7 @@ public class NestedScrollViewChild extends FrameLayout implements MyNestedScroll
             mLastX = event.getRawX();
             mLastY = event.getRawY();
             startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL);
+            requestDisallowInterceptTouchEvent(false);
         } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
             int dx = (int) (mLastX - event.getRawX());
             int dy = (int) (mLastY - event.getRawY());
@@ -55,7 +56,6 @@ public class NestedScrollViewChild extends FrameLayout implements MyNestedScroll
             dy -= mScrollConsumed[1];
             int oldY = getScrollY();
             overScrollBy(dy);
-
             final int scrolledDeltaY = getScrollY() - oldY;
             final int unConsumedY = dy - scrolledDeltaY;
             dispatchNestedScroll(0, scrolledDeltaY, 0, unConsumedY, mScrollConsumed);
