@@ -3,7 +3,6 @@ package com.hc.dialog;
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,12 +34,6 @@ public class LandscapeInputFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        WindowManager.LayoutParams lp = getDialog().getWindow().getAttributes();
-        WindowManager m = getDialog().getWindow().getWindowManager();
-        Display d = m.getDefaultDisplay();
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-        getDialog().getWindow().setAttributes(lp);
         getDialog().getWindow().setGravity(Gravity.BOTTOM);
         editText = contentView.findViewById(R.id.edit_text);
         editText.setFocusable(true);
