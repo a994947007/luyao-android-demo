@@ -4,12 +4,16 @@ import android.content.Intent;
 import android.util.Pair;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.hc.dialog.LandscapeInputFragment;
 import com.hc.nested_recycler_fragment.RecyclerNestedScrollActivity;
 import com.hc.dialog.BottomSheetDialogFragmentV1;
 import com.hc.dialog.BottomSheetDialogFragmentV2;
@@ -49,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         items.add(new Pair<>("NestedScrollView嵌套滑动", this::onClickNestedScrollViewActivity));
         items.add(new Pair<>("自定义NestedScrollView", this::onClickCustomNestedScrollViewActivity));
         items.add(new Pair<>("全屏Dialog和全屏DialogFragment", this::onClickFullScreenDialogActivity));
+        items.add(new Pair<>("输入框Dialog", this::onClickLandscapeInputFragment));
     }
 
     @Override
@@ -193,5 +198,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void onClickCustomNestedScrollViewActivity(View view) {
         startActivity(new Intent(MainActivity.this, CustomNestedScrollViewActivity.class));
+    }
+
+
+    private void onClickLandscapeInputFragment(View view) {
+        LandscapeInputFragment landscapeInputFragment = new LandscapeInputFragment(this);
+        landscapeInputFragment.show(getSupportFragmentManager(), "LandscapeInputFragment");
     }
 }

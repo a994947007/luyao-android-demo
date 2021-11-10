@@ -11,4 +11,37 @@
     <style name="bottomSheetStyleWrapper" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@android:color/transparent</item>
     </style>
+
+    <style name="inputDialog" parent="Theme.AppCompat.Light.Dialog" >
+        <!--是否去除标题 -->
+        <item name="windowNoTitle">true</item>
+        <!-- 横向全屏需要设置这个属性 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 设置对话框在横屏状态下所占屏幕宽度的比例 -->
+        <item name="android:windowMinWidthMajor">100%</item>
+        <!-- 设置对话框在竖屏状态下所占屏幕宽度的比例 -->
+        <item name="android:windowMinWidthMinor">100%</item>
+    </style>
+
+    <style name="AppCompatAlertDialogStyle" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <!--是否去除标题 -->
+        <item name="windowNoTitle">true</item>
+        <!--是否去除边框-->
+        <item name="android:windowFrame">@null</item>
+        <!--是否浮现在activity之上-->
+        <item name="android:windowIsFloating">true</item>
+        <!--是否模糊-->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 背景透明 -->
+        <item name="android:background">#00000000</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 没有windowActionBar-->
+        <item name="windowActionBar">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- <item name="android:backgroundDimEnabled">false</item> -->
+        <!-- 设置对话框在横屏状态下所占屏幕宽度的比例 -->
+        <item name="android:windowMinWidthMajor">100%</item>
+        <!-- 设置对话框在竖屏状态下所占屏幕宽度的比例 -->
+        <item name="android:windowMinWidthMinor">100%</item>
+    </style>
 </resources>

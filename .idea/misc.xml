@@ -24,8 +24,12 @@
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/menu/bottom_nav.xml" value="0.39427083333333335" />
         <entry key="..\:/IDEA CODE/androiddemo/design/src/main/res/drawable/eye_selector.xml" value="0.33125" />
         <entry key="..\:/IDEA CODE/androiddemo/design/src/main/res/drawable/eye_tint.xml" value="0.33125" />
+        <entry key="..\:/IDEA CODE/androiddemo/dialog/src/main/res/drawable/background_input.xml" value="0.49322916666666666" />
         <entry key="..\:/IDEA CODE/androiddemo/dialog/src/main/res/drawable/dialog_drawable.xml" value="0.44895833333333335" />
+        <entry key="..\:/IDEA CODE/androiddemo/dialog/src/main/res/layout/bsd_v1_layout.xml" value="0.5864583333333333" />
+        <entry key="..\:/IDEA CODE/androiddemo/dialog/src/main/res/layout/bsd_v2_layout.xml" value="0.5864583333333333" />
         <entry key="..\:/IDEA CODE/androiddemo/dialog/src/main/res/layout/bsd_v3_layout.xml" value="0.4328125" />
+        <entry key="..\:/IDEA CODE/androiddemo/dialog/src/main/res/layout/landscape_input_panel.xml" value="0.2994791666666667" />
       </map>
     </option>
   </component>
