@@ -14,22 +14,31 @@
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/activity_fish.xml" value="0.3953125" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/activity_float_action_button.xml" value="0.39427083333333335" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/activity_full_screen_dialog.xml" value="0.43125" />
+        <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/activity_main.xml" value="0.5385416666666667" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/activity_material_design.xml" value="0.4161458333333333" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/activity_nested_scroll_view.xml" value="0.7010416666666667" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/activity_slide_menu.xml" value="0.33490011750881316" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/activity_vertical_drawer_recycler_view.xml" value="0.4328125" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/dialog_full_screen.xml" value="0.615036231884058" />
+        <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/fragment_custom_view.xml" value="0.46875" />
+        <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/recycler_item.xml" value="0.4005208333333333" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/slide_menu.xml" value="0.5846920289855072" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/menu/bottom_menu.xml" value="0.39427083333333335" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/menu/bottom_nav.xml" value="0.39427083333333335" />
+        <entry key="..\:/IDEA CODE/androiddemo/common/src/main/res/layout/layout_error.xml" value="0.41510416666666666" />
+        <entry key="..\:/IDEA CODE/androiddemo/common/src/main/res/layout/layout_loading.xml" value="0.528125" />
         <entry key="..\:/IDEA CODE/androiddemo/design/src/main/res/drawable/eye_selector.xml" value="0.33125" />
         <entry key="..\:/IDEA CODE/androiddemo/design/src/main/res/drawable/eye_tint.xml" value="0.33125" />
+        <entry key="..\:/IDEA CODE/androiddemo/design/src/main/res/layout/layout_common_action_bar.xml" value="0.396875" />
         <entry key="..\:/IDEA CODE/androiddemo/dialog/src/main/res/drawable/background_input.xml" value="0.49322916666666666" />
         <entry key="..\:/IDEA CODE/androiddemo/dialog/src/main/res/drawable/dialog_drawable.xml" value="0.44895833333333335" />
         <entry key="..\:/IDEA CODE/androiddemo/dialog/src/main/res/layout/bsd_v1_layout.xml" value="0.5864583333333333" />
         <entry key="..\:/IDEA CODE/androiddemo/dialog/src/main/res/layout/bsd_v2_layout.xml" value="0.5864583333333333" />
         <entry key="..\:/IDEA CODE/androiddemo/dialog/src/main/res/layout/bsd_v3_layout.xml" value="0.4328125" />
         <entry key="..\:/IDEA CODE/androiddemo/dialog/src/main/res/layout/landscape_input_panel.xml" value="0.2994791666666667" />
+        <entry key="..\:/IDEA CODE/androiddemo/support/src/main/res/layout/layout_load_sir.xml" value="0.3927083333333333" />
+        <entry key="..\:/IDEA CODE/androiddemo/webview/src/main/res/layout/activity_web_view.xml" value="0.5291666666666667" />
+        <entry key="..\:/IDEA CODE/androiddemo/webview/src/main/res/layout/layout_web_view.xml" value="0.5145833333333333" />
       </map>
     </option>
   </component>

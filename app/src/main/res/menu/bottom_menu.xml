@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    tools:ignore="MissingDefaultResource">
-    <item android:id="@+id/navigation_home" android:title="首页"/>
-    <item android:id="@+id/navigation_trends" android:title="关注" />
-    <item android:id="@+id/navigation_chat" android:title="私信"/>
-    <item android:id="@+id/navigation_me" android:title="我"/>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/navigation_home" android:title="首页" android:icon="@drawable/icon_home_normal"/>
+    <item android:id="@+id/navigation_trends" android:title="关注" android:icon="@drawable/icon_trends_normal"/>
+    <item android:id="@+id/navigation_chat" android:title="私信" android:icon="@drawable/icon_chat_normal"/>
+    <item android:id="@+id/navigation_me" android:title="我" android:icon="@drawable/icon_me_normal"/>
 </menu>

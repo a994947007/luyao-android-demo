@@ -3,7 +3,7 @@
     package="com.hc.android_demo">
 
     <application
-        android:name="com.hc.base.BaseApplication"
+        android:name="com.hc.android_demo.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -48,6 +48,7 @@
         <activity android:name=".LazyActivity" />
         <activity
             android:name=".MainActivity"
+            android:configChanges="orientation|screenLayout"
             android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

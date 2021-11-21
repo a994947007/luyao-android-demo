@@ -8,6 +8,7 @@ import android.view.ViewConfiguration;
 
 import androidx.annotation.ColorRes;
 import androidx.annotation.IdRes;
+import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 
 import com.hc.base.AppEnvironment;
@@ -58,5 +59,10 @@ public class ViewUtils {
         Context context = AppEnvironment.getInstance().getAppContext();
         // 同时兼容高、低版本
         return ContextCompat.getColor(context, resId);
+    }
+
+    public static String getString(@StringRes int resId) {
+        Context context = AppEnvironment.getInstance().getAppContext();
+        return context.getString(resId);
     }
 }

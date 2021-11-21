@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.hc.android_demo"
-        minSdkVersion 16
-        targetSdkVersion 30
+        applicationId rootProject.applicationId
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
@@ -27,8 +27,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation "androidx.appcompat:appcompat:$rootProject.androidxVersion"
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation project(path: ':dialog')
     implementation project(path: ':base')
@@ -37,6 +36,9 @@ dependencies {
     implementation project(path: ':android-view')
     implementation project(path: ':design')
     implementation project(path: ':util')
+    implementation project(path: ':webview')
+    implementation project(path: ':common')
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     implementation 'com.google.android.material:material:1.0.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

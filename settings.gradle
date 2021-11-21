@@ -7,3 +7,5 @@ include ':util'
 include ':dialog'
 include ':app'
 rootProject.name = "android-demo"
+include ':webview'
+include ':common'

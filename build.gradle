@@ -22,3 +22,13 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext {
+    compileSdkVersion = 30
+    buildToolsVersion = "30.0.2"
+    applicationId = "com.hc.android_demo"
+    minSdkVersion = 18
+    targetSdkVersion = 30
+    androidxVersion = "1.2.0"
+    autoServiceDependency = 'com.google.auto.service:auto-service:1.0-rc7'
+}

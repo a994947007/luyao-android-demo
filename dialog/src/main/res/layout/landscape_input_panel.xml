@@ -4,7 +4,9 @@
     android:orientation="vertical"
     android:background="#16161E"
     android:layout_width="match_parent"
-    android:layout_height="72dp">
+    android:paddingTop="6dp"
+    android:paddingBottom="6dp"
+    android:layout_height="wrap_content">
 
     <EditText
         android:id="@+id/edit_text"

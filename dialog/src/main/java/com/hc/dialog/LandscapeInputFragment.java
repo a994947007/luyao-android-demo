@@ -19,6 +19,7 @@ public class LandscapeInputFragment extends DialogFragment {
     private Activity activity;
     public EditText editText;
     private View contentView;
+    private boolean isExpanded;
 
     public LandscapeInputFragment(Activity activity) {
         this.activity = activity;
@@ -40,6 +41,13 @@ public class LandscapeInputFragment extends DialogFragment {
         editText.setFocusableInTouchMode(true);
         editText.requestFocus();
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+
+        contentView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                int keyboardHeight = 0;
+            }
+        });
     }
 
     @NonNull

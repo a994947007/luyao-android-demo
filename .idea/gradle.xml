@@ -14,11 +14,13 @@
             <option value="$PROJECT_DIR$/android-view" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/base" />
+            <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/design" />
             <option value="$PROJECT_DIR$/dialog" />
             <option value="$PROJECT_DIR$/my-views" />
             <option value="$PROJECT_DIR$/support" />
             <option value="$PROJECT_DIR$/util" />
+            <option value="$PROJECT_DIR$/webview" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
