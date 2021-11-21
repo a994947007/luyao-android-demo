@@ -1,4 +1,4 @@
-package com.jny.webview;
+package com.jny.webview.webclient;
 
 public interface WebViewClientCallback {
     void pageViewStarted(String url);

@@ -6,8 +6,9 @@
 
     <application>
         <activity
-            android:name=".WebViewActivity"
-            android:exported="true" />
+            android:name=".ui.WebViewActivity"
+            android:exported="true"
+            android:process=":MyWebViewActivity"/>
     </application>
 
 </manifest>

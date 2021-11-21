@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo</title>
+</head>
+<body>
+
+<div id="app"></div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/react/16.13.1/umd/react.production.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/react-dom/16.13.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/babel-standalone/7.0.0-beta.3/babel.min.js"></script>
+
+<script type="text/babel">
+        const config = {};
+        config.os = {};
+        config.os.isIOS = /iOS|iPhone|iPad/i.test(navigator.userAgent);
+        config.os.isAndroid = !config.os.isIOS;
+        window.config = config;
+        // 封装app
+        class App extends React.PureComponent {
+
+            constructor() {
+                super();
+                this.state = {
+                    message : "Hello World"
+                }
+            }
+
+            render() {
+                return (
+                    <div>
+                        <h2>{this.state.message}</h2>
+                        <button onClick={this.btnClick.bind(this)}>调用Native</button>
+                    </div>
+                )
+            }
+
+            btnClick() {
+                console.log("start js to native")
+                const request = {};
+                request.name = "showToast";
+                request.params = "调用native";
+                if (window.config.os.isAndroid) {
+                    window.customWebView.executeNativeAction(JSON.stringify(request));
+                } else {
+                    window.webkit.messageHandlers.customWebView.postMessage(JSON.stringify(request));
+                }
+            }
+        }
+
+        ReactDOM.render(<App/>, document.getElementById("app"));
+</script>
+</body>
+</html>

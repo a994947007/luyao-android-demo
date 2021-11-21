@@ -1,4 +1,4 @@
-package com.jny.webview;
+package com.jny.webview.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.ViewGroup;
 
+import com.jny.webview.R;
 import com.jny.webview.constants.Constants;
 
 public class WebViewActivity extends AppCompatActivity {

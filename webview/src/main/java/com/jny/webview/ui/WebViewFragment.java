@@ -1,4 +1,4 @@
-package com.jny.webview;
+package com.jny.webview.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -18,14 +18,19 @@ import com.hc.support.loadSir.LoadService;
 import com.hc.support.loadSir.LoadSir;
 import com.jny.common.load.LoadingCallback;
 import com.jny.common.load.PageErrorCallback;
+import com.jny.webview.R;
+import com.jny.webview.base.BaseWebView;
 import com.jny.webview.constants.Constants;
+import com.jny.webview.webclient.MyWebChromeClient;
+import com.jny.webview.webclient.MyWebViewClient;
+import com.jny.webview.webclient.WebViewClientCallback;
 
-public class WebViewFragment extends Fragment implements WebViewClientCallback{
+public class WebViewFragment extends Fragment implements WebViewClientCallback {
     private String mUrl;
     private CommonActionBar mCommonActionBar;
     private boolean mIsShowActionBar;
     private String mTitle;
-    private WebView mWebView;
+    private BaseWebView mWebView;
     private LoadService loadService;
     private ViewGroup contentView;
     private boolean actionBarShowing;
@@ -63,9 +68,7 @@ public class WebViewFragment extends Fragment implements WebViewClientCallback{
             mWebView.reload();
         });
         loadService.showCallback(LoadingCallback.class);
-        mWebView.setWebViewClient(new MyWebViewClient(this));
-        mWebView.setWebChromeClient(new MyWebChromeClient(this));
-
+        mWebView.registerWebViewCallback(this);
         mCommonActionBar = new CommonActionBar();
         if (mIsShowActionBar && !actionBarShowing) {
             mCommonActionBar.addActionBar(contentView);

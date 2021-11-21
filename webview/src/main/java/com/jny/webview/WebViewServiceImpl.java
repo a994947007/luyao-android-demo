@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import com.google.auto.service.AutoService;
 import com.jny.common.webview.WebViewService;
 import com.jny.webview.constants.Constants;
+import com.jny.webview.ui.WebViewActivity;
+import com.jny.webview.ui.WebViewFragment;
 
 @AutoService({WebViewService.class})
 public class WebViewServiceImpl implements WebViewService {

@@ -28,6 +28,7 @@ import com.hc.recyclerView.RecyclerActivity;
 import com.hc.util.InflaterUtils;
 import com.hc.util.ViewUtils;
 import com.jny.common.webview.WebViewService;
+import com.jny.webview.constants.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -231,6 +232,6 @@ public class CustomViewFragment extends Fragment {
     private void onClickWebViewActivity(View view) {
         // 这里只依赖了common模块，并未依赖webview模块（IOC，解耦）
         WebViewService webViewService = AutoServiceManager.load(WebViewService.class);
-        webViewService.openWebViewActivity(getContext(), "https://www.baidu.com", true, "百度");
+        webViewService.openWebViewActivity(getContext(), Constants.WEB_URL + "demo.html", true, "demo");
     }
 }
