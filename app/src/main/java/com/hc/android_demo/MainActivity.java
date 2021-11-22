@@ -5,6 +5,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
+import com.hc.android_demo.fragment.CustomViewFragment;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override

@@ -1,6 +1,8 @@
 package com.jny.webview.bean;
 
+import java.util.Map;
+
 public class JsParams {
     public String name;
-    public String params;
+    public Map<String, String> params;
 }

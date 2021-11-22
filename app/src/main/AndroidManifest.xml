@@ -11,41 +11,41 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".CustomNestedScrollViewActivity"
+            android:name=".activity.CustomNestedScrollViewActivity"
             android:exported="true" />
         <activity
-            android:name=".FullScreenDialogActivity"
+            android:name=".activity.FullScreenDialogActivity"
             android:exported="true" />
         <activity
-            android:name=".NestedScrollViewActivity"
+            android:name=".activity.NestedScrollViewActivity"
             android:exported="true" />
         <activity
-            android:name=".DrawerLayoutActivity"
+            android:name=".activity.DrawerLayoutActivity"
             android:exported="true"
             android:theme="@style/FullScreenTheme" />
         <activity
-            android:name=".MaterialViewActivity"
+            android:name=".activity.MaterialViewActivity"
             android:exported="true"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
         <activity
-            android:name=".MaterialDesignActivity"
+            android:name=".activity.MaterialDesignActivity"
             android:exported="true" />
         <activity
-            android:name=".CoordinateLayoutActivity"
+            android:name=".activity.CoordinateLayoutActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".CustomLayoutActivity" />
+        <activity android:name=".activity.CustomLayoutActivity" />
         <activity
-            android:name=".FishActivity"
+            android:name=".activity.FishActivity"
             android:theme="@style/FishActivityTheme" />
-        <activity android:name=".VerticalDrawerRecyclerView" />
-        <activity android:name=".SlideMenuActivity" />
-        <activity android:name=".LetterActivity" />
-        <activity android:name=".RatingBarActivity" />
-        <activity android:name=".ProgressActivity" />
-        <activity android:name=".TextActivity" />
-        <activity android:name=".GridImageLayoutActivity" />
-        <activity android:name=".LazyActivity" />
+        <activity android:name=".activity.VerticalDrawerRecyclerViewActivity" />
+        <activity android:name=".activity.SlideMenuActivity" />
+        <activity android:name=".activity.LetterActivity" />
+        <activity android:name=".activity.RatingBarActivity" />
+        <activity android:name=".activity.ProgressActivity" />
+        <activity android:name=".activity.TextActivity" />
+        <activity android:name=".activity.GridImageLayoutActivity" />
+        <activity android:name=".activity.LazyActivity" />
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenLayout"

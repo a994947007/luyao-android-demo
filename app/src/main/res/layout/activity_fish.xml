@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/fish_home_ground"
-        tools:context=".FishActivity">
+        tools:context=".activity.FishActivity">
     
     <com.hc.my_views.FishConstraintLayout
             app:layout_constraintTop_toTopOf="parent"

@@ -7,7 +7,10 @@
     <title>Demo</title>
 </head>
 <body>
-
+<p>
+    该页面使用AutoService组件化，只需实现Command接口，就能通过window.customWebView.executeNativeAction发送json请求
+    数据格式：{"name":"命令名", {"username":"123123", "password":"123123"}}调用native
+</p>
 <div id="app"></div>
 
 <script src="https://cdn.bootcdn.net/ajax/libs/react/16.13.1/umd/react.production.min.js"></script>
@@ -35,6 +38,7 @@
                     <div>
                         <h2>{this.state.message}</h2>
                         <button onClick={this.btnClick.bind(this)}>调用Native</button>
+                        <button onClick={this.openActivity.bind(this)}>打开Native Activity</button>
                     </div>
                 )
             }
@@ -43,7 +47,18 @@
                 console.log("start js to native")
                 const request = {};
                 request.name = "showToast";
-                request.params = "调用native";
+                request.params = {name: "调用native"};
+                if (window.config.os.isAndroid) {
+                    window.customWebView.executeNativeAction(JSON.stringify(request));
+                } else {
+                    window.webkit.messageHandlers.customWebView.postMessage(JSON.stringify(request));
+                }
+            }
+
+            openActivity() {
+                const request = {};
+                request.name = "openActivity";
+                request.params = {name: "InputDialogFragment"};
                 if (window.config.os.isAndroid) {
                     window.customWebView.executeNativeAction(JSON.stringify(request));
                 } else {
