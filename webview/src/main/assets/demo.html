@@ -18,18 +18,60 @@
 <script src="https://cdn.bootcdn.net/ajax/libs/babel-standalone/7.0.0-beta.3/babel.min.js"></script>
 
 <script type="text/babel">
+        // 基础层，用于调用native和native callback
         const config = {};
         config.os = {};
         config.os.isIOS = /iOS|iPhone|iPad/i.test(navigator.userAgent);
         config.os.isAndroid = !config.os.isIOS;
         window.config = config;
+        config.callbacks = {}
+        config.callback = function(callbackName, response) {
+            const callbackObj = config.callbacks[callbackName];
+            if (callbackObj) {
+                callbackObj.callback(response);
+            }
+        }
+
+        config.executeNativeAction = function(actionName, params) {
+            const request = {};
+            request.name = actionName;
+            request.params = params;
+            if (window.config.os.isAndroid) {
+                window.customWebView.executeNativeAction(JSON.stringify(request));
+            } else {
+                window.webkit.messageHandlers.customWebView.postMessage(JSON.stringify(request));
+            }
+        }
+
+        config.executeNativeActionWithCallback = function(actionName, params, callback) {
+            callbackName = "native2Js_call_" + ((new Date()).getTime() + "_" + Math.floor(Math.random() * 10000));
+            if(!config.callbacks[callbackName]) {
+                config.callbacks[callbackName] = function(response) {
+                    delete config.callbacks[callbackName];
+                    callback(response);
+                };
+            }
+            config.callbacks[callbackName] = {callback: callback};
+            const request = {};
+            request.name = actionName;
+            request.params = params;
+            request.params.callbackName = callbackName;
+            if (window.config.os.isAndroid) {
+                window.customWebView.executeNativeAction(JSON.stringify(request));
+            } else {
+                window.webkit.messageHandlers.customWebView.postMessage(JSON.stringify(request));
+            }
+        }
+
         // 封装app
         class App extends React.PureComponent {
 
             constructor() {
                 super();
                 this.state = {
-                    message : "Hello World"
+                    message : "Hello World",
+                    username: "",
+                    password: ""
                 }
             }
 
@@ -37,33 +79,47 @@
                 return (
                     <div>
                         <h2>{this.state.message}</h2>
-                        <button onClick={this.btnClick.bind(this)}>调用Native</button>
-                        <button onClick={this.openActivity.bind(this)}>打开Native Activity</button>
+                        <button onClick={this.btnClick.bind(this)}>调用Native</button><br/>
+                        <button onClick={this.openActivity.bind(this)}>打开Native Activity</button><br/>
+                        <hr/>
+                        <h2>React 登录</h2>
+                        username: <input type="text" value={this.state.username} onChange={e => this.handleUsername(e)}/><br/>
+                        password: <input type="password" value={this.state.password} onChange={e => this.handlePassword(e)} /><br/>
+                        <button onClick={e => this.login()}>登录</button>
                     </div>
                 )
             }
 
             btnClick() {
-                console.log("start js to native")
-                const request = {};
-                request.name = "showToast";
-                request.params = {name: "调用native"};
-                if (window.config.os.isAndroid) {
-                    window.customWebView.executeNativeAction(JSON.stringify(request));
-                } else {
-                    window.webkit.messageHandlers.customWebView.postMessage(JSON.stringify(request));
-                }
+                config.executeNativeAction("showToast", {name: "调用native"})
             }
 
             openActivity() {
-                const request = {};
-                request.name = "openActivity";
-                request.params = {name: "InputDialogFragment"};
-                if (window.config.os.isAndroid) {
-                    window.customWebView.executeNativeAction(JSON.stringify(request));
-                } else {
-                    window.webkit.messageHandlers.customWebView.postMessage(JSON.stringify(request));
-                }
+                config.executeNativeAction("openActivity", {name: "InputDialogFragment"})
+            }
+
+            handleUsername(e) {
+                this.setState({
+                    message: this.state.message,
+                    username: e.target.value,
+                    password: this.state.password
+                })
+            }
+
+            handlePassword(e) {
+                this.setState({
+                    message: this.state.message,
+                    username: this.state.username,
+                    password: e.target.value
+                })
+            }
+
+            login() {
+                config.executeNativeActionWithCallback("login", {username: this.state.username, password:this.state.password}, function(response){
+                    if (response) {
+                        alert(response.result);
+                    }
+                })
             }
         }
 

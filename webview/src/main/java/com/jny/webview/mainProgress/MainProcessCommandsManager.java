@@ -7,7 +7,10 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.jny.common.webview.Command;
+import com.jny.common.webview.WebViewCallback;
+import com.jny.webview.ICallbackMainProgressToWebProgressInterface;
 import com.jny.webview.IWebviewProcessToMainProcessInterface;
+import com.jny.webview.webviewProgress.bridge.WebViewResponse;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -49,11 +52,27 @@ public class MainProcessCommandsManager extends IWebviewProcessToMainProcessInte
     }
 
     @SuppressLint("LongLogTag")
-    public void executeCommand(String command, Map<String, String> params) {
+    protected void executeCommand(String command, Map<String, String> params) {
         Command cmd = commands.get(command);
         if (cmd != null) {
             Log.d(TAG, "exec cmd " + cmd.getName());
-            cmd.execute(params);
+            cmd.execute(params, null);
+        }
+    }
+
+    protected void executeCommand(String command, Map<String, String> params, ICallbackMainProgressToWebProgressInterface webViewResponse) {
+        Command cmd = commands.get(command);
+        if (cmd != null) {
+            cmd.execute(params, new WebViewCallback() {
+                @Override
+                public void onResult(String response) {
+                    try {
+                        webViewResponse.onResult(response);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         }
     }
 
@@ -61,5 +80,11 @@ public class MainProcessCommandsManager extends IWebviewProcessToMainProcessInte
     public void handleWebCommand(String commandName, String jsonParams) throws RemoteException {
         Map<String, String> params = new Gson().fromJson(jsonParams, Map.class);
         executeCommand(commandName, params);
+    }
+
+    @Override
+    public void handleWebCommandWithCallback(String commandName, String jsParams, ICallbackMainProgressToWebProgressInterface callback) throws RemoteException {
+        Map<String, String> params = new Gson().fromJson(jsParams, Map.class);
+        executeCommand(commandName, params, callback);
     }
 }

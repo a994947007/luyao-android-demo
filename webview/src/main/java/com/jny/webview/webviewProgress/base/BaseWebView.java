@@ -39,7 +39,8 @@ public class BaseWebView extends WebView {
     private void init() {
         WebViewProcessCommandDispatcher.getInstance().initAidlConnection();
         CommonWebSettings.getInstance().initSettings(this);
-        addJavascriptInterface(new JsBridge(), "customWebView");
+        JsBridge jsBridge = new JsBridge(this);
+        addJavascriptInterface(jsBridge, "customWebView");
     }
 
     public void registerWebViewCallback(WebViewClientCallback webViewClientCallback) {

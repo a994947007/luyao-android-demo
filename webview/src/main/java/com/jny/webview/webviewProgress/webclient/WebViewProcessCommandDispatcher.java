@@ -7,11 +7,12 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.os.RemoteException;
-import android.util.Log;
 
 import com.hc.base.AppEnvironment;
 import com.jny.webview.IWebviewProcessToMainProcessInterface;
 import com.jny.webview.mainProgress.MainProcessCommandService;
+import com.jny.webview.webviewProgress.bridge.WebViewResponseCallback;
+import com.jny.webview.webviewProgress.bridge.WebViewResponse;
 
 public class WebViewProcessCommandDispatcher {
     private static volatile WebViewProcessCommandDispatcher instance = null;
@@ -44,6 +45,10 @@ public class WebViewProcessCommandDispatcher {
         connection.executeCommand(commandName, jsonParams);
     }
 
+    public void executeCommandWithCallback(String commandName, String jsParams, WebViewResponseCallback callback) {
+        connection.executeCommand(commandName, jsParams, callback);
+    }
+
     private static class MainProgressConnection implements ServiceConnection {
         private IWebviewProcessToMainProcessInterface mainProcessInterface;
 
@@ -66,6 +71,16 @@ public class WebViewProcessCommandDispatcher {
             if (mainProcessInterface != null) {
                 try {
                     mainProcessInterface.handleWebCommand(command, jsonParams);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        public void executeCommand(String commandName, String jsParams, WebViewResponseCallback webViewResponseCallback) {
+            if (mainProcessInterface != null) {
+                try {
+                    mainProcessInterface.handleWebCommandWithCallback(commandName, jsParams, new WebViewResponse(webViewResponseCallback));
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
