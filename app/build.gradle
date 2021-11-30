@@ -10,6 +10,7 @@ android {
         targetSdkVersion rootProject.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -40,5 +41,6 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     annotationProcessor rootProject.autoServiceDependency
     implementation rootProject.autoServiceDependency
+    implementation 'com.android.support:multidex:1.0.1'
 
 }

@@ -26,9 +26,11 @@ import com.hc.android_demo.activity.FullScreenDialogActivity;
 import com.hc.android_demo.activity.GridImageLayoutActivity;
 import com.hc.android_demo.activity.LazyActivity;
 import com.hc.android_demo.activity.LetterActivity;
+import com.hc.android_demo.activity.LongViewImageActivity;
 import com.hc.android_demo.activity.MaterialDesignActivity;
 import com.hc.android_demo.activity.MaterialViewActivity;
 import com.hc.android_demo.activity.NestedScrollViewActivity;
+import com.hc.android_demo.activity.PhotoViewActivity;
 import com.hc.android_demo.activity.ProgressActivity;
 import com.hc.android_demo.R;
 import com.hc.android_demo.activity.RatingBarActivity;
@@ -83,6 +85,8 @@ public class CustomViewFragment extends Fragment {
         items.add(new Pair<>("全屏Dialog和全屏DialogFragment", this::onClickFullScreenDialogActivity));
         items.add(new Pair<>("输入框Dialog", this::onClickLandscapeInputFragment));
         items.add(new Pair<>("组件化(AutoService)+DataBinding+WebVIew", this::onClickWebViewActivity));
+        items.add(new Pair<>("PhotoView，支持图片双击放大双击缩小", this::onClickPhotoViewActivity));
+        items.add(new Pair<>("长图+落坑动画", this::onClickLongImageViewActivity));
     }
 
     public static CustomViewFragment newInstance() {
@@ -251,5 +255,13 @@ public class CustomViewFragment extends Fragment {
         // 这里只依赖了common模块，并未依赖webview模块（IOC，解耦）
         WebViewService webViewService = AutoServiceManager.load(WebViewService.class);
         webViewService.openWebViewActivity(getContext(), Constants.WEB_URL + "demo.html", true, "demo");
+    }
+
+    private void onClickPhotoViewActivity(View view) {
+        startActivity(new Intent(getContext(), PhotoViewActivity.class));
+    }
+
+    private void onClickLongImageViewActivity(View view) {
+        startActivity(new Intent(getContext(), LongViewImageActivity.class));
     }
 }

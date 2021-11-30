@@ -27,4 +27,16 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>
     </style>
+
+    <!--背景透明的style，需要自己定义过度动画和background-->
+    <style name="bg_transit_activity" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">#00000000</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/right_in_right_out_anim</item>
+    </style>
+
+    <style name="right_in_right_out_anim" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/in_from_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/out_to_right</item>
+    </style>
 </resources>

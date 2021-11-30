@@ -68,4 +68,8 @@
     <declare-styleable name="BehaviorCoordinateLayout">
         <attr name="layout_behavior" format="string"/>
     </declare-styleable>
+
+    <declare-styleable name="PhotoView">
+        <attr name="android:src" format="reference" />
+    </declare-styleable>
 </resources>
