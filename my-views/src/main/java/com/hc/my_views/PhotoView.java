@@ -1,5 +1,7 @@
 package com.hc.my_views;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -33,7 +35,7 @@ public class PhotoView extends View {
     private GestureDetector gestureDetector;
     private ScaleGestureDetector scaleGestureDetector;
     private int offsetX;    // 距离图片中心点x轴方向上的偏移值
-    private int offSetY;    // 距离图片中心点y轴方向上的偏移值
+    private int offsetY;    // 距离图片中心点y轴方向上的偏移值
     private boolean isLarge = false;
     private OverScroller overScroller;
     private static final int MAX_OVER_SCROLL_SIZE = 100;
@@ -79,9 +81,18 @@ public class PhotoView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         // canvas.scale缩放
-        canvas.translate(offsetX, offSetY);
+        canvas.translate(offsetX, offsetY);
         canvas.scale(currentScale, currentScale, getWidth()/2f, getHeight()/2f);
         canvas.drawBitmap(bitmap, originalOffsetX, originalOffsetY, paint);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int parentNeedWidth = MeasureSpec.getSize(widthMeasureSpec);
+        int parentNeedHeight = MeasureSpec.getSize(heightMeasureSpec);
+        parentNeedHeight = MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.EXACTLY ?
+                parentNeedHeight : Math.max(parentNeedHeight, (int) ((float)bitmap.getHeight() * parentNeedWidth / bitmap.getWidth()));
+        setMeasuredDimension(parentNeedWidth, parentNeedHeight);
     }
 
     // 在onDraw之前会被调用
@@ -103,17 +114,36 @@ public class PhotoView extends View {
     }
 
     private void fixOffset() {
-        int minOffsetX = -(int) ((bitmap.getWidth() * currentScale - getWidth()) / 2);
-        int maxOffsetX = -minOffsetX;
-        int minOffsetY = -(int) ((bitmap.getHeight() * currentScale - getHeight()) / 2);
-        int maxOffsetY = -minOffsetY;
-        offsetX = MathUtils.clamp(offsetX, minOffsetX, maxOffsetX);
-        if (maxOffsetY > 0) {
-            offSetY = MathUtils.clamp(offSetY, minOffsetY, maxOffsetY);
-        } else {
-            offSetY = 0;
-        }
+        offsetX = fixOffsetX(offsetX, currentScale);
+        offsetY = fixOffsetY(offsetY, currentScale);
+    }
 
+    private int fixOffsetX(int x, float scale) {
+        int minOffsetX = -(int) ((bitmap.getWidth() * scale - getWidth()) / 2);
+        int maxOffsetX = -minOffsetX;
+        if (maxOffsetX > 0) {   // 长图时，缩到最小，minOffSetX是负数了
+            x = MathUtils.clamp(x, minOffsetX, maxOffsetX);
+        } else {
+            x = 0;
+        }
+        return x;
+    }
+
+    private int fixOffsetY(int y, float scale) {
+        int minOffsetY = -(int) ((bitmap.getHeight() * scale - ((View)getParent()).getHeight()) / 2);
+        int maxOffsetY = -minOffsetY;
+        if (isLongImage()) {
+            maxOffsetY = (int) ((bitmap.getHeight() * scale - getHeight()) / 2);
+            minOffsetY = -(int) (bitmap.getHeight() * scale - ((View)getParent()).getHeight()) + maxOffsetY;
+            y = MathUtils.clamp(y, minOffsetY, maxOffsetY);
+        } else {
+            if (maxOffsetY > 0) {
+                y = MathUtils.clamp(y, minOffsetY, maxOffsetY);
+            } else {
+                y = 0;
+            }
+        }
+        return y;
     }
 
     @Override
@@ -123,6 +153,10 @@ public class PhotoView extends View {
             result = gestureDetector.onTouchEvent(event);
         }
         return result;
+    }
+
+    protected boolean isLongImage() {
+        return (float)bitmap.getHeight() / bitmap.getWidth() > (float) ((View)getParent()).getHeight() / ((View)getParent()).getHeight();
     }
 
     protected class PhotoViewGestureDetector extends GestureDetector.SimpleOnGestureListener {
@@ -152,9 +186,9 @@ public class PhotoView extends View {
          */
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-            if (isLarge) {
+            if (isLarge || isLongImage()) {
                 offsetX -= distanceX;
-                offSetY -= distanceY;
+                offsetY -= distanceY;
                 fixOffset();
                 invalidate();
             }
@@ -166,7 +200,7 @@ public class PhotoView extends View {
          */
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            if (isLarge) {
+            if (isLarge || isLongImage()) {
                 int minOffsetX = -(int) ((bitmap.getWidth() * currentScale - getWidth()) / 2);
                 int maxOffsetX = -minOffsetX;
                 int minOffsetY = -(int) ((bitmap.getHeight() * currentScale - getHeight()) / 2);
@@ -177,8 +211,15 @@ public class PhotoView extends View {
                 if (minOffsetY > 0) {
                     minOffsetY = 0;
                 }
-                overScroller.fling(offsetX, offSetY, (int)velocityX, (int)velocityY,
-                        minOffsetX, maxOffsetX, minOffsetY, maxOffsetY, MAX_OVER_SCROLL_SIZE, MAX_OVER_SCROLL_SIZE);
+                if (isLongImage()) {
+                    maxOffsetY = (int) ((bitmap.getHeight() * currentScale - getHeight()) / 2);
+                    minOffsetY = -(int) (bitmap.getHeight() * currentScale - ((View)getParent()).getHeight()) + maxOffsetY;
+                    overScroller.fling(offsetX, offsetY, (int)velocityX, (int)velocityY,
+                            minOffsetX, maxOffsetX, minOffsetY, maxOffsetY, 0, MAX_OVER_SCROLL_SIZE);
+                } else {
+                    overScroller.fling(offsetX, offsetY, (int)velocityX, (int)velocityY,
+                            minOffsetX, maxOffsetX, minOffsetY, maxOffsetY, MAX_OVER_SCROLL_SIZE, MAX_OVER_SCROLL_SIZE);
+                }
                 isFlingging = true;
                 ViewCompat.postOnAnimation(PhotoView.this, new FlingRunnable());
             }
@@ -209,10 +250,22 @@ public class PhotoView extends View {
         public boolean onDoubleTap(MotionEvent e) {
             isLarge = !isLarge;
             if (isLarge) {
-                getEnlargeScaleAnimator().start();
+                // 防撞处理
+                targetOffsetX = (int) ((e.getX() - getWidth() / 2f) - (e.getX() - getWidth() / 2f) * maxScale / currentScale);
+                targetOffsetY = (int) ((e.getY() - ((View)getParent()).getHeight() / 2f) - (e.getY() - ((View)getParent()).getHeight() / 2f) * maxScale / currentScale) + offsetY;
+                targetOffsetY = fixOffsetY(targetOffsetY, minScale + (maxScale - minScale) * 1f / 2f);
+                targetScale = maxScale;
             } else {
-                getShrinkScaleAnimator().start();
+                targetOffsetX = 0;
+                targetOffsetY = 0;
+                if (isLongImage()) {
+                    // 防撞处理
+                    targetOffsetY = (int) (offsetY * minScale / currentScale);
+                    targetOffsetY = fixOffsetY(targetOffsetY, minScale);
+                }
+                targetScale = minScale;
             }
+            getScaleAnimator().start();
             return super.onDoubleTap(e);
         }
 
@@ -233,35 +286,40 @@ public class PhotoView extends View {
         }
     }
 
-    private ValueAnimator enlargeScaleAnimator;
-    private ValueAnimator shrinkScaleAnimator;
+    private ValueAnimator scaleAnimator;
+    private int targetOffsetX;
+    private int targetOffsetY;
+    private float targetScale;
 
-    protected ValueAnimator getEnlargeScaleAnimator() {
-        if (enlargeScaleAnimator == null) {
-            enlargeScaleAnimator = ValueAnimator.ofFloat(currentScale, maxScale);
-            enlargeScaleAnimator.addUpdateListener(animation -> {
-                float scale = (float) animation.getAnimatedValue();
-                currentScale = scale;
-                invalidate();
-            });
+    protected ValueAnimator getScaleAnimator() {
+        float scaleLong = targetScale - currentScale;
+        float initScale = currentScale;
+        int offsetXLong = targetOffsetX - offsetX;
+        int offsetYLong = targetOffsetY - offsetY;
+        int initOffsetX = offsetX;
+        int initOffsetY = offsetY;
+        if (scaleAnimator == null) {
+            scaleAnimator = ValueAnimator.ofFloat(0, 1);
         }
-        return enlargeScaleAnimator;
-    }
 
-    protected ValueAnimator getShrinkScaleAnimator() {
-        if (shrinkScaleAnimator == null) {
-            shrinkScaleAnimator = ValueAnimator.ofFloat(currentScale, minScale);
-            shrinkScaleAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animation) {
-                    float scale = (float) animation.getAnimatedValue();
-                    currentScale = scale;
-                    fixOffset();
-                    invalidate();
-                }
-            });
-        }
-        return shrinkScaleAnimator;
+        ValueAnimator.AnimatorUpdateListener scaleUpdateListener = animation -> {
+            float ratio = (float) animation.getAnimatedValue();
+            currentScale = initScale + scaleLong * ratio;
+            offsetX = (int) (initOffsetX + offsetXLong * ratio);
+            offsetY = (int) (initOffsetY + offsetYLong * ratio);
+            fixOffset();
+            invalidate();
+        };
+
+        scaleAnimator.addUpdateListener(scaleUpdateListener);
+        scaleAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                scaleAnimator.removeUpdateListener(scaleUpdateListener);
+                scaleAnimator.removeListener(this);
+            }
+        });
+        return scaleAnimator;
     }
 
     class FlingRunnable implements Runnable {
@@ -269,7 +327,7 @@ public class PhotoView extends View {
         public void run() {
             if (overScroller.computeScrollOffset()) {
                 offsetX = overScroller.getCurrX();
-                offSetY = overScroller.getCurrY();
+                offsetY = overScroller.getCurrY();
                 invalidate();
                 ViewCompat.postOnAnimation(PhotoView.this, this);
             } else {

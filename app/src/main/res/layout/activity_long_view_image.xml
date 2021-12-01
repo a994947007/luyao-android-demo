@@ -7,11 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".activity.LongViewImageActivity">
 
-    <com.hc.my_views.WrapContentSimpleDraweeView
+    <com.hc.my_views.PhotoView
         android:id="@+id/imgView"
-        android:scaleType="centerCrop"
-        android:adjustViewBounds="true"
+        android:src="@drawable/long_image"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

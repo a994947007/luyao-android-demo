@@ -11,10 +11,11 @@ import com.facebook.common.util.UriUtil;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.hc.android_demo.R;
+import com.hc.my_views.PhotoView;
 import com.hc.util.UriUtils;
 
 public class LongViewImageActivity extends AppCompatActivity {
-    private SimpleDraweeView draweeView;
+    private PhotoView draweeView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,7 @@ public class LongViewImageActivity extends AppCompatActivity {
 
     private void bindView() {
         draweeView = findViewById(R.id.imgView);
-        draweeView.setImageURI(UriUtils.getUri(R.drawable.long_image));
-        draweeView.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.FIT_X);
+     //   draweeView.setImageURI(UriUtils.getUri(R.drawable.long_image));
+     //   draweeView.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.FIT_X);
     }
 }
