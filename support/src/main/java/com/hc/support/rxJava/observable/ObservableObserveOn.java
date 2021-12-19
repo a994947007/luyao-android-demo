@@ -1,11 +1,11 @@
 package com.hc.support.rxJava.observable;
 
-import android.util.Log;
-
-import com.hc.support.rxJava.disposable.Disposable;
 import com.hc.support.rxJava.observer.BaseObserver;
 import com.hc.support.rxJava.observer.Observer;
 import com.hc.support.rxJava.schedule.Scheduler;
+
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class ObservableObserveOn<T> extends AbstractObservableWithUpStream<T, T>{
 
@@ -21,11 +21,14 @@ public class ObservableObserveOn<T> extends AbstractObservableWithUpStream<T, T>
         source.subscribe(new ObserveOnObserver<T>(observer, scheduler));
     }
 
-    private static class ObserveOnObserver<T> extends BaseObserver<T, T> {
+    /**
+     * 需要维持一个队列，否则onComplete会跑到onNext之前
+     */
+    private static class ObserveOnObserver<T> extends BaseObserver<T, T> implements Runnable {
 
         private final Scheduler scheduler;
 
-        private Disposable d;
+        private final Queue<Runnable> queue = new LinkedList<>();
 
         public ObserveOnObserver(Observer<T> actual, Scheduler scheduler) {
             super(actual);
@@ -34,18 +37,40 @@ public class ObservableObserveOn<T> extends AbstractObservableWithUpStream<T, T>
 
         @Override
         public void onNext(final T t) {
-            d = scheduler.scheduleDirect(new Runnable() {
+            queue.offer(new Runnable() {
                 @Override
                 public void run() {
                     actual.onNext(t);
                 }
             });
+            scheduler.scheduleDirect(this);
         }
 
         @Override
         public void dispose() {
             super.dispose();
-            d.dispose();
+            scheduler.scheduleDirect(this);
+        }
+
+        @Override
+        public void onComplete() {
+            queue.offer(new Runnable() {
+                @Override
+                public void run() {
+                    actual.onComplete();
+                }
+            });
+            scheduler.scheduleDirect(this);
+        }
+
+        @Override
+        public void run() {
+            while (!queue.isEmpty()) {
+                synchronized (queue) {
+                    Runnable poll = queue.poll();
+                    poll.run();
+                }
+            }
         }
     }
 }

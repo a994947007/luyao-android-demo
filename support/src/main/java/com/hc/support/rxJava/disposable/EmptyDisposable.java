@@ -35,5 +35,5 @@ public class EmptyDisposable<T> implements Observer<T>, Disposable{
     public void onError(Throwable r) { }
 
     @Override
-    public void onSubscribe() { }
+    public void onSubscribe(Disposable d) { }
 }

@@ -6,6 +6,7 @@ import com.hc.support.rxJava.disposable.EmptyDisposable;
 public class BaseObserver<T, R> implements Observer<T>, Disposable {
 
     protected Observer<R> actual; // 下游
+    protected Disposable d;
 
     public BaseObserver(Observer<R> actual) {
         this.actual = actual;
@@ -25,17 +26,24 @@ public class BaseObserver<T, R> implements Observer<T>, Disposable {
     }
 
     @Override
-    public void onSubscribe() {
-        actual.onSubscribe();
+    public void onSubscribe(Disposable d) {
+        this.d = d;
+        actual.onSubscribe(this);
     }
 
     @Override
     public void dispose() {
         actual = EmptyDisposable.emptyObservable();
+        this.d.dispose();
+        this.d = null;
     }
 
     @Override
     public boolean isDisposable() {
         return actual == EmptyDisposable.emptyObservable();
+    }
+
+    public void setDisposable(Disposable d) {
+        this.d = d;
     }
 }

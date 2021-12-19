@@ -1,5 +1,6 @@
 package com.hc.support.rxJava.observable;
 
+import com.hc.support.rxJava.disposable.EmptyDisposable;
 import com.hc.support.rxJava.observer.BaseObserver;
 import com.hc.support.rxJava.observer.Observer;
 
@@ -15,7 +16,7 @@ public class ObservableJust<T> extends Observable<T> {
     public void subscribeActual(Observer<T> downstream) {
         JustObserver<T> upstream = new JustObserver<>(downstream);
         try {
-            upstream.onSubscribe();
+            upstream.onSubscribe(new EmptyDisposable<>());
             if (value != null && value.length > 0) {
                 for (T v : value) {
                     upstream.onNext(v);

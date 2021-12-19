@@ -15,7 +15,7 @@ public class ObservableCreate<T> extends Observable<T> {
 
     @Override
     public void subscribeActual(Observer<T> observer) {
-        observer.onSubscribe();
+        observer.onSubscribe(new EmptyDisposable<>());
         source.call(new CreateSubscriber<>(observer));
     }
 

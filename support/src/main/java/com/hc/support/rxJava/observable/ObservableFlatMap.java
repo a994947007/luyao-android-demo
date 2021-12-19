@@ -1,5 +1,7 @@
 package com.hc.support.rxJava.observable;
 
+import com.hc.support.rxJava.disposable.Disposable;
+import com.hc.support.rxJava.disposable.EmptyDisposable;
 import com.hc.support.rxJava.function.Function;
 import com.hc.support.rxJava.observer.BaseObserver;
 import com.hc.support.rxJava.observer.Observer;
@@ -31,7 +33,7 @@ public class ObservableFlatMap<T, R> extends AbstractObservableWithUpStream<T, R
         @Override
         public void onNext(T t) {
             ObservableSource<R> p = function.apply(t);
-            p.subscribe(actual);    // 让actual成为p的下游
+            p.subscribe(new InnerObserver(actual));    // 让actual成为p的下游
         }
 
         @Override
@@ -45,13 +47,15 @@ public class ObservableFlatMap<T, R> extends AbstractObservableWithUpStream<T, R
 
         private class InnerObserver extends BaseObserver<R, R> {
 
+            private Disposable upSteamDisposable;
+
             public InnerObserver(Observer<R> actual) {
                 super(actual);
             }
 
             @Override
             public void onNext(R r) {
-                super.onNext(r);
+                actual.onNext(r);
             }
 
             @Override
@@ -64,15 +68,17 @@ public class ObservableFlatMap<T, R> extends AbstractObservableWithUpStream<T, R
              * FlatMap的Observable不需要再次触发onSubscribe
              */
             @Override
-            public void onSubscribe() { }
+            public void onSubscribe(Disposable disposable) {
+                upSteamDisposable = disposable;
+            }
 
             @Override
-            public void onComplete() {
-                if (done) {
-                    return;
-                }
-                actual.onComplete();
-                done = true;
+            public void onComplete() { }
+
+            @Override
+            public void dispose() {
+                actual = EmptyDisposable.emptyObservable();
+                upSteamDisposable.dispose();
             }
         }
     }
