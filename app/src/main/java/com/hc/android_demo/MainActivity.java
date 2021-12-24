@@ -4,17 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import com.hc.android_demo.fragment.CustomViewFragment;
-import com.hc.support.rxJava.disposable.Disposable;
-import com.hc.support.rxJava.function.Function;
-import com.hc.support.rxJava.observable.Observable;
-import com.hc.support.rxJava.observable.ObservableSource;
-import com.hc.support.rxJava.observer.Consumer;
-import com.hc.support.rxJava.observer.Observer;
-
-import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,23 +18,5 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, CustomViewFragment.newInstance());
         fragmentTransaction.commitAllowingStateLoss();
-
-        test();
-    }
-
-    protected void createFragmentContainer() {
-
-    }
-
-    private void test() {
-        final long start = System.currentTimeMillis();
-
-        Observable.merge(Observable.just(1), Observable.just(2))
-        .subscribe(new Consumer<Integer>() {
-            @Override
-            public void accept(Integer integer) {
-                Log.d("MainActivity", "" + integer);
-            }
-        });
     }
 }
