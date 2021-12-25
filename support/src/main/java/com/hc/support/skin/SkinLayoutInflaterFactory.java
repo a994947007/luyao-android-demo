@@ -47,13 +47,14 @@ public class SkinLayoutInflaterFactory implements LayoutInflater.Factory2, Obser
     @Nullable
     @Override
     public View onCreateView(@Nullable View parent, @NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
-        View view = createSDKView(name, context, attrs);    // android.
+        View view = createSDKView(name, context, attrs);    // android sdk自带的view
         if (null == view) {
             view = createView(name, context, attrs);
         }
         if (null != view) {
             skinAttribute.look(view, attrs);
         }
+        applySkin();
         return view;
     }
 
@@ -96,6 +97,7 @@ public class SkinLayoutInflaterFactory implements LayoutInflater.Factory2, Obser
             try {
                 Class<? extends View> clazz = context.getClassLoader().loadClass(name).asSubclass(View.class);
                 constructor = clazz.getConstructor(mConstructorSignature);
+                mConstructorMap.put(name, constructor);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             } catch (NoSuchMethodException e) {
@@ -107,6 +109,10 @@ public class SkinLayoutInflaterFactory implements LayoutInflater.Factory2, Obser
 
     @Override
     public void update(Observable observable, Object arg) {
+        applySkin();
+    }
+
+    private void applySkin() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             SkinThemeUtils.updateStatusBarColor(activity);
         }
