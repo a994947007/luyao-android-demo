@@ -1,4 +1,12 @@
 package com.hc.util;
 
-public class ToastUtils {
+import android.widget.Toast;
+
+import com.hc.base.AppEnvironment;
+
+public final class ToastUtils {
+    
+    public static void show(String text, int type) {
+        Toast.makeText(AppEnvironment.getAppContext(), text, type).show();
+    }
 }

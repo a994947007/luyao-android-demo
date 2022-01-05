@@ -17,7 +17,7 @@ public class OpenActivityCommand implements Command {
     public void execute(Map<String, String> params, WebViewCallback callback) {
         ThreadUtils.runInMainThread(() -> {
             Intent intent = new Intent();
-            intent.setComponent(new ComponentName(AppEnvironment.getAppContext(),"com.hc.android_demo.activity.GridImageLayoutActivity"));
+            intent.setComponent(new ComponentName(AppEnvironment.getAppContext(),"com.hc.android_demo.activity.test.view.GridImageLayoutActivity"));
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             AppEnvironment.getAppContext().startActivity(intent);
         });

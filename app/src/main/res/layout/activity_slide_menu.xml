@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#BDBDBD"
-        tools:context=".activity.SlideMenuActivity">
+        tools:context=".activity.test.view.SlideMenuActivity">
 
     <com.hc.my_views.SlidingMenu
             android:orientation="horizontal"

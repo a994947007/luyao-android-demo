@@ -2,19 +2,20 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/contentView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.test.view.LongViewImageActivity">
+    tools:context=".activity.test.framework.MvpsActivity">
 
-    <com.hc.my_views.PhotoView
-        android:id="@+id/imgView"
-        android:src="@drawable/long_image"
+    <TextView
+        android:id="@+id/textView"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_gravity="center"
-        android:layout_width="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="20dp"
+        android:text="测试测试"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

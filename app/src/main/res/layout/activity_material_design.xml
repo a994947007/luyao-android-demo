@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.MaterialDesignActivity">
+    tools:context=".activity.test.view.MaterialDesignActivity">
 
     <!-- AppBarLayout用于协调下面布局，基于coordinateLayout，如可折叠，可滑动，
     需要在子View上追加layout_scrollFlags属性=scroll（可滑动），exitUntilCollapsed（最小高度时折叠），snap（手势松开时75%展开） -->

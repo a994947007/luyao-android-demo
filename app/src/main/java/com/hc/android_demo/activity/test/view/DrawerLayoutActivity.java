@@ -1,4 +1,4 @@
-package com.hc.android_demo.activity;
+package com.hc.android_demo.activity.test.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;

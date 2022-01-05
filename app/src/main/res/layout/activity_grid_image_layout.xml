@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".activity.GridImageLayoutActivity">
+        tools:context=".activity.test.view.GridImageLayoutActivity">
 
     <ScrollView android:layout_width="match_parent" android:layout_height="match_parent">
         <LinearLayout

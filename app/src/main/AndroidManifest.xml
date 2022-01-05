@@ -11,48 +11,51 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.LongViewImageActivity"
+            android:name=".activity.test.framework.MvpsActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.PhotoViewActivity"
+            android:name=".activity.test.view.LongViewImageActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.test.view.PhotoViewActivity"
             android:exported="true"
             android:theme="@style/bg_transit_activity" />
         <activity
-            android:name=".activity.CustomNestedScrollViewActivity"
+            android:name=".activity.test.view.CustomNestedScrollViewActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.FullScreenDialogActivity"
+            android:name=".activity.test.view.FullScreenDialogActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.NestedScrollViewActivity"
+            android:name=".activity.test.view.NestedScrollViewActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.DrawerLayoutActivity"
+            android:name=".activity.test.view.DrawerLayoutActivity"
             android:exported="true"
             android:theme="@style/FullScreenTheme" />
         <activity
-            android:name=".activity.MaterialViewActivity"
+            android:name=".activity.test.view.MaterialViewActivity"
             android:exported="true"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
         <activity
-            android:name=".activity.MaterialDesignActivity"
+            android:name=".activity.test.view.MaterialDesignActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.CoordinateLayoutActivity"
+            android:name=".activity.test.view.CoordinateLayoutActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".activity.CustomLayoutActivity" />
+        <activity android:name=".activity.test.view.CustomLayoutActivity" />
         <activity
-            android:name=".activity.FishActivity"
+            android:name=".activity.test.view.FishActivity"
             android:theme="@style/FishActivityTheme" />
-        <activity android:name=".activity.VerticalDrawerRecyclerViewActivity" />
-        <activity android:name=".activity.SlideMenuActivity" />
-        <activity android:name=".activity.LetterActivity" />
-        <activity android:name=".activity.RatingBarActivity" />
-        <activity android:name=".activity.ProgressActivity" />
-        <activity android:name=".activity.TextActivity" />
-        <activity android:name=".activity.GridImageLayoutActivity" />
-        <activity android:name=".activity.LazyActivity" />
+        <activity android:name=".activity.test.view.VerticalDrawerRecyclerViewActivity" />
+        <activity android:name=".activity.test.view.SlideMenuActivity" />
+        <activity android:name=".activity.test.view.LetterActivity" />
+        <activity android:name=".activity.test.view.RatingBarActivity" />
+        <activity android:name=".activity.test.view.ProgressActivity" />
+        <activity android:name=".activity.test.view.TextActivity" />
+        <activity android:name=".activity.test.view.GridImageLayoutActivity" />
+        <activity android:name=".activity.test.view.LazyActivity" />
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenLayout"

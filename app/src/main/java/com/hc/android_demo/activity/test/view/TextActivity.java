@@ -1,4 +1,4 @@
-package com.hc.android_demo.activity;
+package com.hc.android_demo.activity.test.view;
 
 import android.animation.ObjectAnimator;
 import android.graphics.Color;
