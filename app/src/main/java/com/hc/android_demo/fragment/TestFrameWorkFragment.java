@@ -23,7 +23,7 @@ public class TestFrameWorkFragment extends SimpleRecyclerFragment {
     private final List<Pair<String, Runnable>> items = new ArrayList<>();
 
     {
-        items.add(new Pair<>("Mvps使用测试", this::onClickMvpsActivity));
+        items.add(new Pair<>("自定义Mvps使用测试", this::onClickMvpsActivity));
     }
 
     private TestFrameWorkFragment() {}
