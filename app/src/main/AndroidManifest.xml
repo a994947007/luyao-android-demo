@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".activity.test.framework.CustomHandlerActivity"
+            android:exported="true" />
+        <activity
             android:name=".activity.test.framework.MvpsActivity"
             android:exported="true" />
         <activity

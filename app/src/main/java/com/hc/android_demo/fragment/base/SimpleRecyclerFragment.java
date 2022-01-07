@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hc.android_demo.R;
+import com.hc.my_views.SimpleRecyclerView;
 import com.hc.util.InflaterUtils;
 
 import java.util.ArrayList;
@@ -35,45 +36,11 @@ public class SimpleRecyclerFragment extends RecyclerFragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mContentView = (ViewGroup) inflater.inflate(R.layout.fragment_simple_recycler_container_layout, container, false);
-        RecyclerView homeRecyclerView = mContentView.findViewById(R.id.home_recycler_view);
-        RecyclerView.LayoutManager mLinearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        homeRecyclerView.setLayoutManager(mLinearLayoutManager);
-        homeRecyclerView.setAdapter(new SimpleRecyclerAdapter(mItems));
+        SimpleRecyclerView homeRecyclerView = mContentView.findViewById(R.id.home_recycler_view);
+        homeRecyclerView.setLayoutRes(R.layout.recycler_item);
+        homeRecyclerView.setTitleRes(R.id.recycler_item_text_view);
+        homeRecyclerView.bind(mItems);
         return mContentView;
-    }
-
-    private static class SimpleRecyclerAdapter extends RecyclerView.Adapter<SimpleRecyclerViewHolder> {
-        private final List<Pair<String, Runnable>> items = new ArrayList<>();
-
-        public SimpleRecyclerAdapter(List<Pair<String, Runnable>> items) {
-            this.items.addAll(items);
-        }
-
-        @NonNull
-        @Override
-        public SimpleRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View itemView = InflaterUtils.inflate(parent.getContext(), parent, R.layout.recycler_item);
-            return new SimpleRecyclerViewHolder(itemView);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull SimpleRecyclerViewHolder holder, int position) {
-            TextView itemTextView = holder.itemView.findViewById(R.id.recycler_item_text_view);
-            itemTextView.setText(items.get(position).first);
-            holder.itemView.setOnClickListener(v -> items.get(position).second.run());
-        }
-
-        @Override
-        public int getItemCount() {
-            return items.size();
-        }
-    }
-
-    private static class SimpleRecyclerViewHolder extends RecyclerView.ViewHolder {
-
-        public SimpleRecyclerViewHolder(@NonNull View itemView) {
-            super(itemView);
-        }
     }
 
     protected List<Pair<String, Runnable>> bind() {

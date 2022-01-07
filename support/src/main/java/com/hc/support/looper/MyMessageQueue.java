@@ -15,7 +15,7 @@ public class MyMessageQueue {
             if (isQuit) {
                 return false;
             }
-            while (preMessage.next != null && message.handleTime <= preMessage.next.handleTime) {
+            while (preMessage.next != null && message.handleTime >= preMessage.next.handleTime) {
                 preMessage = preMessage.next;
             }
             message.next = preMessage.next;
@@ -49,10 +49,13 @@ public class MyMessageQueue {
             try {
                 while (queueHeader.next == null) {
                     wait();
+                    if (isQuit) {
+                        return null;
+                    }
                 }
                 MyMessage preMessage = queueHeader;
                 nextMessage = queueHeader.next;
-                while (nextMessage == null || System.currentTimeMillis() - nextMessage.handleTime > 0) {
+                while (nextMessage == null || System.currentTimeMillis() - nextMessage.handleTime < 0) {
                     wait();
                     if (isQuit) {
                         return null;
