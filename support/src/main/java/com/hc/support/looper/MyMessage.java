@@ -6,6 +6,8 @@ public class MyMessage {
     MyHandler target;
     int token = -1;
     public int what;
+    public Object obj;
+    public int arg1;
 
     private static MyMessage sPool;    // 内存池
     private static final int MAX_POOL_SIZE = 50;
@@ -33,7 +35,9 @@ public class MyMessage {
         handleTime = 0;
         target = null;
         token = -1;
+        arg1 = 0;
         what = 0;
+        obj = null;
         if (sPoolSize < MAX_POOL_SIZE) {
             if (sPool == null) {
                 sPool = this;

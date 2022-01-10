@@ -53,6 +53,7 @@ public class MyHandler {
         if (callback != null) {
             boolean done = callback.handleMessage(message);
             if (done) {
+                message.recycle();
                 return;
             }
         }
