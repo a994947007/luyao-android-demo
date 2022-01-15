@@ -43,7 +43,7 @@ public class LazyTestFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_lazy_activitiy, container, false);
+        return inflater.inflate(R.layout.fragment_lazy_activitiy, container, false);
     }
 
     @Override

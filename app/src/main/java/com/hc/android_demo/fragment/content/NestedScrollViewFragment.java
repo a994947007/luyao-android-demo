@@ -29,7 +29,7 @@ public class NestedScrollViewFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_nested_scroll_view, container, false);
+        return inflater.inflate(R.layout.fragment_nested_scroll_view, container, false);
     }
 
     @Override

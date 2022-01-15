@@ -21,7 +21,7 @@ public class FullScreenDialogFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_full_screen_dialog, container, false);
+        return inflater.inflate(R.layout.fragment_full_screen_dialog, container, false);
     }
 
     @Override

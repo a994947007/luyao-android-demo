@@ -24,7 +24,7 @@ public class MaterialViewFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_float_action_button, container, false);
+        return inflater.inflate(R.layout.fragment_float_action_button, container, false);
     }
 
     @Override
