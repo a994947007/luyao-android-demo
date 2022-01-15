@@ -1,5 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.hc.base">
+    package="com.hc.base">
 
-    /
+    <application>
+        <activity
+            android:name=".activity.ContentActivity"
+            android:exported="true" />
+    </application>
+
 </manifest>

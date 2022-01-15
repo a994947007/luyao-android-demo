@@ -10,26 +10,8 @@ import android.util.Pair;
 import android.view.View;
 import com.hc.android_demo.R;
 
-import com.hc.android_demo.activity.test.view.CoordinateLayoutActivity;
-import com.hc.android_demo.activity.test.view.CustomLayoutActivity;
-import com.hc.android_demo.activity.test.view.CustomNestedScrollViewActivity;
-import com.hc.android_demo.activity.test.view.DrawerLayoutActivity;
-import com.hc.android_demo.activity.test.view.FishActivity;
-import com.hc.android_demo.activity.test.view.FullScreenDialogActivity;
-import com.hc.android_demo.activity.test.view.GridImageLayoutActivity;
-import com.hc.android_demo.activity.test.view.LazyActivity;
-import com.hc.android_demo.activity.test.view.LetterActivity;
-import com.hc.android_demo.activity.test.view.LongViewImageActivity;
-import com.hc.android_demo.activity.test.view.MaterialDesignActivity;
-import com.hc.android_demo.activity.test.view.MaterialViewActivity;
-import com.hc.android_demo.activity.test.view.NestedScrollViewActivity;
-import com.hc.android_demo.activity.test.view.PhotoViewActivity;
-import com.hc.android_demo.activity.test.view.ProgressActivity;
-import com.hc.android_demo.activity.test.view.RatingBarActivity;
-import com.hc.android_demo.activity.test.view.SlideMenuActivity;
-import com.hc.android_demo.activity.test.view.TextActivity;
-import com.hc.android_demo.activity.test.view.VerticalDrawerRecyclerViewActivity;
 import com.hc.android_demo.fragment.base.SimpleRecyclerFragment;
+import com.hc.base.activity.LuActivity;
 import com.hc.base.autoservice.AutoServiceManager;
 import com.hc.dialog.BottomSheetDialogFragmentV1;
 import com.hc.dialog.BottomSheetDialogFragmentV2;
@@ -38,7 +20,9 @@ import com.hc.dialog.BottomSheetDialogV2;
 import com.hc.dialog.LandscapeInputFragment;
 import com.hc.nested_recycler_fragment.RecyclerNestedScrollActivity;
 import com.hc.recyclerView.RecyclerActivity;
+import com.hc.util.ActivityUtils;
 import com.hc.util.ViewUtils;
+import com.jny.common.fragment.FragmentConstants;
 import com.jny.common.webview.WebViewService;
 import com.jny.webview.webviewProgress.constants.Constants;
 
@@ -99,20 +83,24 @@ public class CustomViewFragment extends SimpleRecyclerFragment {
         }
     }
 
+    private void startContentActivity(String id) {
+        ActivityUtils.startContentActivity((LuActivity) getActivity(), id);
+    }
+
     private void onClickLetterBar() {
-        startActivity(new Intent(getContext(), LetterActivity.class));
+        startContentActivity(FragmentConstants.LETTER_FRAGMENT_ID);
     }
 
     private void onClickRatingBarBtn() {
-        startActivity(new Intent(getContext(), RatingBarActivity.class));
+        startContentActivity(FragmentConstants.RATING_BAR_FRAGMENT_ID);
     }
 
     private void onClickProgressView() {
-        startActivity(new Intent(getContext(), ProgressActivity.class));
+        startContentActivity(FragmentConstants.PROGRESS_TEST_FRAGMENT_ID);
     }
 
     private void onClickMyTextView() {
-        startActivity(new Intent(getContext(), TextActivity.class));
+        startContentActivity(FragmentConstants.TEXT_TEST_FRAGMENT_ID);
     }
 
     private void onClickDialogV4() {
@@ -125,7 +113,7 @@ public class CustomViewFragment extends SimpleRecyclerFragment {
     }
 
     private void onClickGridImageView() {
-        startActivity(new Intent(getContext(), GridImageLayoutActivity.class));
+        startContentActivity(FragmentConstants.GRID_IMAGE_LAYOUT_TEST_FRAGMENT_ID);
     }
 
     private void onClickDialogV3() {
@@ -148,51 +136,51 @@ public class CustomViewFragment extends SimpleRecyclerFragment {
     }
 
     private void OnClickSlideMenu() {
-        startActivity(new Intent(getContext(), SlideMenuActivity.class));
+        startContentActivity(FragmentConstants.SLIDE_MENU_TEST_FRAGMENT_ID);
     }
 
     private void OnClickVerticalDrawRecyclerView() {
-        startActivity(new Intent(getContext(), VerticalDrawerRecyclerViewActivity.class));
+        startContentActivity(FragmentConstants.VERTICAL_DRAWER_RECYCLERVIEW_TEST_FRAGMENT_ID);
     }
 
     private void onClickFishActivity() {
-        startActivity(new Intent(getContext(), FishActivity.class));
+        startContentActivity(FragmentConstants.FISH_TEST_FRAGMENT_ID);
     }
 
     private void onClickLazyFragment() {
-        startActivity(new Intent(getContext(), LazyActivity.class));
+        startContentActivity(FragmentConstants.LAZY_TEST_FRAGMENT_ID);
     }
 
     private void onClickCustomLayoutManager() {
-        startActivity(new Intent(getContext(), CustomLayoutActivity.class));
+        startContentActivity(FragmentConstants.CUSTOM_LAYOUT_MANAGER_TEST_FRAGMENT_ID);
     }
 
     private void onClickCoordinateLayout() {
-        startActivity(new Intent(getContext(), CoordinateLayoutActivity.class));
+        startContentActivity(FragmentConstants.COORDINATE_TEST_FRAGMENT_ID);
     }
 
     private void onClickMaterialDesign() {
-        startActivity(new Intent(getContext(), MaterialDesignActivity.class));
+        startContentActivity(FragmentConstants.MATERIAL_DESIGN_TEST_ID);
     }
 
     private void onClickMaterialActivityButton() {
-        startActivity(new Intent(getContext(), MaterialViewActivity.class));
+        startContentActivity(FragmentConstants.MATERIAL_VIEW_TEST_FRAGMENT_ID);
     }
 
     private void onClickDrawerLayoutActivity() {
-        startActivity(new Intent(getContext(), DrawerLayoutActivity.class));
+        startContentActivity(FragmentConstants.DRAWER_LAYOUT_TEST_FRAGMENT_ID);
     }
 
     private void onClickNestedScrollViewActivity() {
-        startActivity(new Intent(getContext(), NestedScrollViewActivity.class));
+        startContentActivity(FragmentConstants.NESTED_SCROLL_VIEW_TEST_FRAGMENT_ID);
     }
 
     private void onClickFullScreenDialogActivity() {
-        startActivity(new Intent(getContext(), FullScreenDialogActivity.class));
+        startContentActivity(FragmentConstants.FULL_SCREEN_DIALOG_TEST_FRAGMENT_ID);
     }
 
     private void onClickCustomNestedScrollViewActivity() {
-        startActivity(new Intent(getContext(), CustomNestedScrollViewActivity.class));
+        startContentActivity(FragmentConstants.CUSTOM_NESTED_SCROLL_VIEW_TEST_FRAGMENT_ID);
     }
 
     private void onClickLandscapeInputFragment() {
@@ -207,10 +195,10 @@ public class CustomViewFragment extends SimpleRecyclerFragment {
     }
 
     private void onClickPhotoViewActivity() {
-        startActivity(new Intent(getContext(), PhotoViewActivity.class));
+        startContentActivity(FragmentConstants.PHOTO_VIEW_TEST_FRAGMENT_ID);
     }
 
     private void onClickLongImageViewActivity() {
-        startActivity(new Intent(getContext(), LongViewImageActivity.class));
+        startContentActivity(FragmentConstants.LONG_VIEW_IMAGE_TEST_FRAGMENT_ID);
     }
 }

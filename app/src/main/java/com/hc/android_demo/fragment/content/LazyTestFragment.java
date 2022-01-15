@@ -19,7 +19,7 @@ import com.hc.viewPager_fragment.ConcreteFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LazyFragment extends Fragment {
+public class LazyTestFragment extends Fragment {
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
 

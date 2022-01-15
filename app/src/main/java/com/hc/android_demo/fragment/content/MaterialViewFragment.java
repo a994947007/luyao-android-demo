@@ -1,4 +1,4 @@
-package com.hc.android_demo.fragment.test;
+package com.hc.android_demo.fragment.content;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +14,12 @@ import com.google.android.material.snackbar.Snackbar;
 import com.hc.android_demo.R;
 
 public class MaterialViewFragment extends Fragment {
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getActivity().setTheme(R.style.FullScreenTheme);
+    }
 
     @Nullable
     @Override

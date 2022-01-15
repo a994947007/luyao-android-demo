@@ -1,20 +1,18 @@
 package com.hc.android_demo;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.hc.android_demo.fragment.CustomViewFragment;
 import com.hc.android_demo.fragment.TestFrameWorkFragment;
+import com.hc.base.activity.ContentActivityManager;
+import com.hc.base.activity.LuActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends LuActivity {
 
     private int currentItemId = 0;
 
@@ -24,9 +22,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ContentActivityManager.getInstance().load();
         setFragment(R.id.navigation_view);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> setFragment(item.getItemId()));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ContentActivityManager.getInstance().clear();
     }
 
     @SuppressLint("NonConstantResourceId")

@@ -1,10 +1,10 @@
-package com.hc.android_demo.activity.test.framework;
+package com.hc.android_demo.fragment.test;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.google.auto.service.AutoService;
-import com.hc.android_demo.activity.test.view.fragment.CustomHandlerFragment;
+import com.hc.android_demo.fragment.content.CustomHandlerFragment;
 import com.hc.base.activity.ActivityStarter;
 import com.jny.common.fragment.FragmentConstants;
 

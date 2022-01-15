@@ -11,10 +11,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.hc.android_demo.R;
-import com.hc.android_demo.activity.test.framework.CustomHandlerActivity;
-import com.hc.android_demo.activity.test.framework.MvpsActivity;
 import com.hc.android_demo.fragment.base.SimpleRecyclerFragment;
+import com.hc.base.activity.Constants;
+import com.hc.base.activity.ContentActivity;
 import com.hc.util.ViewUtils;
+import com.jny.common.fragment.FragmentConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +27,10 @@ public class TestFrameWorkFragment extends SimpleRecyclerFragment {
     {
         addItem("自定义Mvps使用测试", this::onClickMvpsActivity);
         addItem("自定义Handler使用测试", this::onClickCustomHandlerActivity);
+        addItem("MVVM+Databinding的使用", this::onClickMvvmDataBindingActivity);
     }
 
-    private TestFrameWorkFragment() {}
+    private TestFrameWorkFragment() { }
 
     public static Fragment newInstance() {
         return new TestFrameWorkFragment();
@@ -50,11 +52,21 @@ public class TestFrameWorkFragment extends SimpleRecyclerFragment {
     }
 
     private void onClickMvpsActivity() {
-        startActivity(new Intent(getActivity(), MvpsActivity.class));
+        startContentActivity(FragmentConstants.MVPS_TEST_FRAGMENT_ID);
     }
 
     private void onClickCustomHandlerActivity() {
-        startActivity(new Intent(getActivity(), CustomHandlerActivity.class));
+        startContentActivity(FragmentConstants.CUSTOM_TEST_HANDLER_ID);
+    }
+
+    private void onClickMvvmDataBindingActivity() {
+        startContentActivity(FragmentConstants.MVVM_TEST_FRAGMENT_ID);
+    }
+
+    private void startContentActivity(String id) {
+        Intent intent = new Intent(getActivity(), ContentActivity.class);
+        intent.putExtra(Constants.CONTENT_FRAGMENT_KEY, id);
+        startActivity(intent);
     }
 
     private void addItem(String key, Runnable runnable) {

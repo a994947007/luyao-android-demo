@@ -1,4 +1,4 @@
-package com.hc.android_demo.fragment.test;
+package com.hc.android_demo.fragment.content;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
