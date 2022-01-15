@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    
+    <com.hc.my_views.ProgressView
+            android:id="@+id/progressView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:edgeWidth="2dp"/>
+    
+    <com.hc.my_views.ProgressView2
+            android:id="@+id/progressView2"
+            app:progressColor="@color/material_on_primary_disabled"
+            app:sideWidth="1dp"
+            app:cirClePadding="1dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"/>
+    <com.hc.my_views.ProgressView3
+            android:id="@+id/progressView3"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:drawInterval="1000"/>
+
+</LinearLayout>
