@@ -15,8 +15,8 @@ public class BaseViewHolder<T> extends RecyclerView.ViewHolder {
         mBinding = DataBindingUtil.bind(itemView);
     }
 
-    protected void bind(int bindId, T userModel) {
-        mBinding.setVariable(bindId, userModel);
+    protected void bind(int bindId, T model) {
+        mBinding.setVariable(bindId, model);
         mBinding.executePendingBindings();
     }
 }
