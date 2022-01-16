@@ -4,20 +4,20 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.google.auto.service.AutoService;
-import com.hc.android_demo.fragment.content.mvvm.MvvmTestFragment;
+import com.hc.android_demo.fragment.content.mvp.view.MvpTestFragment;
 import com.hc.base.activity.ActivityStarter;
 import com.jny.common.fragment.FragmentConstants;
 
 @AutoService({ActivityStarter.class})
-public class MvvmActivityStarter implements ActivityStarter {
+public class MvpTestFragmentActivityStarter implements ActivityStarter {
     @Override
     public String getId() {
-        return FragmentConstants.MVVM_TEST_FRAGMENT_ID;
+        return FragmentConstants.MVP_TEST_FRAGMENT_ID;
     }
 
     @NonNull
     @Override
     public Fragment getContentFragment() {
-        return new MvvmTestFragment();
+        return new MvpTestFragment();
     }
 }

@@ -23,6 +23,7 @@ public class Presenter implements ViewBinder{
         currentState = currentState.next();
         this.rootView = rootView;
         onCreate();
+        doBindView(rootView);
         for (Presenter child : children) {
             child.create(rootView);
         }
@@ -39,7 +40,6 @@ public class Presenter implements ViewBinder{
     public void bindInternal() {
         currentState = currentState.next();
         if (currentState == State.BIND) {
-            doBindView(rootView);
             onBind();
             for (Presenter child : children) {
                 child.bindInternal();
@@ -78,6 +78,7 @@ public class Presenter implements ViewBinder{
     }
 
     private void injectInternal() {
+        doInject();
         for (Presenter child : children) {
             child.doInject();
             child.injectInternal();
@@ -158,5 +159,9 @@ public class Presenter implements ViewBinder{
     @Override
     public void doBindView(View rootView) {
 
+    }
+
+    public View getRootView() {
+        return rootView;
     }
 }

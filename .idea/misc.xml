@@ -34,6 +34,7 @@
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/fragment_custom_view.xml" value="0.46875" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/fragment_grid_image_layout.xml" value="0.5181159420289855" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/fragment_long_view_image.xml" value="0.5181159420289855" />
+        <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/fragment_mvp_test_layout.xml" value="0.3770833333333333" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/fragment_mvps.xml" value="0.5181159420289855" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/fragment_mvvm_layout.xml" value="0.5536458333333333" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/fragment_simple_recycler_container_layout.xml" value="0.4473958333333333" />
@@ -41,6 +42,7 @@
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/image_item.xml" value="0.5385416666666667" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/menu_recycler_item.xml" value="0.5385416666666667" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/recycler_item.xml" value="0.4005208333333333" />
+        <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/recylcer_item_user_layout.xml" value="0.5058876811594203" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/slide_menu.xml" value="0.5846920289855072" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/menu/bottom_menu.xml" value="0.39427083333333335" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/menu/bottom_nav.xml" value="0.39427083333333335" />

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="base_dip">1dp</dimen>
+    <dimen name="dp_2">2dp</dimen>
 </resources>

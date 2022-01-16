@@ -27,6 +27,7 @@ public class TestFrameWorkFragment extends SimpleRecyclerFragment {
     {
         addItem("自定义Mvps使用测试", this::onClickMvpsActivity);
         addItem("自定义Handler使用测试", this::onClickCustomHandlerActivity);
+        addItem("老版本MVP的使用", this::onClickTestMvpActivity);
         addItem("MVVM+Databinding的使用", this::onClickMvvmDataBindingActivity);
     }
 
@@ -67,6 +68,10 @@ public class TestFrameWorkFragment extends SimpleRecyclerFragment {
         Intent intent = new Intent(getActivity(), ContentActivity.class);
         intent.putExtra(Constants.CONTENT_FRAGMENT_KEY, id);
         startActivity(intent);
+    }
+
+    private void onClickTestMvpActivity() {
+        startContentActivity(FragmentConstants.MVP_TEST_FRAGMENT_ID);
     }
 
     private void addItem(String key, Runnable runnable) {
