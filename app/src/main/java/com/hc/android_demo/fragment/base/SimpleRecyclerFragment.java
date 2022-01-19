@@ -5,21 +5,18 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.hc.android_demo.R;
+import com.hc.base.fragment.RecyclerFragment;
 import com.hc.my_views.SimpleRecyclerView;
-import com.hc.util.InflaterUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimpleRecyclerFragment extends RecyclerFragment{
+public class SimpleRecyclerFragment extends RecyclerFragment {
 
     private final List<Pair<String, Runnable>> mItems = new ArrayList<>();
 

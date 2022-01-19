@@ -1,4 +1,4 @@
-package com.hc.android_demo.fragment.base;
+package com.hc.base.fragment;
 
 import androidx.fragment.app.Fragment;
 
