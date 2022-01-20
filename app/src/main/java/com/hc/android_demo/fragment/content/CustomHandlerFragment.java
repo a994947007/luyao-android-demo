@@ -16,19 +16,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.auto.service.AutoService;
 import com.hc.android_demo.R;
 import com.hc.base.AppEnvironment;
+import com.hc.base.activity.ActivityStarter;
 import com.hc.my_views.SimpleRecyclerView;
 import com.hc.support.looper.MyHandler;
 import com.hc.support.looper.MyLooper;
 import com.hc.support.looper.MyMessage;
 import com.hc.util.ThreadUtils;
 import com.hc.util.ToastUtils;
+import com.jny.common.fragment.FragmentConstants;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomHandlerFragment extends Fragment {
+@AutoService({ActivityStarter.class})
+public class CustomHandlerFragment extends Fragment implements ActivityStarter {
 
     private final List<Pair<String, Runnable>> mItems = new ArrayList<>();
     {
@@ -124,5 +128,16 @@ public class CustomHandlerFragment extends Fragment {
         super.onDestroyView();
         looper.quit();
         getActivity().stopService(myServiceIt);
+    }
+
+    @Override
+    public String getStarterId() {
+        return FragmentConstants.CUSTOM_TEST_HANDLER_ID;
+    }
+
+    @NonNull
+    @Override
+    public Fragment getContentFragment() {
+        return new CustomHandlerFragment();
     }
 }

@@ -11,7 +11,7 @@ import com.jny.common.fragment.FragmentConstants;
 @AutoService({ActivityStarter.class})
 public class CustomNestedScrollViewActivityStarter implements ActivityStarter {
     @Override
-    public String getId() {
+    public String getStarterId() {
         return FragmentConstants.CUSTOM_NESTED_SCROLL_VIEW_TEST_FRAGMENT_ID;
     }
 

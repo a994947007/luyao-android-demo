@@ -11,7 +11,7 @@ import com.jny.common.fragment.FragmentConstants;
 @AutoService({ActivityStarter.class})
 public class LongViewImageTestActivityStarter implements ActivityStarter {
     @Override
-    public String getId() {
+    public String getStarterId() {
         return FragmentConstants.LONG_VIEW_IMAGE_TEST_FRAGMENT_ID;
     }
 

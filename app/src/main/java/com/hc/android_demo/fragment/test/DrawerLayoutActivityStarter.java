@@ -11,7 +11,7 @@ import com.jny.common.fragment.FragmentConstants;
 @AutoService({ActivityStarter.class})
 public class DrawerLayoutActivityStarter implements ActivityStarter {
     @Override
-    public String getId() {
+    public String getStarterId() {
         return FragmentConstants.DRAWER_LAYOUT_TEST_FRAGMENT_ID;
     }
 

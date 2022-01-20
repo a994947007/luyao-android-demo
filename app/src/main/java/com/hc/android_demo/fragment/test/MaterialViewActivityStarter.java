@@ -11,7 +11,7 @@ import com.jny.common.fragment.FragmentConstants;
 @AutoService({ActivityStarter.class})
 public class MaterialViewActivityStarter implements ActivityStarter {
     @Override
-    public String getId() {
+    public String getStarterId() {
         return FragmentConstants.MATERIAL_VIEW_TEST_FRAGMENT_ID;
     }
 

@@ -15,11 +15,15 @@ import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 
+import com.google.auto.service.AutoService;
 import com.hc.android_demo.R;
+import com.hc.base.activity.ActivityStarter;
 import com.hc.my_views.coordinateLayout.Behavior;
 import com.hc.util.ViewUtils;
+import com.jny.common.fragment.FragmentConstants;
 
-public class CoordinateLayoutFragment extends Fragment {
+@AutoService({ActivityStarter.class})
+public class CoordinateLayoutFragment extends Fragment implements ActivityStarter {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -72,6 +76,17 @@ public class CoordinateLayoutFragment extends Fragment {
                 "打分卡丽娜第三方发打发斯蒂芬大师傅打法萨芬撒到主线程那就看呗请叫我考核人几哈接口或会计证程序" +
                 "打分卡丽娜第三方发打发斯蒂芬大师傅打法萨芬撒到主线程那就看呗请叫我考核人几哈接口或会计证程序" +
                 "打分卡丽娜第三方发打发斯蒂芬大师傅打法萨芬撒到主线程那就看呗请叫我考核人几哈接口或会计证程序" );
+    }
+
+    @NonNull
+    @Override
+    public Fragment getContentFragment() {
+        return new CoordinateLayoutFragment();
+    }
+
+    @Override
+    public String getStarterId() {
+        return FragmentConstants.COORDINATE_TEST_FRAGMENT_ID;
     }
 
     public static class ImageViewBehavior extends Behavior {

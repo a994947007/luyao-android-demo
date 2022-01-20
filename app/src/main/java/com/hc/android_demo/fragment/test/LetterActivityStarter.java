@@ -11,7 +11,7 @@ import com.jny.common.fragment.FragmentConstants;
 @AutoService({ActivityStarter.class})
 public class LetterActivityStarter implements ActivityStarter {
     @Override
-    public String getId() {
+    public String getStarterId() {
         return FragmentConstants.LETTER_FRAGMENT_ID;
     }
 

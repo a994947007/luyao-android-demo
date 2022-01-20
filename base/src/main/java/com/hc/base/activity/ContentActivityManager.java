@@ -1,6 +1,10 @@
 package com.hc.base.activity;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleEventObserver;
+import androidx.lifecycle.LifecycleOwner;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,8 +32,27 @@ public class ContentActivityManager {
         }
     }
 
-    public void register(ActivityStarter activityStarter) {
-        activityStarterMap.put(activityStarter.getId(), activityStarter);
+    public void register(final ActivityStarter activityStarter) {
+        Fragment contentFragment = activityStarter.getContentFragment();
+        contentFragment.getLifecycle().addObserver(new LifecycleBoundObserver(activityStarter.getStarterId()));
+        activityStarterMap.put(activityStarter.getStarterId(), activityStarter);
+    }
+
+    class LifecycleBoundObserver implements LifecycleEventObserver {
+
+        private final String key;
+
+        private LifecycleBoundObserver(String key) {
+            this.key = key;
+        }
+
+        @Override
+        public void onStateChanged(@NonNull LifecycleOwner source, @NonNull Lifecycle.Event event) {
+            if (event == Lifecycle.Event.ON_DESTROY) {
+                activityStarterMap.remove(key);
+                source.getLifecycle().removeObserver(this);
+            }
+        }
     }
 
     public Fragment get(String id) {
@@ -37,7 +60,7 @@ public class ContentActivityManager {
     }
 
     public void unregister(ActivityStarter activityStarter) {
-        activityStarterMap.remove(activityStarter.getId());
+        activityStarterMap.remove(activityStarter.getStarterId());
     }
 
     public void load() {

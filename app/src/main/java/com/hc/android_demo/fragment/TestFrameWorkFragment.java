@@ -29,6 +29,7 @@ public class TestFrameWorkFragment extends SimpleRecyclerFragment {
         addItem("自定义Handler使用测试", this::onClickCustomHandlerActivity);
         addItem("老版本MVP的使用", this::onClickTestMvpActivity);
         addItem("MVVM+Databinding的使用", this::onClickMvvmDataBindingActivity);
+        addItem("滑动预加载Fragment", this::onScrollPreloadFragment);
     }
 
     private TestFrameWorkFragment() { }
@@ -76,5 +77,9 @@ public class TestFrameWorkFragment extends SimpleRecyclerFragment {
 
     private void addItem(String key, Runnable runnable) {
         items.add(new Pair<>(key, runnable));
+    }
+
+    private void onScrollPreloadFragment() {
+        startContentActivity(FragmentConstants.SCROLL_PRELOAD_TEXT_FRAGMENT_ID);
     }
 }

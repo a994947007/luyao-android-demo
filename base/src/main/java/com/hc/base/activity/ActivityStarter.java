@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment;
 
 public interface ActivityStarter {
     // Fragment对应id
-    String getId();
+    String getStarterId();
     // 对应Fragment
     @NonNull
     Fragment getContentFragment();

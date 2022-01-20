@@ -11,7 +11,7 @@ import com.jny.common.fragment.FragmentConstants;
 @AutoService({ActivityStarter.class})
 public class VerticalDrawerRecyclerViewActivityStarter implements ActivityStarter {
     @Override
-    public String getId() {
+    public String getStarterId() {
         return FragmentConstants.VERTICAL_DRAWER_RECYCLERVIEW_TEST_FRAGMENT_ID;
     }
 
