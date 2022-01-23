@@ -1,4 +1,4 @@
-package com.hc.support.preload;
+package com.hc.support.preload.edition1;
 
 import androidx.lifecycle.LifecycleOwner;
 

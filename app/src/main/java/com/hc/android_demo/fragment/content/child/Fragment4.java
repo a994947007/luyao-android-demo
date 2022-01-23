@@ -12,9 +12,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.hc.android_demo.R;
-import com.hc.support.preload.edition1.PreloadAction;
+import com.hc.support.preload.edition2.PreloadManager2;
+import com.hc.support.preload.edition3.PreloadAction;
 
-public class Fragment1 extends Fragment implements PreloadAction {
+public class Fragment4 extends Fragment implements PreloadAction {
     TextView tv;
 
     @Nullable
@@ -27,12 +28,12 @@ public class Fragment1 extends Fragment implements PreloadAction {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         tv = view.findViewById(R.id.textView);
-        tv.setText("Fragment1");
+        tv.setText("Fragment4");
     }
 
     @Override
-    public void doLoad() {
-        Log.d("PreloadManager", "Fragment1 doLoad");
-        tv.setText("Fragment1 loaded");
+    public void doPreload() {
+        Log.d("PreloadManager", "Fragment4 doLoad");
+        tv.setText("Fragment4 loaded");
     }
 }
