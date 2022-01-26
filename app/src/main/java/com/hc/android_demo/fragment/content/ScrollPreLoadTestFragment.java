@@ -22,14 +22,13 @@ import com.hc.android_demo.fragment.content.child.Fragment4;
 import com.hc.android_demo.fragment.content.child.Fragment5;
 import com.hc.base.activity.ActivityStarter;
 import com.hc.base.fragment.BaseFragment;
-import com.hc.support.preload.edition3.PreloadManager;
 import com.jny.common.fragment.FragmentConstants;
 
 @AutoService({ActivityStarter.class})
 public class ScrollPreLoadTestFragment extends BaseFragment implements ActivityStarter {
 
-    private Fragment fragments[] = new Fragment[5];
-    private String titles[] = new String[5];
+    private final Fragment[] fragments = new Fragment[5];
+    private final String[] titles = new String[5];
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,8 +57,8 @@ public class ScrollPreLoadTestFragment extends BaseFragment implements ActivityS
         super.onViewCreated(view, savedInstanceState);
         TabLayout tabLayout = view.findViewById(R.id.tabLayout);
         ViewPager viewPager = view.findViewById(R.id.viewPager);
-        viewPager.setAdapter(new SimpleFragmentPagerAdapter(getFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, viewPager, fragments, titles));
-        viewPager.setOffscreenPageLimit(5);
+        viewPager.setAdapter(new SimpleFragmentPagerAdapter(getFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, fragments, titles));
+        viewPager.setOffscreenPageLimit(1);
         tabLayout.setupWithViewPager(viewPager);
     }
 
@@ -75,26 +74,18 @@ public class ScrollPreLoadTestFragment extends BaseFragment implements ActivityS
     }
 
     private static class SimpleFragmentPagerAdapter extends FragmentPagerAdapter {
-        private Fragment[] fragments;
-        private String[] titles;
-        PreloadManager preloadManager = PreloadManager.newInstance(0.02f, Integer.MAX_VALUE);
-        private ViewPager viewPager;
+        private final Fragment[] fragments;
+        private final String[] titles;
 
-        public SimpleFragmentPagerAdapter(@NonNull FragmentManager fm, int behavior, ViewPager viewPager, Fragment[] fragments, String[] titles) {
+        public SimpleFragmentPagerAdapter(@NonNull FragmentManager fm, int behavior, Fragment[] fragments, String[] titles) {
             super(fm, behavior);
             this.fragments = fragments;
             this.titles = titles;
-            this.viewPager = viewPager;
-        }
-
-        public Fragment[] getFragments() {
-            return fragments;
         }
 
         @NonNull
         @Override
         public Fragment getItem(int position) {
-            preloadManager.listeningPreloadAction(viewPager, fragments[position], position);
             return fragments[position];
         }
 

@@ -1,10 +1,9 @@
-package com.hc.support.preload.edition3;
+package com.hc.support.preload.edition3.core;
 
 public class PreloadActionProxy implements PreloadAction, PreloadFilter{
 
     private final PreloadAction mPreloadAction;
     private final PreloadFilter mPreloadFilter;
-    private boolean isLoaded = false;
 
     public PreloadActionProxy(PreloadAction preloadAction, PreloadFilter preloadFilter) {
         this.mPreloadAction = preloadAction;
@@ -12,17 +11,12 @@ public class PreloadActionProxy implements PreloadAction, PreloadFilter{
     }
 
     @Override
-    public void doPreload() {
-        this.mPreloadAction.doPreload();
-        isLoaded = true;
-    }
-
-    public boolean isPreloaded() {
-        return isLoaded;
+    public void preload() {
+        this.mPreloadAction.preload();
     }
 
     @Override
-    public boolean filter(float offsetPercent, int offsetPixes) {
-        return mPreloadFilter.filter(offsetPercent, offsetPixes);
+    public boolean filter(int direction, float offsetPercent, int offsetPixes) {
+        return mPreloadFilter.filter(direction, offsetPercent, offsetPixes);
     }
 }

@@ -1,4 +1,4 @@
-package com.hc.support.preload.edition3;
+package com.hc.support.preload.edition3.core;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;

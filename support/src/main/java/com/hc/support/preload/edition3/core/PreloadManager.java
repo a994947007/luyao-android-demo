@@ -1,6 +1,5 @@
-package com.hc.support.preload.edition3;
+package com.hc.support.preload.edition3.core;
 
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.viewpager.widget.ViewPager;
 
@@ -12,61 +11,52 @@ public class PreloadManager {
 
     private boolean mHasRegisterPageScrollListener;
 
+    public static final int NO_SCROLLING = 0;
+    public static final int LEFT_SCROLLING = 1;
+    public static final int RIGHT_SCROLLING = 2;
+
+
     private PreloadManager() { }
 
     public static PreloadManager newInstance(final float defaultOffsetPercent, final int defaultOffsetPixes) {
         PreloadManager preloadManager = new PreloadManager();
         preloadManager.mDefaultPreloadFilter = new PreloadFilter() {
             @Override
-            public boolean filter(float offsetPercent, int offsetPixes) {
+            public boolean filter(int direction, float offsetPercent, int offsetPixes) {
                 return offsetPercent >= defaultOffsetPercent || offsetPixes >= defaultOffsetPixes  ;
             }
         };
         return preloadManager;
     }
 
-    private void register(LifecycleOwner lifecycleOwner, int position ,PreloadAction preloadAction, PreloadFilter preloadFilter) {
-        mViewPagerPreloadContext.add(lifecycleOwner, position, preloadAction, preloadFilter);
-    }
-
-    public void listeningAllPreloadAction(ViewPager viewPager, Fragment [] fragments) {
-        for (int i = 0; i < fragments.length; i++) {
-            listeningPreloadAction(viewPager, fragments[i], i);
-        }
-    }
-
-    public void listeningPreloadAction(ViewPager viewPager, Fragment fragment, int position) {
-        if (fragment instanceof PreloadAction) {
-            PreloadAction preloadAction = (PreloadAction) fragment;
-            if (fragment instanceof PreloadFilter) {
-                register(fragment, position, preloadAction, (PreloadFilter) fragment);
-            } else {
-                register(fragment, position, preloadAction, mDefaultPreloadFilter);
-            }
-        }
+    public void register(ViewPager viewPager, LifecycleOwner lifecycleOwner, int position ,PreloadAction preloadAction, PreloadFilter preloadFilter) {
         if (!mHasRegisterPageScrollListener) {
-            viewPager.addOnPageChangeListener(new ViewPagerChangeListener(viewPager));
+            viewPager.addOnPageChangeListener(new PreloadManager.ViewPagerChangeListener(viewPager));
             mHasRegisterPageScrollListener = true;
         }
+        if (preloadFilter == null) {
+            preloadFilter = mDefaultPreloadFilter;
+        }
+        mViewPagerPreloadContext.add(lifecycleOwner, position, preloadAction, preloadFilter);
     }
 
     private void dispatchLeftOffsetPercentScrollEvent(float offsetPercent, int offsetPixels,int position) {
         PreloadActionProxy preloadAction =  mViewPagerPreloadContext.get(position);
-        if (preloadAction == null || preloadAction.isPreloaded()) {
+        if (preloadAction == null) {
             return;
         }
-        if (preloadAction.filter(offsetPercent, offsetPixels)) {
-            preloadAction.doPreload();
+        if (preloadAction.filter(LEFT_SCROLLING, offsetPercent, offsetPixels)) {
+            preloadAction.preload();
         }
     }
 
     private void dispatchRightOffsetPercentScrollEvent(float offsetPercent, int offsetPixels, int position) {
         PreloadActionProxy preloadAction =  mViewPagerPreloadContext.get(position);
-        if (preloadAction == null || preloadAction.isPreloaded()) {
+        if (preloadAction == null) {
             return;
         }
-        if (preloadAction.filter(offsetPercent, offsetPixels)) {
-            preloadAction.doPreload();
+        if (preloadAction.filter(RIGHT_SCROLLING, offsetPercent, offsetPixels)) {
+            preloadAction.preload();
         }
     }
 
@@ -74,12 +64,8 @@ public class PreloadManager {
         return viewPager.getMeasuredWidth() - viewPager.getPaddingLeft() - viewPager.getPaddingRight() + viewPager.getPageMargin();
     }
 
+
     private class ViewPagerChangeListener implements ViewPager.OnPageChangeListener {
-
-        private static final int NO_SCROLLING = 0;
-        private static final int LEFT_SCROLLING = 1;
-        private static final int RIGHT_SCROLLING = 2;
-
         private boolean mIsScrolling = false;
         private float mPrePositionOffset;
         private int mDirection = NO_SCROLLING;
@@ -89,7 +75,6 @@ public class PreloadManager {
         public ViewPagerChangeListener(ViewPager viewPager) {
             VIEW_PAGER_MAX_OFFSET = getViewPagerMaxOffset(viewPager);
         }
-
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

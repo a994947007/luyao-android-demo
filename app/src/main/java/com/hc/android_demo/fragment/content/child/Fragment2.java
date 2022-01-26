@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.hc.android_demo.R;
 import com.hc.support.preload.edition1.PreloadAction;
 
-public class Fragment2 extends Fragment implements PreloadAction {
+public class Fragment2 extends Fragment {
 
     private TextView tv;
 
@@ -30,11 +30,4 @@ public class Fragment2 extends Fragment implements PreloadAction {
         tv = view.findViewById(R.id.textView);
         tv.setText("Fragment2");
     }
-
-    @Override
-    public void doLoad() {
-        Log.d("PreloadManager", "Fragment2 doLoad");
-        tv.setText("Fragment2 loaded");
-    }
-
 }
