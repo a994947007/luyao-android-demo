@@ -31,4 +31,5 @@ ext {
     targetSdkVersion = 30
     androidxVersion = "1.2.0"
     autoServiceDependency = 'com.google.auto.service:auto-service:1.0-rc7'
+    asmVersion = '9.0'
 }

@@ -27,4 +27,10 @@ dependencies {
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     annotationProcessor rootProject.autoServiceDependency
     implementation rootProject.autoServiceDependency
+
+    implementation "org.ow2.asm:asm:$rootProject.asmVersion"
+    implementation "org.ow2.asm:asm-commons:$rootProject.asmVersion"
+    implementation "org.ow2.asm:asm-util:$rootProject.asmVersion"
+    implementation "org.ow2.asm:asm-tree:$rootProject.asmVersion"
+    implementation "org.ow2.asm:asm-analysis:$rootProject.asmVersion"
 }
