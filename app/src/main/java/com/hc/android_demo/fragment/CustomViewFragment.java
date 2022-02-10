@@ -61,6 +61,7 @@ public class CustomViewFragment extends SimpleRecyclerFragment {
         items.add(new Pair<>("组件化(AutoService)+DataBinding+WebVIew", this::onClickWebViewActivity));
         items.add(new Pair<>("PhotoView，支持图片双击放大双击缩小", this::onClickPhotoViewActivity));
         items.add(new Pair<>("长图+落坑动画", this::onClickLongImageViewActivity));
+        items.add(new Pair<>("仿微信二层楼", this::onClickSecondFloorRefreshLayout));
     }
 
     @Override
@@ -81,6 +82,11 @@ public class CustomViewFragment extends SimpleRecyclerFragment {
             ((Activity)getContext()).getWindow().setStatusBarColor(ViewUtils.getColor(R.color.bottom_nav_color));
             ((Activity)getContext()).getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
+    }
+
+
+    private void onClickSecondFloorRefreshLayout() {
+        startContentActivity(FragmentConstants.SECOND_FLOOR_REFRESH_LAYOUT);
     }
 
     private void startContentActivity(String id) {
