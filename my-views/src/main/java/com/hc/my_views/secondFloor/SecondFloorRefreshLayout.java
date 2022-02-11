@@ -1,5 +1,7 @@
 package com.hc.my_views.secondFloor;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -59,16 +61,28 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
                         mFirstFrameLayout.setTranslationY(mTranslateY);
                     }
                 });
+                animator.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        mShadowView.setVisibility(View.GONE);
+                    }
+                });
                 animator.start();
             } else {
                 ValueAnimator animator = new ValueAnimator();
-                animator.setDuration(500);
+                animator.setDuration(200);
                 animator.setIntValues(mTranslateY, 0);
                 animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
                     public void onAnimationUpdate(ValueAnimator animation) {
                         mTranslateY = (int) animation.getAnimatedValue();
                         mFirstFrameLayout.setTranslationY(mTranslateY);
+                    }
+                });
+                animator.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        mShadowView.setVisibility(View.VISIBLE);
                     }
                 });
                 animator.start();

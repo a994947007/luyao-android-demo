@@ -12,10 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.auto.service.AutoService;
 import com.hc.android_demo.R;
+import com.hc.android_demo.fragment.content.presenter.SecondFloorPresenter;
 import com.hc.base.activity.ActivityStarter;
 import com.hc.base.fragment.BaseFragment;
 import com.hc.recyclerView.ItemBean;
 import com.hc.recyclerView.listView.RecyclerStaggerView;
+import com.hc.support.mvps.Presenter;
 import com.jny.common.fragment.FragmentConstants;
 
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ import java.util.List;
 @AutoService({ActivityStarter.class})
 public class SecondFloorRefreshLayoutFragment extends BaseFragment implements ActivityStarter {
     List<ItemBean> itemBeans = new ArrayList<ItemBean>();
+    private Presenter presenterGroup;
 
     {
         itemBeans.add(new ItemBean("123", com.hc.android_view.R.drawable.img1));
@@ -57,6 +60,12 @@ public class SecondFloorRefreshLayoutFragment extends BaseFragment implements Ac
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        presenterGroup.destroy();
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         RecyclerView recyclerView = view.findViewById(R.id.content_recyclerView);
@@ -64,6 +73,11 @@ public class SecondFloorRefreshLayoutFragment extends BaseFragment implements Ac
         recyclerStaggerView.setAvailable(true);
         recyclerStaggerView.setOrientation(true, false);
         recyclerStaggerView.show();
+
+        presenterGroup = new Presenter();
+        presenterGroup.add(new SecondFloorPresenter());
+        presenterGroup.create(view);
+        presenterGroup.bind();
     }
 
     @Override

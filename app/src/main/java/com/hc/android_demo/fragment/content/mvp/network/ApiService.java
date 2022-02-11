@@ -68,7 +68,7 @@ public class ApiService {
             } catch (Throwable r) {
                 subscriber.onError(r);
             }
-        }).subscribeOn(Schedules.NEW_THREAD);
+        }).subscribeOn(Schedules.IO);
     }
 
     public static void addUser(UserModel userModel) {

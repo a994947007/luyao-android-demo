@@ -1,5 +1,7 @@
 package com.hc.support.mvps;
 
+import android.app.Activity;
+import android.content.Context;
 import android.view.View;
 
 import com.hc.support.rxJava.disposable.Disposable;
@@ -27,6 +29,15 @@ public class Presenter implements ViewBinder{
         for (Presenter child : children) {
             child.create(rootView);
         }
+    }
+
+    public Context getContext() {
+        return rootView.getContext();
+    }
+
+    public Activity getActivity() {
+        Context context = rootView.getContext();
+        return null;
     }
 
     protected void onCreate() { }

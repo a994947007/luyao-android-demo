@@ -17,11 +17,11 @@
                 android:background="@android:color/holo_blue_bright"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <TextView
-                    android:text="second floor"
-                    android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                <ViewStub
+                    android:id="@+id/secondContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout="@layout/fragment_second_floor_content_layout"/>
             </FrameLayout>
             <View
                 android:background="@android:color/darker_gray"
