@@ -25,6 +25,7 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
     private RecyclerView mRecyclerView;
     private int childConsumedY = 0;
     private View mShadowView;
+    private View mSecondContainer;
 
     public SecondFloorRefreshLayout(@NonNull Context context) {
         super(context);
@@ -45,6 +46,14 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
         mSecondFrameLayout = (FrameLayout) getChildAt(0);
         mFirstFrameLayout = (FrameLayout) getChildAt(1);
         mShadowView = mSecondFrameLayout.getChildAt(1);
+        mSecondContainer = mSecondFrameLayout.getChildAt(0);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        mSecondContainer.setPivotY(0);
+        mSecondContainer.setPivotX(mSecondFrameLayout.getMeasuredWidth() / 2f);
     }
 
     @Override
@@ -58,7 +67,7 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
                     @Override
                     public void onAnimationUpdate(ValueAnimator animation) {
                         mTranslateY = (int) animation.getAnimatedValue();
-                        mFirstFrameLayout.setTranslationY(mTranslateY);
+                        processTranslateY(mTranslateY);
                     }
                 });
                 animator.addListener(new AnimatorListenerAdapter() {
@@ -76,7 +85,7 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
                     @Override
                     public void onAnimationUpdate(ValueAnimator animation) {
                         mTranslateY = (int) animation.getAnimatedValue();
-                        mFirstFrameLayout.setTranslationY(mTranslateY);
+                        processTranslateY(mTranslateY);
                     }
                 });
                 animator.addListener(new AnimatorListenerAdapter() {
@@ -102,14 +111,22 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
     }
 
     @Override
-    public void onStopNestedScroll(@NonNull View target, int type) {
-
-    }
+    public void onStopNestedScroll(@NonNull View target, int type) { }
 
     private void processTranslateY(int translateY) {
         mFirstFrameLayout.setTranslationY(translateY);
-        if (translateY <= 500f) {
-            mShadowView.setAlpha((500 - translateY) / 500f);
+        if (translateY <= 1000f) {
+            float ratio = (1000f - translateY) / 1000f;
+            mShadowView.setAlpha(ratio);
+            if (1 - ratio < 0.618) {
+                ratio = 0.382f;
+            }
+            mSecondContainer.setScaleX(1 - ratio);
+            mSecondContainer.setScaleY(1 - ratio);
+        } else {
+            mShadowView.setAlpha(0);
+            mSecondContainer.setScaleX(1);
+            mSecondContainer.setScaleY(1);
         }
     }
 

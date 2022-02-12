@@ -1,5 +1,7 @@
 package com.hc.android_demo.fragment.content.presenter;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,6 +31,7 @@ import com.hc.android_demo.fragment.content.mvp.network.ApiService;
 import com.hc.base.AppEnvironment;
 import com.hc.support.mvps.Presenter;
 import com.hc.support.rxJava.schedule.Schedules;
+import com.hc.util.ToastUtils;
 import com.hc.util.ViewUtils;
 
 import java.util.ArrayList;
@@ -44,6 +48,10 @@ public class SecondFloorPresenter extends Presenter {
     private UserItemsAdapter userItemsAdapter;
     private ItemTouchHelper mItemTouchHelper;
     private TextView bottomDeleteContainer;
+    private TextView specialContainer;
+
+    private RecyclerView specialRecyclerView;
+    private UserItemsAdapter specialUserItemsAdapter;
 
     @Override
     public void doBindView(View rootView) {
@@ -57,16 +65,56 @@ public class SecondFloorPresenter extends Presenter {
         if (contentView == null) {
             contentView = contentViewStub.inflate();
             recyclerView = contentView.findViewById(R.id.recyclerView);
+            specialContainer = contentView.findViewById(R.id.specialTipContainer);
             bottomDeleteContainer = contentView.findViewById(R.id.bottom_delete_container);
             recyclerView.setLayoutManager(new GridLayoutManager(getContext(), SPAN_COUNT, RecyclerView.VERTICAL, false));
             recyclerView.addItemDecoration(new UserItemDecoration());
-            recyclerView.setItemAnimator(new DefaultItemAnimator());
+            recyclerView.setItemAnimator(new UserItemAnimator());
             mItemTouchHelper = new ItemTouchHelper(new UserItemTouchHelper());
             mItemTouchHelper.attachToRecyclerView(recyclerView);
             userItemsAdapter = new UserItemsAdapter();
             recyclerView.setAdapter(userItemsAdapter);
+
+            specialRecyclerView = contentView.findViewById(R.id.specialFollowRecyclerView);
+            specialRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), SPAN_COUNT, RecyclerView.VERTICAL, false));
+            specialRecyclerView.addItemDecoration(new UserItemDecoration());
+            specialRecyclerView.setItemAnimator(new UserItemAnimator());
+            specialUserItemsAdapter = new UserItemsAdapter();
+            specialRecyclerView.setAdapter(specialUserItemsAdapter);
         }
         bindFetchUsersObserver();
+    }
+
+    private static class UserItemAnimator extends DefaultItemAnimator {
+
+        private final ValueAnimator scaleAnimator = new ValueAnimator();
+
+        {
+            scaleAnimator.setFloatValues(0, 1f);
+            scaleAnimator.setDuration(200);
+        }
+
+        @Override
+        public void onAddStarting(RecyclerView.ViewHolder item) {
+            super.onAddStarting(item);
+            ValueAnimator.AnimatorUpdateListener animatorUpdateListener = new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    float value = (float) animation.getAnimatedValue();
+                    item.itemView.setScaleX(value);
+                    item.itemView.setScaleY(value);
+                }
+            };
+            scaleAnimator.addUpdateListener(animatorUpdateListener);
+            scaleAnimator.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    scaleAnimator.removeListener(this);
+                    scaleAnimator.removeUpdateListener(animatorUpdateListener);
+                }
+            });
+            scaleAnimator.start();
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -76,21 +124,36 @@ public class SecondFloorPresenter extends Presenter {
         userItemsAdapter.notifyItemRangeChanged(position, userItemsAdapter.getItemCount());
     }
 
+    private void processAddSpecialFollowUser(int position) {
+        ToastUtils.show("已添加", Toast.LENGTH_SHORT);
+        UserModel userModel = userItemsAdapter.mUserList.get(position);
+        UserModel specialUserModel = new UserModel();
+        specialUserModel.lastName = userModel.lastName;
+        specialUserModel.avatar = userModel.avatar;
+        specialUserItemsAdapter.mUserList.add(specialUserModel);
+        specialUserItemsAdapter.notifyItemInserted(specialUserItemsAdapter.getItemCount());
+    }
+
     private class UserItemTouchHelper extends ItemTouchHelper.Callback {
 
         private final Vibrator mVibrator;
         private final ValueAnimator bigScaleAnimator;
         private UserItemViewHolder userItemViewHolder;
+        private ValueAnimator bottomInTranslateAnimator;
+        private ValueAnimator bottomOutTranslateAnimator;
         private static final int STATE_MOVING_OR_IDLE = 0;
         private static final int STATE_DELETING = 1;
-        private static final int STATE_DELETED = 2;
+        private static final int STATE_DELETED_OR_SPECIAL_FOLLOW = 2;
+        private static final int STATE_SPECIAL_FOLLOW = 3;
         private int currentState = STATE_MOVING_OR_IDLE;
+        private int currentActionState = ItemTouchHelper.ACTION_STATE_IDLE;
         private boolean deleteVibrator = false;
+        private boolean specialFollowVibrator = false;
 
         public UserItemTouchHelper() {
             mVibrator = (Vibrator) AppEnvironment.getAppContext().getSystemService(Context.VIBRATOR_SERVICE) ;//震动
             bigScaleAnimator = new ValueAnimator();
-            bigScaleAnimator.setFloatValues(1f, 1.2f);
+            bigScaleAnimator.setFloatValues(1f, 1.5f);
             bigScaleAnimator.setDuration(200);
             bigScaleAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
@@ -99,6 +162,7 @@ public class SecondFloorPresenter extends Presenter {
                     userItemViewHolder.userIcon.setScaleY((Float) animation.getAnimatedValue());
                 }
             });
+            initBottomContainerAnimator();
         }
 
         @Override
@@ -124,11 +188,11 @@ public class SecondFloorPresenter extends Presenter {
             float x = (recyclerView.getLeft() + dX + userItemViewHolder.itemView.getLeft() + (userItemViewHolder.itemView.getRight() - userItemViewHolder.itemView.getLeft()) / 2f);
             float y = (recyclerView.getTop() + dY + userItemViewHolder.itemView.getTop() + (userItemViewHolder.itemView.getBottom() - userItemViewHolder.itemView.getTop()) / 2f);
             Log.d("UserItemTouchHelper", "x:" + dX + ",y:" + dY);
-            if (currentState == STATE_DELETED) {
+            if (currentState == STATE_DELETED_OR_SPECIAL_FOLLOW) {
                 return;
             }
             if (x >= bottomDeleteContainer.getLeft() && x <= bottomDeleteContainer.getRight() && y >= bottomDeleteContainer.getTop() && y <= bottomDeleteContainer.getBottom()) {
-                if (currentState != STATE_DELETING) {
+                if (currentState != STATE_DELETING && currentActionState == ItemTouchHelper.ACTION_STATE_DRAG) {
                     currentState = STATE_DELETING;
                     bottomDeleteContainer.setText("松手即可删除");
                     bottomDeleteContainer.setBackgroundColor(Color.BLUE);
@@ -137,20 +201,29 @@ public class SecondFloorPresenter extends Presenter {
                         mVibrator.vibrate(60);
                     }
                 }
+            } else if (x >= specialContainer.getLeft() && x <= specialContainer.getRight() && y >= specialContainer.getTop() && y <= specialContainer.getBottom()) {
+                if (currentState != STATE_SPECIAL_FOLLOW && currentActionState == ItemTouchHelper.ACTION_STATE_DRAG) {
+                    currentState = STATE_SPECIAL_FOLLOW;
+                    specialContainer.setText("松手即可加入到特别关注");
+                    if (!specialFollowVibrator) {
+                        specialFollowVibrator = true;
+                        mVibrator.vibrate(60);
+                    }
+                }
             } else {
                 if (currentState != STATE_MOVING_OR_IDLE) {
                     deleteVibrator = false;
+                    specialFollowVibrator = false;
                     currentState = STATE_MOVING_OR_IDLE;
                     bottomDeleteContainer.setText("删除");
                     bottomDeleteContainer.setBackgroundColor(Color.RED);
+                    specialContainer.setText("添加到特别关注");
                 }
             }
         }
 
         @Override
-        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-
-        }
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) { }
 
         @Override
         public boolean isLongPressDragEnabled() {
@@ -159,6 +232,7 @@ public class SecondFloorPresenter extends Presenter {
 
         @Override
         public void onSelectedChanged(@Nullable RecyclerView.ViewHolder viewHolder, int actionState) {
+            currentActionState = actionState;
             if (actionState == ItemTouchHelper.ACTION_STATE_DRAG) {
                 userItemViewHolder = (UserItemViewHolder) viewHolder;
                 mVibrator.vibrate(60);
@@ -166,21 +240,71 @@ public class SecondFloorPresenter extends Presenter {
                 bigScaleAnimator.start();
                 bottomDeleteContainer.setText("删除");
                 bottomDeleteContainer.setBackgroundColor(Color.RED);
-                bottomDeleteContainer.setVisibility(View.VISIBLE);
+                specialContainer.setText("添加到特别关注");
+                bottomInTranslateAnimator.start();
                 currentState = STATE_MOVING_OR_IDLE;
                 deleteVibrator = false;
             } else {
                 if (currentState == STATE_DELETING) {
                     int adapterPosition = userItemViewHolder.getAdapterPosition();
                     processDeleteUser(adapterPosition);
-                    currentState = STATE_DELETED;
+                    currentState = STATE_DELETED_OR_SPECIAL_FOLLOW;
                     userItemViewHolder.itemView.setVisibility(View.GONE);
+                } else if (currentState == STATE_SPECIAL_FOLLOW) {
+                    int adapterPosition = userItemViewHolder.getAdapterPosition();
+                    processAddSpecialFollowUser(adapterPosition);
+                    currentState = STATE_DELETED_OR_SPECIAL_FOLLOW;
+                    bigScaleAnimator.reverse();
                 } else {
                     bigScaleAnimator.reverse();
                 }
-                bottomDeleteContainer.setVisibility(View.GONE);
+                bottomOutTranslateAnimator.start();
             }
             super.onSelectedChanged(viewHolder, actionState);
+        }
+
+        private void initBottomContainerAnimator() {
+            if (bottomInTranslateAnimator == null) {
+                bottomInTranslateAnimator = new ValueAnimator();
+                bottomInTranslateAnimator.setFloatValues(1f, 0);
+                bottomInTranslateAnimator.setDuration(200);
+                bottomInTranslateAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animation) {
+                        float value = (Float) animation.getAnimatedValue();
+                        bottomDeleteContainer.setTranslationY(value * ViewUtils.dp2px(80f));
+                        specialContainer.setAlpha(1f - value);
+                    }
+                });
+                bottomInTranslateAnimator.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        bottomDeleteContainer.setVisibility(View.VISIBLE);
+                        specialContainer.setVisibility(View.VISIBLE);
+                    }
+                });
+            }
+
+            if (bottomOutTranslateAnimator == null) {
+                bottomOutTranslateAnimator = new ValueAnimator();
+                bottomOutTranslateAnimator.setFloatValues(0, 1f);
+                bottomOutTranslateAnimator.setDuration(200);
+                bottomOutTranslateAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animation) {
+                        float value = (Float) animation.getAnimatedValue();
+                        bottomDeleteContainer.setTranslationY(value * ViewUtils.dp2px(80f));
+                        specialContainer.setAlpha(1f - value);
+                    }
+                });
+                bottomOutTranslateAnimator.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        bottomDeleteContainer.setVisibility(View.GONE);
+                        specialContainer.setVisibility(View.GONE);
+                    }
+                });
+            }
         }
 
         @Override
@@ -194,7 +318,10 @@ public class SecondFloorPresenter extends Presenter {
     private void bindFetchUsersObserver() {
         addToAutoDispose(ApiService.requestUserListResponse()
                 .observeOn(Schedules.MAIN)
-                .subscribe(userListResponse -> userItemsAdapter.setData(userListResponse.userModelList)));
+                .subscribe(userListResponse -> {
+                    userItemsAdapter.setData(userListResponse.userModelList);
+                    specialUserItemsAdapter.setData(userListResponse.userModelList);
+                }));
     }
 
     private static class UserItemDecoration extends RecyclerView.ItemDecoration {
@@ -242,7 +369,6 @@ public class SecondFloorPresenter extends Presenter {
     private class UserItemViewHolder extends RecyclerView.ViewHolder {
         private final SimpleDraweeView userIcon;
         private final TextView usernameTv;
-        private boolean isRemoved = false;
 
         public UserItemViewHolder(@NonNull View itemView) {
             super(itemView);
