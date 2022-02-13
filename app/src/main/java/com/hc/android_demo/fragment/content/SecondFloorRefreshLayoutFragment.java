@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.auto.service.AutoService;
 import com.hc.android_demo.R;
+import com.hc.android_demo.fragment.content.presenter.SecondFloorOnSlideTipPresenter;
 import com.hc.android_demo.fragment.content.presenter.SecondFloorPresenter;
 import com.hc.base.activity.ActivityStarter;
 import com.hc.base.fragment.BaseFragment;
@@ -76,6 +77,7 @@ public class SecondFloorRefreshLayoutFragment extends BaseFragment implements Ac
 
         presenterGroup = new Presenter();
         presenterGroup.add(new SecondFloorPresenter());
+        presenterGroup.add(new SecondFloorOnSlideTipPresenter());
         presenterGroup.create(view);
         presenterGroup.bind();
     }

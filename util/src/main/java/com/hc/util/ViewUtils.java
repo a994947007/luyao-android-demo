@@ -15,11 +15,18 @@ import com.hc.base.AppEnvironment;
 
 public class ViewUtils {
     public static int dp2px(float dp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, Resources.getSystem().getDisplayMetrics());
+        float scale = Resources.getSystem().getDisplayMetrics().density;
+        return (int)(dp * scale + 0.5f * (dp >= 0 ? 1 : -1));
     }
 
     public static int sp2px(float dp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, dp, Resources.getSystem().getDisplayMetrics());
+        float scale = Resources.getSystem().getDisplayMetrics().scaledDensity;
+        return (int)(dp * scale + 0.5f * (dp >= 0 ? 1 : -1));
+    }
+
+    public static int px2dp(float px) {
+        float scale = Resources.getSystem().getDisplayMetrics().density;
+        return (int)(px / scale + 0.5f * (px >= 0 ? 1 : -1));
     }
 
     public static int getDisplayWidth(Context context) {

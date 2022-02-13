@@ -7,6 +7,7 @@
     tools:ignore="MissingDefaultResource">
 
     <com.hc.my_views.secondFloor.SecondFloorRefreshLayout
+        android:id="@+id/secondFloorRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <FrameLayout
@@ -23,10 +24,35 @@
                     android:layout_height="match_parent"
                     android:layout="@layout/fragment_second_floor_content_layout"/>
             </FrameLayout>
-            <View
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:background="@android:color/darker_gray"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/refreshTip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:visibility="gone"
+                    android:layout_marginTop="30dp"
+                    android:textSize="15sp"
+                    android:textColor="#222222"
+                    android:text="松手刷新"/>
+                <TextView
+                    android:id="@+id/secondFloorTip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:visibility="gone"
+                    android:layout_marginTop="30dp"
+                    android:textSize="15sp"
+                    android:textColor="#222222"
+                    android:text="下拉进入二层楼"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </FrameLayout>
 
         <FrameLayout
