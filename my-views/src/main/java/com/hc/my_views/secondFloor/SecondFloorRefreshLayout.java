@@ -23,9 +23,10 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
     private FrameLayout mFirstFrameLayout;
     private int mTranslateY = 0;
     private RecyclerView mRecyclerView;
-    private int childConsumedY = 0;
     private View mShadowView;
     private View mSecondContainer;
+    private boolean pointerUp = false;
+    private boolean isOpen = false;
 
     public SecondFloorRefreshLayout(@NonNull Context context) {
         super(context);
@@ -58,17 +59,17 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (ev.getAction() == MotionEvent.ACTION_UP) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            pointerUp = false;
+        } else if (ev.getAction() == MotionEvent.ACTION_UP) {
+            pointerUp = true;
             if (mTranslateY > 500) {
                 ValueAnimator animator = new ValueAnimator();
-                animator.setDuration(500);
+                animator.setDuration(200);
                 animator.setIntValues(mTranslateY, getMeasuredHeight());
-                animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                    @Override
-                    public void onAnimationUpdate(ValueAnimator animation) {
-                        mTranslateY = (int) animation.getAnimatedValue();
-                        processTranslateY(mTranslateY);
-                    }
+                animator.addUpdateListener(animation -> {
+                    mTranslateY = (int) animation.getAnimatedValue();
+                    processTranslateY(mTranslateY);
                 });
                 animator.addListener(new AnimatorListenerAdapter() {
                     @Override
@@ -81,12 +82,9 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
                 ValueAnimator animator = new ValueAnimator();
                 animator.setDuration(200);
                 animator.setIntValues(mTranslateY, 0);
-                animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                    @Override
-                    public void onAnimationUpdate(ValueAnimator animation) {
-                        mTranslateY = (int) animation.getAnimatedValue();
-                        processTranslateY(mTranslateY);
-                    }
+                animator.addUpdateListener(animation -> {
+                    mTranslateY = (int) animation.getAnimatedValue();
+                    processTranslateY(mTranslateY);
                 });
                 animator.addListener(new AnimatorListenerAdapter() {
                     @Override
@@ -111,13 +109,28 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
     }
 
     @Override
+    public boolean onNestedPreFling(View target, float velocityX, float velocityY) {
+        return false;
+    }
+
+    @Override
+    public boolean onNestedFling(View target, float velocityX, float velocityY, boolean consumed) {
+        return false;
+    }
+
+    @Override
     public void onStopNestedScroll(@NonNull View target, int type) { }
 
     private void processTranslateY(int translateY) {
+        if (translateY > mSecondFrameLayout.getMeasuredHeight()) {
+            translateY = mSecondFrameLayout.getMeasuredHeight();
+        }
         mFirstFrameLayout.setTranslationY(translateY);
         if (translateY <= 1000f) {
             float ratio = (1000f - translateY) / 1000f;
-            mShadowView.setAlpha(ratio);
+            if (translateY > 500f) {
+                mShadowView.setAlpha((1 - (translateY - 500f) / 500f));
+            }
             if (1 - ratio < 0.618) {
                 ratio = 0.382f;
             }
@@ -132,35 +145,32 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
 
     @Override
     public void onNestedScroll(@NonNull View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int type) {
-        childConsumedY += dyConsumed;
-        if (dyUnconsumed < 0) {
-            mTranslateY -= dyUnconsumed;
+        if (dyUnconsumed < 0 && !pointerUp) {
+            // 剩余的滑动距离
+            if (mTranslateY - dyUnconsumed > mSecondFrameLayout.getMeasuredHeight()) {
+                // 向下滑最多不超过second的高度
+                mTranslateY = mSecondFrameLayout.getMeasuredHeight();
+            } else {
+                mTranslateY -= dyUnconsumed;
+            }
             processTranslateY(mTranslateY);
         }
     }
 
     @Override
     public void onNestedPreScroll(@NonNull View target, int dx, int dy, @NonNull int[] consumed, int type) {
-        if (dy > 0) {
-            if (mTranslateY > 0) {
-                if (mTranslateY - dy <= 0) {
-                    consumed[1] = -mTranslateY;
-                    mTranslateY = 0;
-                    processTranslateY(mTranslateY);
-                    childConsumedY += consumed[1];
-                } else {
-                    mTranslateY -= dy;
-                    processTranslateY(mTranslateY);
-                    consumed[1] = dy;
-                    childConsumedY += consumed[1];
-                }
-            }
-        } else {
-            if (childConsumedY + dy > 0) {
-                childConsumedY += dy;
+        if (dy > 0 && mTranslateY > 0) {
+            // 向上滑并且是展开或者半展开态
+            if (mTranslateY - dy <= 0) {
+                consumed[1] = -mTranslateY;
+                mTranslateY = 0;
+                processTranslateY(mTranslateY);
             } else {
-                childConsumedY = 0;
+                mTranslateY -= dy;
+                processTranslateY(mTranslateY);
+                consumed[1] = dy;
             }
         }
+        // 向下滑需要先让子View先滑
     }
 }
