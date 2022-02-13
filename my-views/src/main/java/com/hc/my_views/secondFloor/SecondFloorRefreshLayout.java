@@ -6,7 +6,6 @@ import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -16,7 +15,8 @@ import androidx.annotation.Nullable;
 import androidx.core.view.NestedScrollingParent2;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.hc.my_views.R;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrollingParent2 {
     private FrameLayout mSecondFrameLayout;
@@ -27,6 +27,23 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
     private View mSecondContainer;
     private boolean pointerUp = false;
     private boolean isOpen = false;
+    private final List<OnSlideListener> mListeners = new ArrayList<>();
+    private ValueAnimator openSlideAnimator;
+    private ValueAnimator closeSlideAnimator;
+
+    public interface OnSlideListener {
+        void onSlide(float offset, float offsetPercent);
+    }
+
+    public void addOnSlideListener(OnSlideListener onSlideListener) {
+        mListeners.add(onSlideListener);
+    }
+
+    public void removeOnSlideListener(OnSlideListener onSlideListener) {
+        mListeners.remove(onSlideListener);
+    }
+
+    private static final float AUTO_OPEN_OFFSET_THRESHOLD = 500f;
 
     public SecondFloorRefreshLayout(@NonNull Context context) {
         super(context);
@@ -48,6 +65,7 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
         mFirstFrameLayout = (FrameLayout) getChildAt(1);
         mShadowView = mSecondFrameLayout.getChildAt(1);
         mSecondContainer = mSecondFrameLayout.getChildAt(0);
+        initSlideAnimator();
     }
 
     @Override
@@ -57,42 +75,49 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
         mSecondContainer.setPivotX(mSecondFrameLayout.getMeasuredWidth() / 2f);
     }
 
+    private void initSlideAnimator() {
+        if (openSlideAnimator == null) {
+            openSlideAnimator = new ValueAnimator();
+            openSlideAnimator.setDuration(200);
+            openSlideAnimator.addUpdateListener(animation -> {
+                mTranslateY = (int) animation.getAnimatedValue();
+                processTranslateY(mTranslateY);
+            });
+            openSlideAnimator.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mShadowView.setVisibility(View.GONE);
+                }
+            });
+        }
+        if (closeSlideAnimator == null) {
+            closeSlideAnimator = new ValueAnimator();
+            closeSlideAnimator.setDuration(200);
+            closeSlideAnimator.addUpdateListener(animation -> {
+                mTranslateY = (int) animation.getAnimatedValue();
+                processTranslateY(mTranslateY);
+            });
+            closeSlideAnimator.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+                    mShadowView.setVisibility(View.VISIBLE);
+                }
+            });
+        }
+    }
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
             pointerUp = false;
         } else if (ev.getAction() == MotionEvent.ACTION_UP) {
             pointerUp = true;
-            if (mTranslateY > 500) {
-                ValueAnimator animator = new ValueAnimator();
-                animator.setDuration(200);
-                animator.setIntValues(mTranslateY, getMeasuredHeight());
-                animator.addUpdateListener(animation -> {
-                    mTranslateY = (int) animation.getAnimatedValue();
-                    processTranslateY(mTranslateY);
-                });
-                animator.addListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        mShadowView.setVisibility(View.GONE);
-                    }
-                });
-                animator.start();
+            if (mTranslateY > AUTO_OPEN_OFFSET_THRESHOLD) {
+                openSlideAnimator.setIntValues(mTranslateY, getMeasuredHeight());
+                openSlideAnimator.start();
             } else {
-                ValueAnimator animator = new ValueAnimator();
-                animator.setDuration(200);
-                animator.setIntValues(mTranslateY, 0);
-                animator.addUpdateListener(animation -> {
-                    mTranslateY = (int) animation.getAnimatedValue();
-                    processTranslateY(mTranslateY);
-                });
-                animator.addListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-                        mShadowView.setVisibility(View.VISIBLE);
-                    }
-                });
-                animator.start();
+                closeSlideAnimator.setIntValues(mTranslateY, 0);
+                closeSlideAnimator.start();
             }
         }
         return super.dispatchTouchEvent(ev);
@@ -125,11 +150,16 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
         if (translateY > mSecondFrameLayout.getMeasuredHeight()) {
             translateY = mSecondFrameLayout.getMeasuredHeight();
         }
+        for (OnSlideListener mListener : mListeners) {
+            mListener.onSlide(translateY, (float) translateY / mSecondFrameLayout.getMeasuredHeight());
+        }
         mFirstFrameLayout.setTranslationY(translateY);
         if (translateY <= 1000f) {
             float ratio = (1000f - translateY) / 1000f;
-            if (translateY > 500f) {
-                mShadowView.setAlpha((1 - (translateY - 500f) / 500f));
+            if (translateY > AUTO_OPEN_OFFSET_THRESHOLD) {
+                mShadowView.setAlpha((1 - (translateY - AUTO_OPEN_OFFSET_THRESHOLD) / AUTO_OPEN_OFFSET_THRESHOLD));
+            } else {
+                mShadowView.setAlpha(1);
             }
             if (1 - ratio < 0.618) {
                 ratio = 0.382f;

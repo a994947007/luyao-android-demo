@@ -6,7 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-public class NestedScrollViewParent extends FrameLayout implements MyNestedScrollingParent {
+public class
+NestedScrollViewParent extends FrameLayout implements MyNestedScrollingParent {
     private View child;
     public NestedScrollViewParent(Context context) {
         super(context);
