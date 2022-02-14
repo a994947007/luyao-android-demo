@@ -5,10 +5,15 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application>
+        <activity
+            android:name=".webviewProgress.ui.DynamicWebViewActivity"
+            android:exported="true"
+            android:theme="@style/DynamicWebViewActivity"/>
+
         <service
             android:name=".mainProgress.MainProcessCommandService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
         <activity
             android:name=".webviewProgress.ui.WebViewActivity"

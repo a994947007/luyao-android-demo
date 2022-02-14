@@ -19,14 +19,19 @@ import java.util.List;
 public class SimpleRecyclerFragment extends RecyclerFragment {
 
     private final List<Pair<String, Runnable>> mItems = new ArrayList<>();
+    private boolean isAdded = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (isAdded) {
+            return;
+        }
         List<Pair<String, Runnable>> items = bind();
         if (items != null && items.size() > 0) {
             mItems.addAll(items);
         }
+        isAdded = true;
     }
 
     @Nullable

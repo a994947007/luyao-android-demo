@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo</title>
+    <style type="text/css">
+        *{margin: 0; padding: 0;}
+        html{
+            display: flex;
+            height: 100%;
+            justify-content: center;
+            align-items:center;
+        }
+        .rn_container {
+            display: flex;
+            flex-flow: column;
+        }
+        .close{
+            margin-left: auto;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<div id="app" class="home_box"></div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/react/16.13.1/umd/react.production.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/react-dom/16.13.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/babel-standalone/7.0.0-beta.3/babel.min.js"></script>
+
+<script type="text/babel">
+        // 基础层，用于调用native和native callback
+        const config = {};
+        config.os = {};
+        config.os.isIOS = /iOS|iPhone|iPad/i.test(navigator.userAgent);
+        config.os.isAndroid = !config.os.isIOS;
+        window.config = config;
+        config.callbacks = {}
+        config.callback = function(callbackName, response) {
+            const callbackObj = config.callbacks[callbackName];
+            if (callbackObj) {
+                callbackObj.callback(response);
+            }
+        }
+
+        config.executeNativeAction = function(actionName, params) {
+            const request = {};
+            request.name = actionName;
+            request.params = params;
+            if (window.config.os.isAndroid) {
+                window.customWebView.executeNativeAction(JSON.stringify(request));
+            } else {
+                window.webkit.messageHandlers.customWebView.postMessage(JSON.stringify(request));
+            }
+        }
+
+        config.executeNativeActionWithCallback = function(actionName, params, callback) {
+            callbackName = "native2Js_call_" + ((new Date()).getTime() + "_" + Math.floor(Math.random() * 10000));
+            if(!config.callbacks[callbackName]) {
+                config.callbacks[callbackName] = function(response) {
+                    delete config.callbacks[callbackName];
+                    callback(response);
+                };
+            }
+            config.callbacks[callbackName] = {callback: callback};
+            const request = {};
+            request.name = actionName;
+            request.params = params;
+            request.params.callbackName = callbackName;
+            if (window.config.os.isAndroid) {
+                window.customWebView.executeNativeAction(JSON.stringify(request));
+            } else {
+                window.webkit.messageHandlers.customWebView.postMessage(JSON.stringify(request));
+            }
+        }
+
+        // 封装app
+        class App extends React.PureComponent {
+
+            constructor() {
+                super();
+            }
+
+            render() {
+                return (
+                    <div align="center" className="rn_container">
+	                    <img className="close" src="images/close.png" width="20px" onClick={e => this.close()}/>
+                        <img src="images/img2.png" width="300px"/>
+                    </div>
+                )
+            }
+
+            close() {
+                  config.executeNativeAction("closeActivity", {name: "关闭activity"})
+            }
+        }
+
+        ReactDOM.render(<App/>, document.getElementById("app"));
+</script>
+</body>
+</html>
