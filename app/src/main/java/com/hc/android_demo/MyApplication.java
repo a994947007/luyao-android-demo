@@ -23,6 +23,7 @@ public class MyApplication extends BaseApplication {
                 .addCallback(new LoadingCallback())
                 .addCallback(new PageErrorCallback());
 
+        // 解决多个进程访问同一个web路径的问题
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             String processName = getProcessName(this);
             String packageName = this.getPackageName();

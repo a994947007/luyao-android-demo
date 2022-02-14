@@ -21,6 +21,7 @@ import com.jny.webview.webviewProgress.websettings.CommonWebSettings;
 
 /**
  * 该Activity可以被动态调起，由服务端下发命令调起，并支持动态js代码
+ * 用到一个透明的activity和webView
  */
 public class DynamicWebViewActivity extends AppCompatActivity {
 
