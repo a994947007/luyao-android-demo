@@ -28,11 +28,16 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
     private boolean pointerUp = false;
     private boolean isOpen = false;
     private final List<OnSlideListener> mListeners = new ArrayList<>();
+    private final List<OnSecondFloorListener> mOnSecondFloorListeners = new ArrayList<>();
     private ValueAnimator openSlideAnimator;
     private ValueAnimator closeSlideAnimator;
 
     public interface OnSlideListener {
         void onSlide(float offset, float offsetPercent);
+    }
+
+    public interface OnSecondFloorListener {
+        void onStateChange(boolean isOpen);
     }
 
     public void addOnSlideListener(OnSlideListener onSlideListener) {
@@ -41,6 +46,14 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
 
     public void removeOnSlideListener(OnSlideListener onSlideListener) {
         mListeners.remove(onSlideListener);
+    }
+
+    public void addOnSecondFloorListener(OnSecondFloorListener onSecondFloorListener) {
+        mOnSecondFloorListeners.add(onSecondFloorListener);
+    }
+
+    public void removeOnSecondFloorListener(OnSecondFloorListener onSecondFloorListener) {
+        mOnSecondFloorListeners.remove(onSecondFloorListener);
     }
 
     private static final float AUTO_OPEN_OFFSET_THRESHOLD = 500f;
@@ -65,6 +78,7 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
         mFirstFrameLayout = (FrameLayout) getChildAt(1);
         mShadowView = mSecondFrameLayout.getChildAt(1);
         mSecondContainer = mSecondFrameLayout.getChildAt(0);
+        mSecondFrameLayout.setEnabled(false);
         initSlideAnimator();
     }
 
@@ -87,6 +101,7 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     mShadowView.setVisibility(View.GONE);
+                    updateState();
                 }
             });
         }
@@ -104,6 +119,21 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
                 }
             });
         }
+    }
+
+    private void updateState() {
+        if (mTranslateY >= mSecondFrameLayout.getMeasuredHeight()) {
+            if (!isOpen) {
+                isOpen = true;
+                dispatchSecondFloorState(true);
+            }
+        } else {
+            if (isOpen) {
+                isOpen = false;
+                dispatchSecondFloorState(false);
+            }
+        }
+
     }
 
     @Override
@@ -125,7 +155,7 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
 
     @Override
     public boolean onStartNestedScroll(@NonNull View child, @NonNull View target, int axes, int type) {
-        return true;
+        return child == mFirstFrameLayout;
     }
 
     @Override
@@ -153,7 +183,9 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
         for (OnSlideListener mListener : mListeners) {
             mListener.onSlide(translateY, (float) translateY / mSecondFrameLayout.getMeasuredHeight());
         }
+        mTranslateY = translateY;
         mFirstFrameLayout.setTranslationY(translateY);
+        updateState();
         if (translateY <= 1000f) {
             float ratio = (1000f - translateY) / 1000f;
             if (translateY > AUTO_OPEN_OFFSET_THRESHOLD) {
@@ -170,6 +202,12 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
             mShadowView.setAlpha(0);
             mSecondContainer.setScaleX(1);
             mSecondContainer.setScaleY(1);
+        }
+    }
+
+    protected void dispatchSecondFloorState(boolean isOpen) {
+        for (OnSecondFloorListener onSecondFloorListener : mOnSecondFloorListeners) {
+            onSecondFloorListener.onStateChange(isOpen);
         }
     }
 
