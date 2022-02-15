@@ -145,7 +145,7 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
             pointerUp = false;
-        } else if (ev.getAction() == MotionEvent.ACTION_UP) {
+        } else if (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_CANCEL) {
             pointerUp = true;
             if (mTranslateY > AUTO_OPEN_OFFSET_THRESHOLD) {
                 openSlideAnimator.setIntValues(mTranslateY, getMeasuredHeight());
