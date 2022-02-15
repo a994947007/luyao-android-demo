@@ -1,98 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.hc.my_views.secondFloor.SecondFloorContainerView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipChildren="false"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/specialFollowTV"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:text="特别关注"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="30dp"
-        android:textColor="#222222"
-        android:textSize="16sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+   <androidx.core.widget.NestedScrollView
+       android:layout_height="match_parent"
+       android:layout_width="match_parent">
+       <androidx.constraintlayout.widget.ConstraintLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+           <TextView
+               android:id="@+id/specialFollowTV"
+               app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintLeft_toLeftOf="parent"
+               android:text="特别关注"
+               android:layout_marginTop="30dp"
+               android:layout_marginLeft="30dp"
+               android:textColor="#222222"
+               android:textSize="16sp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/specialFollowRecyclerView"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/specialFollowTV"
-        android:clipChildren="false"
-        android:layout_marginTop="10dp"
-        android:layout_width="330dp"
-        android:layout_height="wrap_content"/>
+           <androidx.recyclerview.widget.RecyclerView
+               android:id="@+id/specialFollowRecyclerView"
+               app:layout_constraintLeft_toLeftOf="parent"
+               app:layout_constraintRight_toRightOf="parent"
+               app:layout_constraintTop_toBottomOf="@id/specialFollowTV"
+               android:clipChildren="false"
+               android:layout_marginTop="10dp"
+               android:layout_width="330dp"
+               android:layout_height="wrap_content"/>
 
-    <View
-        app:layout_constraintTop_toBottomOf="@id/specialFollowRecyclerView"
-        android:layout_marginTop="10dp"
-        android:background="#222222"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="1px"/>
+           <View
+               app:layout_constraintTop_toBottomOf="@id/specialFollowRecyclerView"
+               android:layout_marginTop="10dp"
+               android:background="#222222"
+               android:layout_marginLeft="20dp"
+               android:layout_marginRight="20dp"
+               android:layout_width="match_parent"
+               android:layout_height="1px"/>
 
-    <TextView
-        android:id="@+id/specialFollowTip"
-        app:layout_constraintTop_toBottomOf="@id/specialFollowRecyclerView"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:text="全部关注"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="30dp"
-        android:textColor="#222222"
-        android:textSize="16sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+           <TextView
+               android:id="@+id/specialFollowTip"
+               app:layout_constraintTop_toBottomOf="@id/specialFollowRecyclerView"
+               app:layout_constraintLeft_toLeftOf="parent"
+               android:text="全部关注"
+               android:layout_marginTop="30dp"
+               android:layout_marginLeft="30dp"
+               android:textColor="#222222"
+               android:textSize="16sp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/specialFollowTip"
-        android:clipChildren="false"
-        android:layout_marginTop="10dp"
-        android:layout_width="330dp"
-        android:layout_height="wrap_content"/>
+           <androidx.recyclerview.widget.RecyclerView
+               android:id="@+id/recyclerView"
+               app:layout_constraintLeft_toLeftOf="parent"
+               app:layout_constraintRight_toRightOf="parent"
+               app:layout_constraintTop_toBottomOf="@id/specialFollowTip"
+               android:clipChildren="false"
+               android:layout_marginTop="10dp"
+               android:layout_width="330dp"
+               android:layout_height="wrap_content"/>
 
-    <View
-        app:layout_constraintTop_toBottomOf="@id/recyclerView"
-        android:layout_marginTop="10dp"
-        android:background="#222222"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="1px"/>
-    
-    <TextView
-        android:id="@+id/specialTipContainer"
-        android:background="@drawable/special_tip_container_bg"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:text="添加到特别关注"
-        android:textColor="#222222"
-        android:gravity="center"
-        android:textSize="18sp"
-        android:visibility="gone"
-        android:layout_width="300dp"
-        android:layout_height="100dp"/>
+           <View
+               app:layout_constraintTop_toBottomOf="@id/recyclerView"
+               android:layout_marginTop="10dp"
+               android:background="#222222"
+               android:layout_marginLeft="20dp"
+               android:layout_marginRight="20dp"
+               android:layout_width="match_parent"
+               android:layout_height="1px"/>
+
+           <TextView
+               android:id="@+id/specialTipContainer"
+               android:background="@drawable/special_tip_container_bg"
+               app:layout_constraintLeft_toLeftOf="parent"
+               app:layout_constraintRight_toRightOf="parent"
+               app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintBottom_toBottomOf="parent"
+               android:text="添加到特别关注"
+               android:textColor="#222222"
+               android:gravity="center"
+               android:textSize="18sp"
+               android:visibility="gone"
+               android:layout_width="300dp"
+               android:layout_height="100dp"/>
 
 
-    <TextView
-        android:id="@+id/bottom_delete_container"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="gone"
-        android:text="删除"
-        android:gravity="center"
-        android:background="@android:color/holo_red_light"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"/>
+           <TextView
+               android:id="@+id/bottom_delete_container"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"
+               android:visibility="gone"
+               android:text="删除"
+               android:gravity="center"
+               android:background="@android:color/holo_red_light"
+               android:layout_width="match_parent"
+               android:layout_height="80dp"/>
+       </androidx.constraintlayout.widget.ConstraintLayout>
+   </androidx.core.widget.NestedScrollView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</com.hc.my_views.secondFloor.SecondFloorContainerView>

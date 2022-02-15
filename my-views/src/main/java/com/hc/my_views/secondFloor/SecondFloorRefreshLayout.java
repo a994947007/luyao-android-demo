@@ -13,7 +13,6 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.NestedScrollingParent2;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +21,6 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
     private FrameLayout mSecondFrameLayout;
     private FrameLayout mFirstFrameLayout;
     private int mTranslateY = 0;
-    private RecyclerView mRecyclerView;
     private View mShadowView;
     private View mSecondContainer;
     private boolean pointerUp = false;
@@ -68,6 +66,14 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
 
     public SecondFloorRefreshLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+    }
+
+    public void close() {
+        if (mTranslateY == 0) {
+            return;
+        }
+        closeSlideAnimator.setIntValues(mTranslateY, 0);
+        closeSlideAnimator.start();
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -133,7 +139,6 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
                 dispatchSecondFloorState(false);
             }
         }
-
     }
 
     @Override
@@ -159,9 +164,7 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
     }
 
     @Override
-    public void onNestedScrollAccepted(@NonNull View child, @NonNull View target, int axes, int type) {
-        mRecyclerView = (RecyclerView) target;
-    }
+    public void onNestedScrollAccepted(@NonNull View child, @NonNull View target, int axes, int type) { }
 
     @Override
     public boolean onNestedPreFling(View target, float velocityX, float velocityY) {
