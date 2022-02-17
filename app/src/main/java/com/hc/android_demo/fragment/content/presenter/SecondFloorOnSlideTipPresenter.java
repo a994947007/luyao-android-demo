@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.hc.android_demo.R;
+import com.hc.my_views.PullAnimatedView;
 import com.hc.my_views.secondFloor.SecondFloorRefreshLayout;
 import com.hc.support.mvps.Presenter;
 import com.hc.util.ViewUtils;
@@ -13,6 +14,8 @@ public class SecondFloorOnSlideTipPresenter extends Presenter {
     private TextView refreshTip;
     private TextView secondFloorTip;
     private SecondFloorRefreshLayout secondFloorRefreshLayout;
+    private PullAnimatedView pullAnimatedView;
+    private View mShadowView;
 
     @Override
     public void doBindView(View rootView) {
@@ -20,6 +23,8 @@ public class SecondFloorOnSlideTipPresenter extends Presenter {
         refreshTip = rootView.findViewById(R.id.refreshTip);
         secondFloorTip = rootView.findViewById(R.id.secondFloorTip);
         secondFloorRefreshLayout = rootView.findViewById(R.id.secondFloorRefreshLayout);
+        pullAnimatedView = rootView.findViewById(R.id.pullAnimatedView);
+        mShadowView = rootView.findViewById(R.id.shadowView);
     }
 
     @Override
@@ -78,6 +83,18 @@ public class SecondFloorOnSlideTipPresenter extends Presenter {
                         secondFloorTip.setVisibility(View.GONE);
                     }
                 }
+
+                float ratio;
+                if (offset < ViewUtils.dp2px(20)) {
+                    ratio = offset / ViewUtils.dp2px(20);
+                } else {
+                    ratio = 1;
+                }
+
+                int animatedOffsetY = (int) ((int) offset + ViewUtils.dp2px(50) * ratio);
+                pullAnimatedView.show(0, animatedOffsetY, pullAnimatedView.getMeasuredWidth(),
+                        animatedOffsetY,  pullAnimatedView.getMeasuredWidth() / 2, (int) ((int) animatedOffsetY + 120 * ratio));
+                mShadowView.setAlpha(1 - offsetPercent);
             }
         });
     }

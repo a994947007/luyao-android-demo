@@ -19,7 +19,7 @@ import java.util.List;
 
 public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrollingParent2 {
     private FrameLayout mSecondFrameLayout;
-    private FrameLayout mFirstFrameLayout;
+    private View mFirstFrameLayout;
     private int mTranslateY = 0;
     private View mShadowView;
     private View mSecondContainer;
@@ -80,19 +80,19 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        mSecondFrameLayout = (FrameLayout) getChildAt(0);
-        mFirstFrameLayout = (FrameLayout) getChildAt(1);
-        mShadowView = mSecondFrameLayout.getChildAt(1);
-        mSecondContainer = mSecondFrameLayout.getChildAt(0);
-        mSecondFrameLayout.setEnabled(false);
+  //      mSecondFrameLayout = (FrameLayout) getChildAt(0);
+        mFirstFrameLayout = (View) getChildAt(1);
+  //      mShadowView = mSecondFrameLayout.getChildAt(1);
+//        mSecondContainer = mSecondFrameLayout.getChildAt(0);
+//        mSecondFrameLayout.setEnabled(false);
         initSlideAnimator();
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        mSecondContainer.setPivotY(0);
-        mSecondContainer.setPivotX(mSecondFrameLayout.getMeasuredWidth() / 2f);
+//        mSecondContainer.setPivotY(0);
+ //       mSecondContainer.setPivotX(mSecondFrameLayout.getMeasuredWidth() / 2f);
     }
 
     private void initSlideAnimator() {
@@ -106,7 +106,7 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
             openSlideAnimator.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    mShadowView.setVisibility(View.GONE);
+                  //  mShadowView.setVisibility(View.GONE);
                     updateState();
                 }
             });
@@ -121,14 +121,14 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
             closeSlideAnimator.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationStart(Animator animation) {
-                    mShadowView.setVisibility(View.VISIBLE);
+                //    mShadowView.setVisibility(View.VISIBLE);
                 }
             });
         }
     }
 
     private void updateState() {
-        if (mTranslateY >= mSecondFrameLayout.getMeasuredHeight()) {
+        if (mTranslateY >= mFirstFrameLayout.getMeasuredHeight()) {
             if (!isOpen) {
                 isOpen = true;
                 dispatchSecondFloorState(true);
@@ -180,11 +180,11 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
     public void onStopNestedScroll(@NonNull View target, int type) { }
 
     private void processTranslateY(int translateY) {
-        if (translateY > mSecondFrameLayout.getMeasuredHeight()) {
-            translateY = mSecondFrameLayout.getMeasuredHeight();
+        if (translateY > mFirstFrameLayout.getMeasuredHeight()) {
+            translateY = mFirstFrameLayout.getMeasuredHeight();
         }
         for (OnSlideListener mListener : mListeners) {
-            mListener.onSlide(translateY, (float) translateY / mSecondFrameLayout.getMeasuredHeight());
+            mListener.onSlide(translateY, (float) translateY / mFirstFrameLayout.getMeasuredHeight());
         }
         mTranslateY = translateY;
         mFirstFrameLayout.setTranslationY(translateY);
@@ -192,19 +192,19 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
         if (translateY <= 1000f) {
             float ratio = (1000f - translateY) / 1000f;
             if (translateY > AUTO_OPEN_OFFSET_THRESHOLD) {
-                mShadowView.setAlpha((1 - (translateY - AUTO_OPEN_OFFSET_THRESHOLD) / AUTO_OPEN_OFFSET_THRESHOLD));
+           //     mShadowView.setAlpha((1 - (translateY - AUTO_OPEN_OFFSET_THRESHOLD) / AUTO_OPEN_OFFSET_THRESHOLD));
             } else {
-                mShadowView.setAlpha(1);
+             //   mShadowView.setAlpha(1);
             }
             if (1 - ratio < 0.618) {
                 ratio = 0.382f;
             }
-            mSecondContainer.setScaleX(1 - ratio);
-            mSecondContainer.setScaleY(1 - ratio);
+//            mSecondContainer.setScaleX(1 - ratio);
+//            mSecondContainer.setScaleY(1 - ratio);
         } else {
-            mShadowView.setAlpha(0);
-            mSecondContainer.setScaleX(1);
-            mSecondContainer.setScaleY(1);
+         //   mShadowView.setAlpha(0);
+ //           mSecondContainer.setScaleX(1);
+  //          mSecondContainer.setScaleY(1);
         }
     }
 
@@ -218,9 +218,9 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
     public void onNestedScroll(@NonNull View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int type) {
         if (dyUnconsumed < 0 && !pointerUp) {
             // 剩余的滑动距离
-            if (mTranslateY - dyUnconsumed > mSecondFrameLayout.getMeasuredHeight()) {
+            if (mTranslateY - dyUnconsumed > mFirstFrameLayout.getMeasuredHeight()) {
                 // 向下滑最多不超过second的高度
-                mTranslateY = mSecondFrameLayout.getMeasuredHeight();
+                mTranslateY = mFirstFrameLayout.getMeasuredHeight();
             } else {
                 mTranslateY -= dyUnconsumed;
             }

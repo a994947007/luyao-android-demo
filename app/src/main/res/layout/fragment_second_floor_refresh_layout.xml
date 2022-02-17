@@ -4,28 +4,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/holo_blue_bright"
     tools:ignore="MissingDefaultResource">
 
+    <FrameLayout
+        app:layout_constraintTop_toBottomOf="@id/top_bar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <ViewStub
+            android:id="@+id/secondContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout="@layout/fragment_second_floor_content_layout"/>
+    </FrameLayout>
+
+    <View
+        android:id="@+id/shadowView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:foreground="@android:color/holo_blue_bright"/>
+
+    <com.hc.my_views.PullAnimatedView
+        android:id="@+id/pullAnimatedView"
+        android:foreground="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <com.hc.my_views.secondFloor.SecondFloorRefreshLayout
+        app:layout_constraintTop_toBottomOf="@id/top_bar"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/secondFloorRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp">
         <FrameLayout
-            android:background="@android:color/holo_blue_bright"
             android:id="@+id/secondFloorLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <ViewStub
-                    android:id="@+id/secondContainer"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout="@layout/fragment_second_floor_content_layout"/>
-            </FrameLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:background="@android:color/darker_gray"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <TextView
@@ -66,5 +82,15 @@
                 android:layout_height="match_parent"/>
         </FrameLayout>
     </com.hc.my_views.secondFloor.SecondFloorRefreshLayout>
+
+    <TextView
+        android:id="@+id/top_bar"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@android:color/transparent"
+        android:text="顶导"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:layout_height="80dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

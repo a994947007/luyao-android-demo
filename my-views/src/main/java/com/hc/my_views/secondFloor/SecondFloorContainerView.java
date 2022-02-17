@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
@@ -60,11 +61,25 @@ public class SecondFloorContainerView extends FrameLayout implements NestedScrol
     @Override
     public void onNestedScrollAccepted(@NonNull View child, @NonNull View target, int axes, int type) {
         mChildView = child;
-        View parent = (View) getParent();
-        while (!(parent instanceof SecondFloorRefreshLayout)) {
-            parent = (View) parent.getParent();
+        findSecondFloorRefreshLayout((ViewGroup) getRootView());
+    }
+
+    private void findSecondFloorRefreshLayout(ViewGroup parent) {
+        int childCount = parent.getChildCount();
+        if (refreshLayout != null) {
+            return;
         }
-        refreshLayout = (SecondFloorRefreshLayout) parent;
+        for (int i = 0; i < childCount; i++) {
+            View child = parent.getChildAt(i);
+            if (child instanceof SecondFloorRefreshLayout) {
+                refreshLayout = (SecondFloorRefreshLayout) child;
+                return;
+            } else {
+                if (child instanceof ViewGroup) {
+                    findSecondFloorRefreshLayout((ViewGroup) child);
+                }
+            }
+        }
     }
 
     @Override
