@@ -4,10 +4,8 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.Region;
-import android.os.Build;
 import android.util.AttributeSet;
 
 import androidx.annotation.NonNull;
@@ -49,8 +47,6 @@ public class PullAnimatedView extends ConstraintLayout {
         mPaint.setDither(true);
         mPaint.setARGB(255, 244, 92, 71);
         mRect = new Rect();
-
-        // mPaint.setXfermode(new PorterDuffXfermode(android.graphics.PorterDuff.Mode.CLEAR));
     }
 
 
@@ -58,21 +54,12 @@ public class PullAnimatedView extends ConstraintLayout {
     protected void onDraw(Canvas canvas) {
 
         canvas.drawARGB(0, 0, 0, 0);
-        // 画上面的矩形
-/*        mRect.top = 0;
-        mRect.right = getMeasuredWidth();
-        mRect.left = 0;
-        mRect.bottom = startY;
-        // canvas.drawRect(mRect, mPaint);
-        canvas.clipRect(mRect);*/
-        // 画下面的贝塞尔曲形
         mPath.reset();
         mPath.moveTo(0, 0);
         mPath.lineTo(startX, startY);
         mPath.quadTo(controlX, controlY, endX, endY);
         mPath.lineTo(getMeasuredWidth(), 0);
         mPath.close();
-        // canvas.drawPath(mPath, mPaint);
         canvas.clipPath(mPath, Region.Op.DIFFERENCE);
         super.onDraw(canvas);
     }

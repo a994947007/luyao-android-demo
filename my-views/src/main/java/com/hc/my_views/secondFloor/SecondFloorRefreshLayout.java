@@ -21,7 +21,6 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
     private FrameLayout mSecondFrameLayout;
     private View mFirstFrameLayout;
     private int mTranslateY = 0;
-    private View mShadowView;
     private View mSecondContainer;
     private boolean pointerUp = false;
     private boolean isOpen = false;
@@ -82,7 +81,6 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
         super.onFinishInflate();
   //      mSecondFrameLayout = (FrameLayout) getChildAt(0);
         mFirstFrameLayout = (View) getChildAt(1);
-  //      mShadowView = mSecondFrameLayout.getChildAt(1);
 //        mSecondContainer = mSecondFrameLayout.getChildAt(0);
 //        mSecondFrameLayout.setEnabled(false);
         initSlideAnimator();
@@ -106,7 +104,6 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
             openSlideAnimator.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                  //  mShadowView.setVisibility(View.GONE);
                     updateState();
                 }
             });
@@ -117,12 +114,6 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
             closeSlideAnimator.addUpdateListener(animation -> {
                 mTranslateY = (int) animation.getAnimatedValue();
                 processTranslateY(mTranslateY);
-            });
-            closeSlideAnimator.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationStart(Animator animation) {
-                //    mShadowView.setVisibility(View.VISIBLE);
-                }
             });
         }
     }
@@ -189,23 +180,6 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
         mTranslateY = translateY;
         mFirstFrameLayout.setTranslationY(translateY);
         updateState();
-        if (translateY <= 1000f) {
-            float ratio = (1000f - translateY) / 1000f;
-            if (translateY > AUTO_OPEN_OFFSET_THRESHOLD) {
-           //     mShadowView.setAlpha((1 - (translateY - AUTO_OPEN_OFFSET_THRESHOLD) / AUTO_OPEN_OFFSET_THRESHOLD));
-            } else {
-             //   mShadowView.setAlpha(1);
-            }
-            if (1 - ratio < 0.618) {
-                ratio = 0.382f;
-            }
-//            mSecondContainer.setScaleX(1 - ratio);
-//            mSecondContainer.setScaleY(1 - ratio);
-        } else {
-         //   mShadowView.setAlpha(0);
- //           mSecondContainer.setScaleX(1);
-  //          mSecondContainer.setScaleY(1);
-        }
     }
 
     protected void dispatchSecondFloorState(boolean isOpen) {

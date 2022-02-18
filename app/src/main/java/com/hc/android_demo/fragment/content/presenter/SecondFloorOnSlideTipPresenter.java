@@ -1,6 +1,7 @@
 package com.hc.android_demo.fragment.content.presenter;
 
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import com.hc.android_demo.R;
@@ -16,6 +17,7 @@ public class SecondFloorOnSlideTipPresenter extends Presenter {
     private SecondFloorRefreshLayout secondFloorRefreshLayout;
     private PullAnimatedView pullAnimatedView;
     private View mShadowView;
+    private View mSecondFloorContainerView;
 
     @Override
     public void doBindView(View rootView) {
@@ -29,6 +31,9 @@ public class SecondFloorOnSlideTipPresenter extends Presenter {
 
     @Override
     protected void onBind() {
+        if (mSecondFloorContainerView == null) {
+            mSecondFloorContainerView = getRootView().findViewById(R.id.secondContainer);
+        }
         secondFloorRefreshLayout.addOnSlideListener(new SecondFloorRefreshLayout.OnSlideListener() {
             @Override
             public void onSlide(float offset, float offsetPercent) {
@@ -95,6 +100,26 @@ public class SecondFloorOnSlideTipPresenter extends Presenter {
                 pullAnimatedView.show(0, animatedOffsetY, pullAnimatedView.getMeasuredWidth(),
                         animatedOffsetY,  pullAnimatedView.getMeasuredWidth() / 2, (int) ((int) animatedOffsetY + 120 * ratio));
                 mShadowView.setAlpha(1 - offsetPercent);
+
+                if (offset <= 1000f) {
+                    float scaleRatio = (1000f - offset) / 1000f;
+                    if (1 - scaleRatio < 0.618) {
+                        scaleRatio = 0.382f;
+                    }
+                    mSecondFloorContainerView.setScaleX(1 - scaleRatio);
+                    mSecondFloorContainerView.setScaleY(1 - scaleRatio);
+                } else {
+                    mSecondFloorContainerView.setScaleX(1);
+                    mSecondFloorContainerView.setScaleY(1);
+                }
+            }
+        });
+        mSecondFloorContainerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                mSecondFloorContainerView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                mSecondFloorContainerView.setPivotY(0);
+                mSecondFloorContainerView.setPivotX(mSecondFloorContainerView.getMeasuredWidth() / 2f);
             }
         });
     }
