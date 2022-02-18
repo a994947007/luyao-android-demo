@@ -18,16 +18,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrollingParent2 {
-    private FrameLayout mSecondFrameLayout;
     private View mFirstFrameLayout;
     private int mTranslateY = 0;
-    private View mSecondContainer;
     private boolean pointerUp = false;
     private boolean isOpen = false;
     private final List<OnSlideListener> mListeners = new ArrayList<>();
     private final List<OnSecondFloorListener> mOnSecondFloorListeners = new ArrayList<>();
     private ValueAnimator openSlideAnimator;
     private ValueAnimator closeSlideAnimator;
+    private float mInitY;
+    private int mScrollPointerId;   // 用于记录最后一个触摸点的id
 
     public interface OnSlideListener {
         void onSlide(float offset, float offsetPercent);
@@ -79,18 +79,13 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-  //      mSecondFrameLayout = (FrameLayout) getChildAt(0);
         mFirstFrameLayout = (View) getChildAt(1);
-//        mSecondContainer = mSecondFrameLayout.getChildAt(0);
-//        mSecondFrameLayout.setEnabled(false);
         initSlideAnimator();
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-//        mSecondContainer.setPivotY(0);
- //       mSecondContainer.setPivotX(mSecondFrameLayout.getMeasuredWidth() / 2f);
     }
 
     private void initSlideAnimator() {
@@ -114,6 +109,12 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
             closeSlideAnimator.addUpdateListener(animation -> {
                 mTranslateY = (int) animation.getAnimatedValue();
                 processTranslateY(mTranslateY);
+            });
+            closeSlideAnimator.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    updateState();
+                }
             });
         }
     }
@@ -145,8 +146,62 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
                 closeSlideAnimator.setIntValues(mTranslateY, 0);
                 closeSlideAnimator.start();
             }
+            updateState();
         }
         return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        if (isOpen) {
+            return false;
+        }
+        return super.onInterceptTouchEvent(ev);
+    }
+
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (isOpen) {
+            return false;
+        }
+        int action = event.getActionMasked();
+        final int actionIndex = event.getActionIndex();
+        if (action == MotionEvent.ACTION_DOWN) {
+            mScrollPointerId = event.getPointerId(0);
+            mInitY = event.getY();
+        } else if (action == MotionEvent.ACTION_POINTER_DOWN) {
+            mScrollPointerId = event.getPointerId(actionIndex);
+            mInitY = event.getY(actionIndex);
+        } else if (action == MotionEvent.ACTION_MOVE) {
+            // move中只依据最后一根按下的手指
+            int pointerIndex = event.findPointerIndex(mScrollPointerId);
+            float y = event.getY(pointerIndex);
+            float dy = mInitY - y;
+            if (dy <= 0) {
+                // 剩余的滑动距离
+                if (mTranslateY - dy > mFirstFrameLayout.getMeasuredHeight()) {
+                    // 向下滑最多不超过second的高度
+                    mTranslateY = mFirstFrameLayout.getMeasuredHeight();
+                } else {
+                    mTranslateY -= dy;
+                }
+                processTranslateY(mTranslateY);
+            } else {
+                if (dy > 0 && mTranslateY > 0) {
+                    // 向上滑并且是展开或者半展开态
+                    if (mTranslateY - dy <= 0) {
+                        mTranslateY = 0;
+                        processTranslateY(mTranslateY);
+                    } else {
+                        mTranslateY -= dy;
+                        processTranslateY(mTranslateY);
+                    }
+                }
+            }
+            mInitY = y;
+        }
+        return true;
     }
 
     @Override
@@ -179,7 +234,6 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
         }
         mTranslateY = translateY;
         mFirstFrameLayout.setTranslationY(translateY);
-        updateState();
     }
 
     protected void dispatchSecondFloorState(boolean isOpen) {
