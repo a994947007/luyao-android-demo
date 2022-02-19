@@ -223,7 +223,9 @@ public class SecondFloorRefreshLayout extends FrameLayout implements NestedScrol
     }
 
     @Override
-    public void onStopNestedScroll(@NonNull View target, int type) { }
+    public void onStopNestedScroll(@NonNull View target, int type) {
+        updateState();
+    }
 
     private void processTranslateY(int translateY) {
         if (translateY > mFirstFrameLayout.getMeasuredHeight()) {
