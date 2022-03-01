@@ -36,7 +36,12 @@ public class Presenter implements ViewBinder{
     }
 
     public Activity getActivity() {
-        Context context = rootView.getContext();
+        for (Context context = getContext(); context instanceof android.content.ContextWrapper;
+             context = ((android.content.ContextWrapper)context).getBaseContext()) {
+            if (context instanceof Activity) {
+                return (Activity) context;
+            }
+        }
         return null;
     }
 
