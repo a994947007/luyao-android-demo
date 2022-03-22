@@ -12,17 +12,23 @@ buildscript {
     }
 }
 
+Properties properties = new Properties()
+InputStream inputStream = project.rootProject.file('local.properties').newDataInputStream();
+properties.load(inputStream)
+
 allprojects {
     repositories {
         google()
         jcenter()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
         maven {
             // All of React Native (JS, Android binaries) is installed from npm
-            url "$rootDir/../node_modules/react-native/android"
+            url properties.getProperty('reactnative.dir')
         }
         maven {
             // Android JSC is installed from npm
-            url("$rootDir/../node_modules/jsc-android/dist")
+            url(properties.getProperty('reactnativedist.dir'))
         }
     }
 }
@@ -35,9 +41,10 @@ ext {
     compileSdkVersion = 30
     buildToolsVersion = "30.0.2"
     applicationId = "com.hc.android_demo"
-    minSdkVersion = 18
+    minSdkVersion = 21
     targetSdkVersion = 30
     androidxVersion = "1.2.0"
     autoServiceDependency = 'com.google.auto.service:auto-service:1.0-rc7'
     asmVersion = '9.0'
+    reactVersion = "0.67.1"
 }

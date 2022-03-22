@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jny.react_native">
+
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <application>
+        <activity
+            android:name=".MyReactActivity"
+            android:exported="true" />
+        <activity android:name="com.facebook.react.devsupport.DevSettingsActivity"/>
+    </application>
+
 </manifest>

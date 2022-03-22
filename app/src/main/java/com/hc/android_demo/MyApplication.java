@@ -8,12 +8,12 @@ import android.webkit.WebView;
 import androidx.multidex.MultiDex;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.hc.base.BaseApplication;
 import com.hc.support.loadSir.LoadSir;
 import com.jny.common.load.LoadingCallback;
 import com.jny.common.load.PageErrorCallback;
+import com.jny.react_native.MyReactApplication;
 
-public class MyApplication extends BaseApplication {
+public class MyApplication extends MyReactApplication {
     @Override
     public void onCreate() {
         super.onCreate();

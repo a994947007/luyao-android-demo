@@ -12,7 +12,11 @@ import androidx.fragment.app.Fragment;
 
 import com.hc.android_demo.R;
 import com.hc.android_demo.fragment.base.SimpleRecyclerFragment;
+import com.hc.base.activity.LuActivity;
+import com.hc.util.ActivityUtils;
 import com.hc.util.ViewUtils;
+import com.jny.common.fragment.FragmentConstants;
+import com.jny.react_native.MyReactActivity;
 import com.jny.webview.webviewProgress.constants.Constants;
 import com.jny.webview.webviewProgress.ui.DynamicWebViewActivity;
 
@@ -25,6 +29,7 @@ public class DynamicFragment extends SimpleRecyclerFragment {
 
     {
         addItem("动态化activity", this::onClickDynamicWebViewActivity);
+        addItem("React Native Fragment", this::onClickRNFragment);
     }
 
     private DynamicFragment() { }
@@ -58,4 +63,12 @@ public class DynamicFragment extends SimpleRecyclerFragment {
         startActivity(intent);
     }
 
+    private void onClickRNFragment() {
+        // startContentActivity(FragmentConstants.REACT_NATIVE_FRAGMENT_ID);
+        startActivity(new Intent(getActivity(), MyReactActivity.class));
+    }
+
+    private void startContentActivity(String id) {
+        ActivityUtils.startContentActivity((LuActivity) getActivity(), id);
+    }
 }
