@@ -64,8 +64,8 @@ public class DynamicFragment extends SimpleRecyclerFragment {
     }
 
     private void onClickRNFragment() {
-        // startContentActivity(FragmentConstants.REACT_NATIVE_FRAGMENT_ID);
-        startActivity(new Intent(getActivity(), MyReactActivity.class));
+        startContentActivity(FragmentConstants.REACT_NATIVE_FRAGMENT_ID);
+        // startActivity(new Intent(getActivity(), MyReactActivity.class));
     }
 
     private void startContentActivity(String id) {

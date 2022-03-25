@@ -15,7 +15,7 @@ public class MyReactApplication extends BaseApplication implements ReactApplicat
 
         @Override
         public boolean getUseDeveloperSupport() {
-            return BuildConfig.DEBUG;
+            return true;
         }
 
         @Override
@@ -23,6 +23,11 @@ public class MyReactApplication extends BaseApplication implements ReactApplicat
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage()
             );
+        }
+
+        @Override
+        protected String getJSMainModuleName() {
+            return "index";
         }
     };
 

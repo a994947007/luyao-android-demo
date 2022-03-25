@@ -1,5 +1,6 @@
 package com.jny.react_native;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -38,6 +39,7 @@ public class MyReactFragment extends Fragment implements ActivityStarter {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+        getReactInstanceManager().onHostResume((Activity) getContext());
         return mReactRootView;
     }
 

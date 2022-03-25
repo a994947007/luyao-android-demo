@@ -24,7 +24,8 @@ allprojects {
         maven { url "https://jitpack.io" }
         maven {
             // All of React Native (JS, Android binaries) is installed from npm
-            url properties.getProperty('reactnative.dir')
+            // url properties.getProperty('reactnative.dir')
+            url 'E:/React/react-app/myApp/node_modules/react-native/android'
         }
         maven {
             // Android JSC is installed from npm
@@ -46,5 +47,5 @@ ext {
     androidxVersion = "1.2.0"
     autoServiceDependency = 'com.google.auto.service:auto-service:1.0-rc7'
     asmVersion = '9.0'
-    reactVersion = "0.67.1"
+    reactVersion = "0.67.4"
 }
