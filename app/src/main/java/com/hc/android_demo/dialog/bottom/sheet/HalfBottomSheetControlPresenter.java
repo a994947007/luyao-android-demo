@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.util.Log;
-import android.util.Printer;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -47,6 +46,7 @@ public class HalfBottomSheetControlPresenter extends Presenter {
         mBehavior = (HalfBottomSheetBehavior<View>) BottomSheetBehavior.from(containerView);
         mCurrentOffsetPix = mInitOffsetPix;
         mBehavior.setPeekHeight(ViewUtils.dp2px(900));
+        mBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         mBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
@@ -57,6 +57,9 @@ public class HalfBottomSheetControlPresenter extends Presenter {
 
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+                if (slideOffset < -0.5f) {
+                    dialogFragmentTest.dismissAllowingStateLoss();
+                }
                 if (isExpanded && slideOffset <= 0 && slideOffset >= -1) {
                     float slideOffsetPx = getSlideOffsetPx(slideOffset);
                     if (slideOffsetPx < -ViewUtils.dp2px(200)) {
