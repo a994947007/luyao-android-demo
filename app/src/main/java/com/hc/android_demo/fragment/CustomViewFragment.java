@@ -10,6 +10,7 @@ import android.util.Pair;
 import android.view.View;
 import com.hc.android_demo.R;
 
+import com.hc.android_demo.dialog.bottom.sheet.HalfBottomSheetDialogFragmentTest;
 import com.hc.android_demo.fragment.base.SimpleRecyclerFragment;
 import com.hc.base.activity.LuActivity;
 import com.hc.base.autoservice.AutoServiceManager;
@@ -62,6 +63,7 @@ public class CustomViewFragment extends SimpleRecyclerFragment {
         items.add(new Pair<>("PhotoView，支持图片双击放大双击缩小", this::onClickPhotoViewActivity));
         items.add(new Pair<>("长图+落坑动画", this::onClickLongImageViewActivity));
         items.add(new Pair<>("仿微信二层楼", this::onClickSecondFloorRefreshLayout));
+        items.add(new Pair<>("可扩展半屏弹窗", this::onClickHalfBottomSheetDialog));
     }
 
     @Override
@@ -206,5 +208,10 @@ public class CustomViewFragment extends SimpleRecyclerFragment {
 
     private void onClickLongImageViewActivity() {
         startContentActivity(FragmentConstants.LONG_VIEW_IMAGE_TEST_FRAGMENT_ID);
+    }
+
+    private void onClickHalfBottomSheetDialog() {
+        HalfBottomSheetDialogFragmentTest dialogFragmentTest = new HalfBottomSheetDialogFragmentTest();
+        dialogFragmentTest.show(getFragmentManager(), "HalfBottomSheetDialogFragmentTest");
     }
 }

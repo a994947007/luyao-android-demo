@@ -50,6 +50,7 @@
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/fragment_simple_recycler_container_layout.xml" value="0.4473958333333333" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/fragment_slide_menu.xml" value="0.5181159420289855" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/fragment_vertical_drawer_recycler_view.xml" value="0.53125" />
+        <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/half_bottom_sheet_layout.xml" value="0.4053442028985507" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/image_item.xml" value="0.5385416666666667" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/menu_recycler_item.xml" value="0.5385416666666667" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/recycler_item.xml" value="0.4005208333333333" />
@@ -58,6 +59,7 @@
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/recycler_user_item_layout.xml" value="0.5267210144927537" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/recylcer_item_user_layout.xml" value="0.5058876811594203" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/slide_menu.xml" value="0.5846920289855072" />
+        <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/test_half_bottom_sheet_dialog_fragment_layout.xml" value="0.4053442028985507" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/menu/bottom_menu.xml" value="0.39427083333333335" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/menu/bottom_nav.xml" value="0.39427083333333335" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/xml/network_security_config.xml" value="0.425" />
@@ -72,6 +74,7 @@
         <entry key="..\:/IDEA CODE/androiddemo/dialog/src/main/res/layout/bsd_v1_layout.xml" value="0.5864583333333333" />
         <entry key="..\:/IDEA CODE/androiddemo/dialog/src/main/res/layout/bsd_v2_layout.xml" value="0.5864583333333333" />
         <entry key="..\:/IDEA CODE/androiddemo/dialog/src/main/res/layout/bsd_v3_layout.xml" value="0.4328125" />
+        <entry key="..\:/IDEA CODE/androiddemo/dialog/src/main/res/layout/half_bottom_sheet_layout.xml" value="0.4053442028985507" />
         <entry key="..\:/IDEA CODE/androiddemo/dialog/src/main/res/layout/landscape_input_panel.xml" value="0.2994791666666667" />
         <entry key="..\:/IDEA CODE/androiddemo/my-views/src/main/res/layout/recycler_item.xml" value="0.6286458333333333" />
         <entry key="..\:/IDEA CODE/androiddemo/support/src/main/res/layout/layout_load_sir.xml" value="0.3927083333333333" />

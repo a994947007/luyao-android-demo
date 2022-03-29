@@ -86,7 +86,12 @@ public class SimpleRecyclerView extends RecyclerView {
         public void onBindViewHolder(@NonNull SimpleRecyclerViewHolder holder, int position) {
             TextView itemTextView = holder.itemView.findViewById(titleRes);
             itemTextView.setText(items.get(position).first);
-            holder.itemView.setOnClickListener(v -> items.get(position).second.run());
+            holder.itemView.setOnClickListener(v -> {
+                if (items.get(position).second == null) {
+                    return;
+                }
+                items.get(position).second.run();
+            });
         }
 
         @Override
