@@ -39,7 +39,6 @@ public class HalfBottomSheetDialogFragmentTest extends HalfBottomSheetDialogFrag
     public void onViewCreated(@NonNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         SimpleRecyclerView homeRecyclerView = view.findViewById(R.id.recyclerView);
-        homeRecyclerView.getLayoutParams().height = ViewUtils.dp2px(450);
         homeRecyclerView.setLayoutRes(R.layout.recycler_item);
         homeRecyclerView.setTitleRes(R.id.recycler_item_text_view);
         homeRecyclerView.bind(items);
