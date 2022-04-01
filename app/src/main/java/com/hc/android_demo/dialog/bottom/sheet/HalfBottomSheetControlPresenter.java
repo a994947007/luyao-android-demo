@@ -27,10 +27,15 @@ public class HalfBottomSheetControlPresenter extends Presenter {
     protected void onBind() {
         super.onBind();
         headerView.setOnClickListener(v -> {
-            if (!mContainer.isFullExpended) {
+            if (!mContainer.isFullExpanded) {
                 mContainer.halfToFull();
             } else {
                 mContainer.fullToHalf();
+            }
+        });
+        mContainer.addOnStateChangeListener(state -> {
+            if (state == HalfBottomSheetView.STATE_HIDDEN) {
+                dialogFragmentTest.dismissAllowingStateLoss();
             }
         });
     }

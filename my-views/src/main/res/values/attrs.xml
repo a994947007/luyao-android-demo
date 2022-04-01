@@ -72,4 +72,8 @@
     <declare-styleable name="PhotoView">
         <attr name="android:src" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="HalfBottomSheetView">
+        <attr name="android:maxHeight"/>
+    </declare-styleable>
 </resources>

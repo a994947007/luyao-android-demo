@@ -7,6 +7,8 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>
+        <!-- dialog需要添加该属性，否则会自动向上偏移 -->
+        <item name="android:windowSoftInputMode">adjustNothing</item>
     </style>
     <style name="bottomSheetStyleWrapper" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@android:color/transparent</item>
