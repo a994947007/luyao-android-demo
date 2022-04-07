@@ -13,7 +13,6 @@ import com.hc.android_demo.R;
 import com.hc.bottom.HalfBottomSheetDialogFragment;
 import com.hc.my_views.SimpleRecyclerView;
 import com.hc.support.mvps.Presenter;
-import com.hc.util.ViewUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +23,7 @@ public class HalfBottomSheetDialogFragmentTest extends HalfBottomSheetDialogFrag
 
     private final List<Pair<String, Runnable>> items = new ArrayList<>();
     {
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 50; i++) {
             items.add(new Pair<>("可扩展半屏弹窗" + i, null));
         }
     }
@@ -36,7 +35,7 @@ public class HalfBottomSheetDialogFragmentTest extends HalfBottomSheetDialogFrag
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         SimpleRecyclerView homeRecyclerView = view.findViewById(R.id.recyclerView);
         homeRecyclerView.setLayoutRes(R.layout.recycler_item);
@@ -45,7 +44,7 @@ public class HalfBottomSheetDialogFragmentTest extends HalfBottomSheetDialogFrag
     }
 
     @Override
-    public void onActivityCreated(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         bindPresenters(getView());
     }

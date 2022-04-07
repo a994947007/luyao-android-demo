@@ -1,21 +1,23 @@
-package com.jny.react_native.component;
+package com.jny.react_native.component.edit;
 
 import android.text.Spannable;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
-import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.BaseViewManager;
 import com.facebook.react.uimanager.LayoutShadowNode;
 import com.facebook.react.uimanager.ThemedReactContext;
+import com.facebook.react.views.text.ReactBaseTextShadowNode;
 import com.facebook.react.views.text.ReactTextUpdate;
+import com.facebook.react.views.text.ReactTextViewManagerCallback;
 import com.facebook.react.views.text.TextInlineImageSpan;
 
 public class CustomReactEditViewManager extends BaseViewManager<CustomReactEditView, LayoutShadowNode> {
     @NonNull
     @Override
     public String getName() {
-        return "RCCustomReactEditView";
+        return "RCTCustomReactEditView";
     }
 
     @NonNull
@@ -43,18 +45,14 @@ public class CustomReactEditViewManager extends BaseViewManager<CustomReactEditV
         }
     }
 
-    @Override
-    public LayoutShadowNode createShadowNodeInstance() {
+    public ReactBaseTextShadowNode createShadowNodeInstance() {
         return new CustomReactEditViewShadowNode();
     }
 
-    @NonNull
-    @Override
-    public LayoutShadowNode createShadowNodeInstance(@NonNull ReactApplicationContext context) {
-        return super.createShadowNodeInstance(context);
+    public ReactBaseTextShadowNode createShadowNodeInstance(@Nullable ReactTextViewManagerCallback reactTextViewManagerCallback) {
+        return new CustomReactEditViewShadowNode(reactTextViewManagerCallback);
     }
 
-    @Override
     public Class<? extends LayoutShadowNode> getShadowNodeClass() {
         return CustomReactEditViewShadowNode.class;
     }
