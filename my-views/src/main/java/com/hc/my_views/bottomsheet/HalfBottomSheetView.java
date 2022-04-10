@@ -1,5 +1,6 @@
 package com.hc.my_views.bottomsheet;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
@@ -46,6 +48,7 @@ public class HalfBottomSheetView extends FrameLayout implements NestedScrollingP
     public boolean isFullExpanded = false;
     private boolean isToHalf = false;
 
+    private @Nullable WeakReference<View> nestedScrollingChildRef;
     private ViewDragHelper viewDragHelper;
     private ValueAnimator halfToFullAnimator;
     private ValueAnimator fullToHalfAnimator;
@@ -60,7 +63,7 @@ public class HalfBottomSheetView extends FrameLayout implements NestedScrollingP
 
     private boolean mDirectHidden = false;  // 下拉是否直接关闭
     private boolean mIsQuickPullHidden = true; // 是否快速支持快速下滑关闭面板
-    private int mQuickPullYvel = 1000; // 快速滑动关闭面板阈值
+    private int mQuickPullYvel = 2000; // 快速滑动关闭面板阈值
     private int mToHalfOffsetLimit;  // 面板折叠阈值
 
     private final List<OnStateChangeListener> mOnStateChangeListeners = new ArrayList<>();
@@ -179,6 +182,7 @@ public class HalfBottomSheetView extends FrameLayout implements NestedScrollingP
             }
         });
         ensureLimitOffset();
+        nestedScrollingChildRef = new WeakReference<>(findScrollingChild(this));
     }
 
     private final ViewDragHelper.Callback mDragHelperCallback = new ViewDragHelper.Callback() {
@@ -277,8 +281,16 @@ public class HalfBottomSheetView extends FrameLayout implements NestedScrollingP
         if (!isShown()) {
             return false;
         }
-        int initX = (int) getX();
+        int initX = (int) ev.getX();
         int initY = (int) ev.getY();
+        int action = ev.getActionMasked();
+        if (action == MotionEvent.ACTION_DOWN) {
+            isIntercept = false;
+        }
+        View scroll = nestedScrollingChildRef != null ? nestedScrollingChildRef.get() : null;
+        if (scroll != null && isPointInChildBounds(scroll, initX, initY)) {
+            return false;
+        }
         if (isPointInChildrenBounds(initX, initY) || !viewDragHelper.shouldInterceptTouchEvent(ev)) {
             return false;
         }
@@ -287,12 +299,12 @@ public class HalfBottomSheetView extends FrameLayout implements NestedScrollingP
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
+    public boolean onTouchEvent(MotionEvent ev) {
         if (!isShown()) {
             return false;
         }
         if (viewDragHelper != null) {
-            viewDragHelper.processTouchEvent(event);
+            viewDragHelper.processTouchEvent(ev);
         }
         return true;
     }
@@ -465,6 +477,22 @@ public class HalfBottomSheetView extends FrameLayout implements NestedScrollingP
     }
 
     private static final Pools.Pool<Rect> sRectPool = new Pools.SynchronizedPool<>(12);
+
+    View findScrollingChild(View view) {
+        if (ViewCompat.isNestedScrollingEnabled(view)) {
+            return view;
+        }
+        if (view instanceof ViewGroup) {
+            ViewGroup group = (ViewGroup) view;
+            for (int i = 0, count = group.getChildCount(); i < count; i++) {
+                View scrollingChild = findScrollingChild(group.getChildAt(i));
+                if (scrollingChild != null) {
+                    return scrollingChild;
+                }
+            }
+        }
+        return null;
+    }
 
     public boolean isPointInChildrenBounds(int x, int y) {
         for (int i = 0; i < getChildCount(); i++) {
