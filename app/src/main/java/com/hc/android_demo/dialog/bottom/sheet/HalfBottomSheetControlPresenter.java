@@ -4,6 +4,7 @@ import android.view.View;
 import com.hc.android_demo.R;
 import com.hc.my_views.bottomsheet.HalfBottomSheetView;
 import com.hc.support.mvps.Presenter;
+import com.hc.util.ViewUtils;
 
 public class HalfBottomSheetControlPresenter extends Presenter {
     private View headerView;
@@ -26,6 +27,7 @@ public class HalfBottomSheetControlPresenter extends Presenter {
     @Override
     protected void onBind() {
         super.onBind();
+        mContainer.setMaxHeight(ViewUtils.getDisplayHeight(getContext()) - ViewUtils.dp2px(20f));
         headerView.setOnClickListener(v -> {
             if (!mContainer.isFullExpanded) {
                 mContainer.halfToFull();

@@ -1,5 +1,6 @@
 package com.hc.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
@@ -27,16 +28,6 @@ public class ViewUtils {
     public static int px2dp(float px) {
         float scale = Resources.getSystem().getDisplayMetrics().density;
         return (int)(px / scale + 0.5f * (px >= 0 ? 1 : -1));
-    }
-
-    public static int getDisplayWidth(Context context) {
-        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        return displayMetrics.widthPixels;
-    }
-
-    public static int getDisplayHeight(Context context) {
-        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        return displayMetrics.heightPixels;
     }
 
     private static float DECELERATION_RATE = ((float) (Math.log(0.78d) / Math.log(0.9d)));
@@ -73,5 +64,38 @@ public class ViewUtils {
         return context.getString(resId);
     }
 
+    public static int getStatusBarHeight() {
+        Resources resources = AppEnvironment.getAppContext().getResources();
+        int resourceId = resources.getIdentifier("status_bar_height", "dimen","android");
+        return resources.getDimensionPixelSize(resourceId);
+    }
 
+    public static int getNavigationBarHeight() {
+        Resources resources = AppEnvironment.getAppContext().getResources();
+        int resourceId = resources.getIdentifier("navigation_bar_height","dimen", "android");
+        return resources.getDimensionPixelSize(resourceId);
+    }
+
+    public static int getScreenWidth(Activity activity) {
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getRealMetrics(outMetrics);
+        return outMetrics.widthPixels;
+    }
+
+    public static int getScreenHeight(Activity activity) {
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getRealMetrics(outMetrics);
+        return outMetrics.heightPixels;
+    }
+
+    public static int getDisplayWidth(Context context) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        return displayMetrics.widthPixels;
+    }
+
+    // displayHeight = screenHeight - statusBarHeight - navigationBarHeight
+    public static int getDisplayHeight(Context context) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        return displayMetrics.heightPixels;
+    }
 }

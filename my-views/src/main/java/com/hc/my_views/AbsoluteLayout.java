@@ -13,6 +13,8 @@ import androidx.core.util.Pools;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 
+import com.hc.util.ViewUtils;
+
 /**
  * 绝对布局，不受键盘弹起影响
  */
@@ -46,7 +48,12 @@ public class AbsoluteLayout extends ViewGroup {
     int parentPaddingRight = getPaddingRight();
     int parentPaddingTop = getPaddingTop();
     int parentPaddingBottom = getPaddingBottom();
+    final int widthPadding = parentPaddingLeft + parentPaddingRight;
+    final int heightPadding = parentPaddingTop + parentPaddingBottom;
     int childCount = getChildCount();
+    int childState = 0;
+    int widthUsed = mInitWidth;
+    int heightUsed = mInitHeight;
     for (int i = 0; i < childCount; i++) {
       View child = getChildAt(i);
       final MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
@@ -57,8 +64,16 @@ public class AbsoluteLayout extends ViewGroup {
           parentPaddingTop + parentPaddingBottom +lp.topMargin + lp.bottomMargin,
           lp.height);
       child.measure(childWidthMeasureSpec, childHeightMeasureSpec);
+      childState = View.combineMeasuredStates(childState, child.getMeasuredState());
+      widthUsed = Math.max(widthUsed, child.getMeasuredWidth() + widthPadding +  lp.leftMargin + lp.rightMargin);
+      heightUsed = Math.max(heightUsed, child.getMeasuredHeight() + heightPadding + lp.topMargin + lp.bottomMargin);
     }
-    setMeasuredDimension(mInitWidth, mInitHeight);
+
+    final int width = View.resolveSizeAndState(widthUsed, widthMeasureSpec,
+            childState & View.MEASURED_STATE_MASK);
+    final int height = View.resolveSizeAndState(heightUsed, heightMeasureSpec,
+            childState << View.MEASURED_HEIGHT_STATE_SHIFT);
+    setMeasuredDimension(width, height);
   }
 
   @Override
@@ -73,6 +88,7 @@ public class AbsoluteLayout extends ViewGroup {
       View child = getChildAt(i);
       final AbsoluteLayoutParams lp = (AbsoluteLayoutParams) child.getLayoutParams();
 
+      //parent height算小了，会导致View有一部分画不出来
       final Rect parent = acquireTempRect();
       parent.set(parentPaddingLeft + lp.leftMargin,
           parentPaddingTop + lp.topMargin,
