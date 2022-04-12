@@ -1,6 +1,7 @@
 package com.jny.react_native.component.edit;
 
 import android.text.Spannable;
+import android.view.LayoutInflater;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,6 +13,7 @@ import com.facebook.react.views.text.ReactBaseTextShadowNode;
 import com.facebook.react.views.text.ReactTextUpdate;
 import com.facebook.react.views.text.ReactTextViewManagerCallback;
 import com.facebook.react.views.text.TextInlineImageSpan;
+import com.jny.react_native.R;
 
 public class CustomReactEditViewManager extends BaseViewManager<CustomReactEditView, LayoutShadowNode> {
     @NonNull
@@ -23,7 +25,7 @@ public class CustomReactEditViewManager extends BaseViewManager<CustomReactEditV
     @NonNull
     @Override
     protected CustomReactEditView createViewInstance(@NonNull ThemedReactContext reactContext) {
-        return new CustomReactEditView(reactContext);
+        return (CustomReactEditView) LayoutInflater.from(reactContext).inflate(R.layout.custom_edit_text, null, false);
     }
 
     @Override

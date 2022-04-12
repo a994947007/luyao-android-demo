@@ -13,11 +13,13 @@ import com.jny.common.component.SimpleTextWatcher;
 
 public class CustomReactEditView extends AppCompatEditText {
     public CustomReactEditView(Context context) {
-        this(context, null);
+        super(context);
+        initView();
     }
 
     public CustomReactEditView(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
+        super(context, attrs);
+        initView();
     }
 
     public CustomReactEditView(Context context, AttributeSet attrs, int defStyleAttr) {
