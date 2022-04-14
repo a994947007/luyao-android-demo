@@ -8,7 +8,7 @@
     android:paddingBottom="6dp"
     android:layout_height="wrap_content">
 
-    <EditText
+    <com.hc.dialog.CustomEditText
         android:id="@+id/edit_text"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,8 +17,10 @@
         android:layout_marginStart="10dp"
         android:background="@drawable/background_input"
         android:layout_marginEnd="10dp"
+        android:maxHeight="100dp"
+        android:minHeight="50dp"
         android:layout_width="0dp"
-        android:layout_height="50dp"/>
+        android:layout_height="wrap_content"/>
     
     <Button
         android:id="@+id/btn"

@@ -6,6 +6,10 @@
         <activity
             android:name=".activity.ContentActivity"
             android:exported="true" />
+        <activity
+            android:name=".activity.StitchingActivity"
+            android:theme="@style/bg_transit_activity"
+            android:exported="true" />
     </application>
 
 </manifest>

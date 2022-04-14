@@ -32,10 +32,10 @@
     <style name="bg_transit_activity" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">#00000000</item>
         <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowAnimationStyle">@style/right_in_right_out_anim</item>
+        <item name="android:windowAnimationStyle">@style/none_anim</item>
     </style>
 
-    <style name="right_in_right_out_anim" parent="@android:style/Animation.Activity">
+    <style name="none_anim" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/in_from_right</item>
         <item name="android:activityOpenExitAnimation">@anim/out_to_right</item>
     </style>

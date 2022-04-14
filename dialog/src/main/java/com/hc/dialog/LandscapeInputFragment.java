@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,7 +18,7 @@ import com.hc.util.SystemServiceUtils;
 
 public class LandscapeInputFragment extends DialogFragment {
     private Activity activity;
-    public EditText editText;
+    public CustomEditText editText;
     private View contentView;
     private boolean isExpanded;
 

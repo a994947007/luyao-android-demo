@@ -23,6 +23,7 @@ public class ContentActivity extends LuActivity {
         Intent intent = getIntent();
         String fragmentId = intent.getStringExtra(Constants.CONTENT_FRAGMENT_KEY);
         Fragment fragment = ContentActivityManager.getInstance().get(fragmentId);
+        fragment.setArguments(intent.getExtras());
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commitAllowingStateLoss();

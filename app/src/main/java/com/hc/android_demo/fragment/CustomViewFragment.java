@@ -61,9 +61,10 @@ public class CustomViewFragment extends SimpleRecyclerFragment {
         items.add(new Pair<>("输入框Dialog", this::onClickLandscapeInputFragment));
         items.add(new Pair<>("组件化(AutoService)+DataBinding+WebVIew", this::onClickWebViewActivity));
         items.add(new Pair<>("PhotoView，支持图片双击放大双击缩小", this::onClickPhotoViewActivity));
-        items.add(new Pair<>("长图+落坑动画", this::onClickLongImageViewActivity));
+        items.add(new Pair<>("PhotoView，长图", this::onClickLongImageViewActivity));
         items.add(new Pair<>("仿微信二层楼", this::onClickSecondFloorRefreshLayout));
         items.add(new Pair<>("可扩展半屏弹窗", this::onClickHalfBottomSheetDialog));
+        items.add(new Pair<>("落坑动画", this::onClickStitchingImageFragment));
     }
 
     @Override
@@ -213,5 +214,9 @@ public class CustomViewFragment extends SimpleRecyclerFragment {
     private void onClickHalfBottomSheetDialog() {
         HalfBottomSheetDialogFragmentTest dialogFragmentTest = new HalfBottomSheetDialogFragmentTest();
         dialogFragmentTest.show(getFragmentManager(), "HalfBottomSheetDialogFragmentTest");
+    }
+
+    private void onClickStitchingImageFragment() {
+        startContentActivity(FragmentConstants.STITCHING_ANIMATION_FRAGMENT_ID);
     }
 }
