@@ -5,9 +5,10 @@ import android.animation.AnimatorListenerAdapter;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.SurfaceView;
+import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,26 +17,32 @@ import androidx.fragment.app.Fragment;
 import com.google.auto.service.AutoService;
 import com.hc.android_demo.R;
 import com.hc.android_demo.constants.Constants;
+import com.hc.android_demo.fragment.content.player.LuPlayer;
+import com.hc.android_demo.fragment.content.player.LuSurfaceTexturePlayer;
 import com.hc.base.activity.ActivityStarter;
 import com.hc.base.fragment.BaseFragment;
 import com.jny.common.fragment.FragmentConstants;
 
 @AutoService({ActivityStarter.class})
-public class StitchingImageFragment extends BaseFragment implements ActivityStarter {
+public class StitchingTextureViewVideoFragment extends BaseFragment implements ActivityStarter {
 
-    private ImageView imageView;
+    private TextureView textureView;
     private StitchingAnimation stitchingAnimation;
+    String videoPath = "https://vd3.bdstatic.com/mda-khmgmk56bmk05j5j/sc/mda-khmgmk56bmk05j5j.mp4";
+    private LuSurfaceTexturePlayer mPlayer;
     private boolean isStarted = false;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_stitching_image_layout, container, false);
+        return inflater.inflate(R.layout.fragment_stitching_texture_video_layout, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        imageView = view.findViewById(R.id.imgView);
+        textureView = view.findViewById(R.id.textureView);
+        mPlayer = new LuSurfaceTexturePlayer(videoPath);
+        textureView.setSurfaceTextureListener(mPlayer);
     }
 
     @Override
@@ -46,7 +53,14 @@ public class StitchingImageFragment extends BaseFragment implements ActivityStar
                 Bundle arguments = getArguments();
                 if (arguments != null) {
                     Rect fromPosition = arguments.getParcelable(Constants.FROM_RECT_PARAMS_ID);
-                    stitchingAnimation = new StitchingAnimation(fromPosition, imageView);
+                    stitchingAnimation = new StitchingAnimation(fromPosition, getView());
+                    stitchingAnimation.addExpandAnimatorListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            mPlayer.getMediaPlayer().setVolume(1f, 1f);
+                            mPlayer.play();
+                        }
+                    });
                     stitchingAnimation.addCollapseAnimatorListener(new AnimatorListenerAdapter() {
                         @Override
                         public void onAnimationEnd(Animator animation) {
@@ -59,8 +73,17 @@ public class StitchingImageFragment extends BaseFragment implements ActivityStar
                 stitchingAnimation.open();
             }
             isStarted = true;
+        } else {
+            mPlayer.play();
         }
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mPlayer.pause();
+    }
+
 
     @Override
     public boolean onBackPressed() {
@@ -72,12 +95,12 @@ public class StitchingImageFragment extends BaseFragment implements ActivityStar
 
     @Override
     public String getStarterId() {
-        return FragmentConstants.STITCHING_IMAGE_FRAGMENT_ID;
+        return FragmentConstants.STITCHING_TEXTURE_VIDEO_FRAGMENT_ID;
     }
 
     @NonNull
     @Override
     public Fragment getContentFragment() {
-        return new StitchingImageFragment();
+        return new StitchingTextureViewVideoFragment();
     }
 }

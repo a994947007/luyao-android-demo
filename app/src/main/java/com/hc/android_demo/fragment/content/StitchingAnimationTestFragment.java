@@ -3,6 +3,7 @@ package com.hc.android_demo.fragment.content;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -14,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import com.google.auto.service.AutoService;
 import com.hc.android_demo.R;
 import com.hc.android_demo.constants.Constants;
+import com.hc.android_demo.fragment.content.player.LuSurfaceTexturePlayer;
 import com.hc.base.activity.ActivityStarter;
 import com.hc.base.activity.LuActivity;
 import com.hc.util.ActivityUtils;
@@ -23,6 +25,9 @@ import com.jny.common.fragment.FragmentConstants;
 public class StitchingAnimationTestFragment extends Fragment implements ActivityStarter {
 
     private ImageView imgView;
+    private TextureView textureView;
+    private LuSurfaceTexturePlayer mPlayer;
+    String videoPath = "https://vd3.bdstatic.com/mda-khmgmk56bmk05j5j/sc/mda-khmgmk56bmk05j5j.mp4";
 
     @Nullable
     @Override
@@ -43,6 +48,34 @@ public class StitchingAnimationTestFragment extends Fragment implements Activity
                 ActivityUtils.startStitchingActivity((LuActivity) getActivity(), FragmentConstants.STITCHING_IMAGE_FRAGMENT_ID, params);
             }
         });
+        textureView = view.findViewById(R.id.textureView);
+        mPlayer = new LuSurfaceTexturePlayer(videoPath);
+        textureView.setSurfaceTextureListener(mPlayer);
+        textureView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle params = new Bundle();
+                Rect fromPosition = new Rect();
+                textureView.getGlobalVisibleRect(fromPosition);
+                params.putParcelable(Constants.FROM_RECT_PARAMS_ID, fromPosition);
+                ActivityUtils.startStitchingActivity((LuActivity) getActivity(), FragmentConstants.STITCHING_TEXTURE_VIDEO_FRAGMENT_ID, params);
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mPlayer.getMediaPlayer() != null) {
+            mPlayer.getMediaPlayer().setVolume(0f, 0f);
+        }
+        mPlayer.play();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mPlayer.pause();
     }
 
     @Override

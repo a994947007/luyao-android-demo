@@ -7,6 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
+            android:orientation="vertical"
             android:gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -15,10 +16,15 @@
                 android:src="@drawable/img2"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
                 android:layout_marginTop="50dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"/>
+            
+            <TextureView
+                android:id="@+id/textureView"
+                android:layout_marginTop="30dp"
+                android:layout_width="250dp"
+                android:layout_height="300dp"/>
         </LinearLayout>
     </ScrollView>
 </FrameLayout>
