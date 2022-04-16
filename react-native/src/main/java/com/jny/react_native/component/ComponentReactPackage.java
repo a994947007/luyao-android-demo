@@ -8,6 +8,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
 import com.google.auto.service.AutoService;
 import com.jny.react_native.component.edit.CustomReactEditViewManager;
+import com.jny.react_native.component.wrapedit.WrapReactEditViewManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,7 @@ public class ComponentReactPackage implements ReactPackage {
     public List<ViewManager> createViewManagers(@NonNull ReactApplicationContext reactContext) {
         List<ViewManager> results = new ArrayList<>();
         results.add(new CustomReactEditViewManager());
+        results.add(new WrapReactEditViewManager());
         // 这里添加自定义组件
         return results;
     }
