@@ -17,10 +17,12 @@ public class LuSurfaceTexturePlayer implements TextureView.SurfaceTextureListene
 
     private SurfaceTexture mSurfaceTexture;
     private MediaPlayer mMediaPlayer;
-    private String mUrl;
+    private final String mUrl;
+    private final int mInitVolume;
 
-    public LuSurfaceTexturePlayer(String url) {
+    public LuSurfaceTexturePlayer(String url, int initVolume) {
         mUrl = url;
+        mInitVolume = initVolume;
     }
 
     private void initMediaPlayer() {
@@ -41,6 +43,7 @@ public class LuSurfaceTexturePlayer implements TextureView.SurfaceTextureListene
 
     public void play() {
         if (mMediaPlayer != null && !mMediaPlayer.isPlaying()) {
+            mMediaPlayer.setVolume(mInitVolume, mInitVolume);
             mMediaPlayer.start();
         }
     }

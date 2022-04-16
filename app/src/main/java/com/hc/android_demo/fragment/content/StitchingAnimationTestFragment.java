@@ -38,37 +38,28 @@ public class StitchingAnimationTestFragment extends Fragment implements Activity
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         imgView = view.findViewById(R.id.imgView);
-        imgView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle params = new Bundle();
-                Rect fromPosition = new Rect();
-                imgView.getGlobalVisibleRect(fromPosition);
-                params.putParcelable(Constants.FROM_RECT_PARAMS_ID, fromPosition);
-                ActivityUtils.startStitchingActivity((LuActivity) getActivity(), FragmentConstants.STITCHING_IMAGE_FRAGMENT_ID, params);
-            }
+        imgView.setOnClickListener(v -> {
+            Bundle params = new Bundle();
+            Rect fromPosition = new Rect();
+            imgView.getGlobalVisibleRect(fromPosition);
+            params.putParcelable(Constants.FROM_RECT_PARAMS_ID, fromPosition);
+            ActivityUtils.startStitchingActivity((LuActivity) getActivity(), FragmentConstants.STITCHING_IMAGE_FRAGMENT_ID, params);
         });
         textureView = view.findViewById(R.id.textureView);
-        mPlayer = new LuSurfaceTexturePlayer(videoPath);
+        mPlayer = new LuSurfaceTexturePlayer(videoPath, 0);
         textureView.setSurfaceTextureListener(mPlayer);
-        textureView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle params = new Bundle();
-                Rect fromPosition = new Rect();
-                textureView.getGlobalVisibleRect(fromPosition);
-                params.putParcelable(Constants.FROM_RECT_PARAMS_ID, fromPosition);
-                ActivityUtils.startStitchingActivity((LuActivity) getActivity(), FragmentConstants.STITCHING_TEXTURE_VIDEO_FRAGMENT_ID, params);
-            }
+        textureView.setOnClickListener(v -> {
+            Bundle params = new Bundle();
+            Rect fromPosition = new Rect();
+            textureView.getGlobalVisibleRect(fromPosition);
+            params.putParcelable(Constants.FROM_RECT_PARAMS_ID, fromPosition);
+            ActivityUtils.startStitchingActivity((LuActivity) getActivity(), FragmentConstants.STITCHING_TEXTURE_VIDEO_FRAGMENT_ID, params);
         });
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (mPlayer.getMediaPlayer() != null) {
-            mPlayer.getMediaPlayer().setVolume(0f, 0f);
-        }
         mPlayer.play();
     }
 

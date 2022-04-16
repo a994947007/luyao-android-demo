@@ -41,7 +41,7 @@ public class StitchingTextureViewVideoFragment extends BaseFragment implements A
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         textureView = view.findViewById(R.id.textureView);
-        mPlayer = new LuSurfaceTexturePlayer(videoPath);
+        mPlayer = new LuSurfaceTexturePlayer(videoPath, 1);
         textureView.setSurfaceTextureListener(mPlayer);
     }
 
@@ -57,7 +57,6 @@ public class StitchingTextureViewVideoFragment extends BaseFragment implements A
                     stitchingAnimation.addExpandAnimatorListener(new AnimatorListenerAdapter() {
                         @Override
                         public void onAnimationEnd(Animator animation) {
-                            mPlayer.getMediaPlayer().setVolume(1f, 1f);
                             mPlayer.play();
                         }
                     });
