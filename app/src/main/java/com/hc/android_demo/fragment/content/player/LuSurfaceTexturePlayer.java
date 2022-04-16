@@ -19,10 +19,12 @@ public class LuSurfaceTexturePlayer implements TextureView.SurfaceTextureListene
     private MediaPlayer mMediaPlayer;
     private final String mUrl;
     private final int mInitVolume;
+    private TextureView mTextureView;
 
-    public LuSurfaceTexturePlayer(String url, int initVolume) {
+    public LuSurfaceTexturePlayer(TextureView textureView, String url, int initVolume) {
         mUrl = url;
         mInitVolume = initVolume;
+        mTextureView = textureView;
     }
 
     private void initMediaPlayer() {
@@ -73,9 +75,7 @@ public class LuSurfaceTexturePlayer implements TextureView.SurfaceTextureListene
     }
 
     @Override
-    public void onSurfaceTextureSizeChanged(@NonNull SurfaceTexture surface, int width, int height) {
-
-    }
+    public void onSurfaceTextureSizeChanged(@NonNull SurfaceTexture surface, int width, int height) { }
 
     @Override
     public boolean onSurfaceTextureDestroyed(@NonNull SurfaceTexture surface) {
@@ -107,6 +107,9 @@ public class LuSurfaceTexturePlayer implements TextureView.SurfaceTextureListene
 
     @Override
     public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
-
+        int textureWidth = mTextureView.getMeasuredWidth();
+        mTextureView.getLayoutParams().width = textureWidth;
+        mTextureView.getLayoutParams().height = textureWidth * height / width;
+        mTextureView.requestLayout();
     }
 }

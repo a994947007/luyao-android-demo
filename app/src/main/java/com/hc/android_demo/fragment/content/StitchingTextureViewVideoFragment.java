@@ -31,6 +31,8 @@ public class StitchingTextureViewVideoFragment extends BaseFragment implements A
     String videoPath = "https://vd3.bdstatic.com/mda-khmgmk56bmk05j5j/sc/mda-khmgmk56bmk05j5j.mp4";
     private LuSurfaceTexturePlayer mPlayer;
     private boolean isStarted = false;
+    private View backgroundView;
+    private View videoContentView;
 
     @Nullable
     @Override
@@ -41,8 +43,10 @@ public class StitchingTextureViewVideoFragment extends BaseFragment implements A
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         textureView = view.findViewById(R.id.textureView);
-        mPlayer = new LuSurfaceTexturePlayer(videoPath, 1);
+        mPlayer = new LuSurfaceTexturePlayer(textureView, videoPath, 1);
         textureView.setSurfaceTextureListener(mPlayer);
+        backgroundView = view.findViewById(R.id.background);
+        videoContentView = view.findViewById(R.id.video_content);
     }
 
     @Override
@@ -53,7 +57,7 @@ public class StitchingTextureViewVideoFragment extends BaseFragment implements A
                 Bundle arguments = getArguments();
                 if (arguments != null) {
                     Rect fromPosition = arguments.getParcelable(Constants.FROM_RECT_PARAMS_ID);
-                    stitchingAnimation = new StitchingAnimation(fromPosition, getView());
+                    stitchingAnimation = new StitchingAnimation(fromPosition, videoContentView);
                     stitchingAnimation.addExpandAnimatorListener(new AnimatorListenerAdapter() {
                         @Override
                         public void onAnimationEnd(Animator animation) {
@@ -65,6 +69,14 @@ public class StitchingTextureViewVideoFragment extends BaseFragment implements A
                         public void onAnimationEnd(Animator animation) {
                             getActivity().finish();
                         }
+                    });
+                    stitchingAnimation.addCollapseUpdateListener(animation -> {
+                        float alpha = (float)animation.getAnimatedValue();
+                        backgroundView.setAlpha(alpha);
+                    });
+                    stitchingAnimation.addExpandUpdateListener(animation -> {
+                        float alpha = (float)animation.getAnimatedValue();
+                        backgroundView.setAlpha(alpha);
                     });
                 }
             }
@@ -90,6 +102,12 @@ public class StitchingTextureViewVideoFragment extends BaseFragment implements A
             stitchingAnimation.close();
         }
         return true;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mPlayer.stop();
     }
 
     @Override

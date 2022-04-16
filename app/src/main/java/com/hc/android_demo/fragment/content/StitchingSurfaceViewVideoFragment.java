@@ -89,6 +89,12 @@ public class StitchingSurfaceViewVideoFragment extends BaseFragment implements A
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mPlayer.stop();
+    }
+
+    @Override
     public String getStarterId() {
         return FragmentConstants.STITCHING_VIDEO_FRAGMENT_ID;
     }

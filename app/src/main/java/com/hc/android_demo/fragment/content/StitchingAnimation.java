@@ -1,6 +1,7 @@
 package com.hc.android_demo.fragment.content;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.graphics.Rect;
 import android.view.View;
@@ -34,13 +35,13 @@ public class StitchingAnimation {
         expandAnimation.setFloatValues(0f, 1f);
         expandAnimation.addUpdateListener(animation -> {
             float scale = (float) animation.getAnimatedValue();
-            int currentWidth = (int) (fromPosition.width() + (toPosition.width() - fromPosition.width()) * scale);
-            int currentHeight = (int) (fromPosition.height() + (toPosition.height() - fromPosition.height()) * scale);
-            int translationX = (int) (fromPosition.left + (toPosition.left - fromPosition.left) * scale);
-            int translationY = (int) (fromPosition.top + (toPosition.top - fromPosition.top) * scale);
-            scaleView.setTranslationX(translationX);
-            scaleView.setTranslationY(translationY);
-            updateSize(scaleView, currentWidth, currentHeight);
+            updateScaleView(scale);
+        });
+        expandAnimation.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                updateScaleView(1f);
+            }
         });
         expandAnimation.setDuration(200);
 
@@ -48,15 +49,25 @@ public class StitchingAnimation {
         closeAnimation.setFloatValues(1f, 0f);
         closeAnimation.addUpdateListener(animation -> {
             float scale = (float) animation.getAnimatedValue();
-            int currentWidth = (int) (fromPosition.width() + (toPosition.width() - fromPosition.width()) * scale);
-            int currentHeight = (int) (fromPosition.height() + (toPosition.height() - fromPosition.height()) * scale);
-            int translationX = (int) (fromPosition.left + (toPosition.left - fromPosition.left) * scale);
-            int translationY = (int) (fromPosition.top + (toPosition.top - fromPosition.top) * scale);
-            scaleView.setTranslationX(translationX);
-            scaleView.setTranslationY(translationY);
-            updateSize(scaleView, currentWidth, currentHeight);
+            updateScaleView(scale);
+        });
+        closeAnimation.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                updateScaleView(0f);
+            }
         });
         closeAnimation.setDuration(200);
+    }
+
+    private void updateScaleView(float scale) {
+        int currentWidth = (int) (fromPosition.width() + (toPosition.width() - fromPosition.width()) * scale);
+        int currentHeight = (int) (fromPosition.height() + (toPosition.height() - fromPosition.height()) * scale);
+        int translationX = (int) (fromPosition.left + (toPosition.left - fromPosition.left) * scale);
+        int translationY = (int) (fromPosition.top + (toPosition.top - fromPosition.top) * scale);
+        scaleView.setTranslationX(translationX);
+        scaleView.setTranslationY(translationY);
+        updateSize(scaleView, currentWidth, currentHeight);
     }
 
     public void open() {
@@ -80,6 +91,18 @@ public class StitchingAnimation {
     public void addCollapseAnimatorListener(Animator.AnimatorListener animatorListener) {
         if (closeAnimation != null) {
             closeAnimation.addListener(animatorListener);
+        }
+    }
+
+    public void addExpandUpdateListener(ValueAnimator.AnimatorUpdateListener animatorUpdateListener) {
+        if (expandAnimation != null) {
+            expandAnimation.addUpdateListener(animatorUpdateListener);
+        }
+    }
+
+    public void addCollapseUpdateListener(ValueAnimator.AnimatorUpdateListener animatorUpdateListener) {
+        if (closeAnimation != null) {
+            closeAnimation.addUpdateListener(animatorUpdateListener);
         }
     }
 

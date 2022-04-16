@@ -46,7 +46,7 @@ public class StitchingAnimationTestFragment extends Fragment implements Activity
             ActivityUtils.startStitchingActivity((LuActivity) getActivity(), FragmentConstants.STITCHING_IMAGE_FRAGMENT_ID, params);
         });
         textureView = view.findViewById(R.id.textureView);
-        mPlayer = new LuSurfaceTexturePlayer(videoPath, 0);
+        mPlayer = new LuSurfaceTexturePlayer(textureView, videoPath, 0);
         textureView.setSurfaceTextureListener(mPlayer);
         textureView.setOnClickListener(v -> {
             Bundle params = new Bundle();

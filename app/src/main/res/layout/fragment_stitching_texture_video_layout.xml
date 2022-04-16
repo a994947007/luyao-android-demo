@@ -4,16 +4,28 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:src="@drawable/video_foreground"
-        android:adjustViewBounds="true"
-        android:scaleType="fitXY"
+    <View
+        android:id="@+id/background"
+        android:alpha="0"
+        android:background="@android:color/black"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <TextureView
-        android:id="@+id/textureView"
+    <FrameLayout
+        android:id="@+id/video_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+        <ImageView
+            android:src="@drawable/video_foreground"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <TextureView
+            android:id="@+id/textureView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

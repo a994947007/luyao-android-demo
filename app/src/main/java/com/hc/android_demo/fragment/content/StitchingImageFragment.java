@@ -2,6 +2,7 @@ package com.hc.android_demo.fragment.content;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ public class StitchingImageFragment extends BaseFragment implements ActivityStar
     private ImageView imageView;
     private StitchingAnimation stitchingAnimation;
     private boolean isStarted = false;
+    private View backgroundView;
 
     @Nullable
     @Override
@@ -36,6 +38,7 @@ public class StitchingImageFragment extends BaseFragment implements ActivityStar
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         imageView = view.findViewById(R.id.imgView);
+        backgroundView = view.findViewById(R.id.background);
     }
 
     @Override
@@ -52,6 +55,14 @@ public class StitchingImageFragment extends BaseFragment implements ActivityStar
                         public void onAnimationEnd(Animator animation) {
                             getActivity().finish();
                         }
+                    });
+                    stitchingAnimation.addCollapseUpdateListener(animation -> {
+                        float alpha = (float)animation.getAnimatedValue();
+                        backgroundView.setAlpha(alpha);
+                    });
+                    stitchingAnimation.addExpandUpdateListener(animation -> {
+                        float alpha = (float)animation.getAnimatedValue();
+                        backgroundView.setAlpha(alpha);
                     });
                 }
             }
