@@ -291,8 +291,17 @@ public class HalfBottomSheetView extends FrameLayout implements NestedScrollingP
         if (scroll != null && isPointInChildBounds(scroll, initX, initY)) {
             return false;
         }
-        if (isPointInChildrenBounds(initX, initY) || !viewDragHelper.shouldInterceptTouchEvent(ev)) {
-            return false;
+        if (action == MotionEvent.ACTION_MOVE) {
+            if (isPointInScrollableChildrenBounds(initX, initY)) {
+                return false;
+            }
+        } else {
+            if (!isPointInScrollableChildrenBounds(initX, initY) && viewDragHelper != null) {
+                viewDragHelper.processTouchEvent(ev);
+            }
+            if (isPointInChildrenBounds(initX, initY) || !viewDragHelper.shouldInterceptTouchEvent(ev)) {
+                return false;
+            }
         }
         isIntercept = true;
         return true;
@@ -497,6 +506,30 @@ public class HalfBottomSheetView extends FrameLayout implements NestedScrollingP
     public boolean isPointInChildrenBounds(int x, int y) {
         for (int i = 0; i < getChildCount(); i++) {
             if (isPointInChildBounds(getChildAt(i), x, y)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isPointInScrollableChildBounds(View view, int x, int y) {
+        if (view instanceof ViewGroup) {
+            ViewGroup parent = (ViewGroup) view;
+            for (int i = 0; i < parent.getChildCount(); i++) {
+                View child = parent.getChildAt(i);
+                boolean flag = isPointInScrollableChildBounds(child, x, y);
+                if (flag) {
+                    return true;
+                }
+            }
+        }
+        return isPointInChildBounds(view, x, y) && (view.canScrollVertically(1) || view.canScrollVertically(-1));
+    }
+
+    public boolean isPointInScrollableChildrenBounds(int x, int y) {
+        for (int i = 0; i < getChildCount(); i++) {
+            View child = getChildAt(i);
+            if (isPointInScrollableChildBounds(child, x, y)) {
                 return true;
             }
         }
