@@ -7,7 +7,7 @@ import com.facebook.react.views.textinput.ReactTextInputShadowNode;
 import com.facebook.yoga.YogaMeasureFunction;
 
 public class CustomReactEditViewShadowNode extends ReactTextInputShadowNode implements YogaMeasureFunction {
-    public CustomReactEditViewShadowNode(@Nullable @javax.annotation.Nullable ReactTextViewManagerCallback reactTextViewManagerCallback) {
+    public CustomReactEditViewShadowNode(@Nullable ReactTextViewManagerCallback reactTextViewManagerCallback) {
         super(reactTextViewManagerCallback);
     }
 

@@ -1,5 +1,10 @@
 package com.jny.react_native;
 
+import android.graphics.Color;
+import android.os.Build;
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.annotation.Nullable;
 
 import com.facebook.react.ReactActivity;
@@ -10,5 +15,16 @@ public class MyReactActivity extends ReactActivity {
     @Override
     protected String getMainComponentName() {
         return "myApp";
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            View decorView = getWindow().getDecorView();
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+            decorView.setSystemUiVisibility(option);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
     }
 }

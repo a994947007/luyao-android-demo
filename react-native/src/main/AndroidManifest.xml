@@ -8,7 +8,8 @@
     <application>
         <activity
             android:name=".MyReactActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/FullScreenTheme"/>
         <activity android:name="com.facebook.react.devsupport.DevSettingsActivity"/>
     </application>
 
