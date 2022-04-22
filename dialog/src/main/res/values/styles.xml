@@ -3,7 +3,7 @@
     <!--实现BottomSheetDialog圆角效果 且无背景阴影-->
     <style name="BottomSheetDialogBg" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/bottomSheetStyleWrapper</item>
-        <item name="android:background">#00000000</item>
+        <item name="android:background">@android:color/transparent</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>
@@ -23,6 +23,10 @@
         <item name="android:windowMinWidthMajor">100%</item>
         <!-- 设置对话框在竖屏状态下所占屏幕宽度的比例 -->
         <item name="android:windowMinWidthMinor">100%</item>
+    </style>
+
+    <style name="halfBottomSheetDialog" parent="inputDialog">
+        <item name="android:windowAnimationStyle">@style/Animation.Design.BottomSheetDialog</item>
     </style>
 
     <style name="AppCompatAlertDialogStyle" parent="@style/Theme.AppCompat.Light.Dialog.Alert">

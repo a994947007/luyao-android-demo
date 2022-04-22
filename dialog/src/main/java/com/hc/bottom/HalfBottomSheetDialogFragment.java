@@ -31,6 +31,6 @@ public class HalfBottomSheetDialogFragment extends AppCompatDialogFragment {
 
     @Override
     public int getTheme() {
-        return R.style.BottomSheetDialogBg;
+        return R.style.halfBottomSheetDialog;
     }
 }
