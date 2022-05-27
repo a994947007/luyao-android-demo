@@ -30,6 +30,7 @@ public class DynamicFragment extends SimpleRecyclerFragment {
     {
         addItem("动态化activity", this::onClickDynamicWebViewActivity);
         addItem("React Native Fragment", this::onClickRNFragment);
+        addItem("二楼+RN", this::onClickSecondFloorRNFragment);
     }
 
     private DynamicFragment() { }
@@ -55,6 +56,11 @@ public class DynamicFragment extends SimpleRecyclerFragment {
     @Override
     protected List<Pair<String, Runnable>> bind() {
         return items;
+    }
+
+
+    private void onClickSecondFloorRNFragment() {
+        startContentActivity(FragmentConstants.REACT_NATIVE_SECOND_FLOOR);
     }
 
     private void onClickDynamicWebViewActivity() {

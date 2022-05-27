@@ -27,7 +27,7 @@ import java.util.List;
 @AutoService({ActivityStarter.class})
 public class SecondFloorRefreshLayoutFragment extends BaseFragment implements ActivityStarter {
     List<ItemBean> itemBeans = new ArrayList<ItemBean>();
-    private Presenter presenterGroup;
+    private Presenter mPresenterGroup;
 
     {
         itemBeans.add(new ItemBean("123", com.hc.android_view.R.drawable.img1));
@@ -63,7 +63,7 @@ public class SecondFloorRefreshLayoutFragment extends BaseFragment implements Ac
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        presenterGroup.destroy();
+        mPresenterGroup.destroy();
     }
 
     @Override
@@ -75,11 +75,15 @@ public class SecondFloorRefreshLayoutFragment extends BaseFragment implements Ac
         recyclerStaggerView.setOrientation(true, false);
         recyclerStaggerView.show();
 
-        presenterGroup = new Presenter();
+        mPresenterGroup = new Presenter();
+        addPresenters(mPresenterGroup);
+        mPresenterGroup.create(view);
+        mPresenterGroup.bind();
+    }
+
+    protected void addPresenters(Presenter presenterGroup) {
         presenterGroup.add(new SecondFloorPresenter());
         presenterGroup.add(new SecondFloorOnSlideTipPresenter());
-        presenterGroup.create(view);
-        presenterGroup.bind();
     }
 
     @Override

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/holo_blue_bright"
+    tools:ignore="MissingDefaultResource">
+
+    <ViewStub
+        app:layout_constraintTop_toBottomOf="@id/top_bar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/secondContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout="@layout/fragment_rn_second_floor_content_layout"/>
+    <View
+        android:id="@+id/shadowView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:foreground="@android:color/holo_blue_bright"/>
+
+    <com.hc.my_views.PullAnimatedView
+        android:id="@+id/pullAnimatedView"
+        android:foreground="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <com.hc.my_views.secondFloor.SecondFloorRefreshLayout
+        app:layout_constraintTop_toBottomOf="@id/top_bar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/secondFloorRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <FrameLayout
+            android:id="@+id/secondFloorLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/refreshTip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:visibility="gone"
+                    android:layout_marginTop="30dp"
+                    android:textSize="15sp"
+                    android:textColor="#222222"
+                    android:text="松手刷新"/>
+                <TextView
+                    android:id="@+id/secondFloorTip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:visibility="gone"
+                    android:layout_marginTop="30dp"
+                    android:textSize="15sp"
+                    android:textColor="#222222"
+                    android:text="下拉进入二层楼"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:background="@android:color/darker_gray"
+            android:id="@+id/firstFloorLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/content_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </FrameLayout>
+    </com.hc.my_views.secondFloor.SecondFloorRefreshLayout>
+
+    <TextView
+        android:id="@+id/top_bar"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@android:color/transparent"
+        android:text="顶导"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:layout_height="80dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
