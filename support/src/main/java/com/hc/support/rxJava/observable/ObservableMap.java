@@ -4,6 +4,8 @@ import com.hc.support.rxJava.function.Function;
 import com.hc.support.rxJava.observer.BaseObserver;
 import com.hc.support.rxJava.observer.Observer;
 
+import java.io.IOException;
+
 public class ObservableMap<T, R> extends AbstractObservableWithUpStream<T, R>{
 
     private final Function<T, R> function;
@@ -29,8 +31,13 @@ public class ObservableMap<T, R> extends AbstractObservableWithUpStream<T, R>{
 
         @Override
         public void onNext(T t) {
-            R r = function.apply(t);
-            actual.onNext(r);
+            R r = null;
+            try {
+                r = function.apply(t);
+                actual.onNext(r);
+            } catch (IOException e) {
+                onError(e);
+            }
         }
     }
 }

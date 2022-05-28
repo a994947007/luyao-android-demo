@@ -6,6 +6,8 @@ import com.hc.support.rxJava.function.Function;
 import com.hc.support.rxJava.observer.BaseObserver;
 import com.hc.support.rxJava.observer.Observer;
 
+import java.io.IOException;
+
 public class ObservableFlatMap<T, R> extends AbstractObservableWithUpStream<T, R> {
 
     private final Function<T, ObservableSource<R>> function;
@@ -32,8 +34,13 @@ public class ObservableFlatMap<T, R> extends AbstractObservableWithUpStream<T, R
 
         @Override
         public void onNext(T t) {
-            ObservableSource<R> p = function.apply(t);
-            p.subscribe(new InnerObserver(actual));    // 让actual成为p的下游
+            ObservableSource<R> p = null;
+            try {
+                p = function.apply(t);
+                p.subscribe(new InnerObserver(actual));    // 让actual成为p的下游
+            } catch (IOException e) {
+                onError(e);
+            }
         }
 
         @Override

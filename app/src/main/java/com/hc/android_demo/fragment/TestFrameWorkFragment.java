@@ -30,6 +30,7 @@ public class TestFrameWorkFragment extends SimpleRecyclerFragment {
         addItem("老版本MVP的使用", this::onClickTestMvpActivity);
         addItem("MVVM+Databinding的使用", this::onClickMvvmDataBindingActivity);
         addItem("滑动预加载Fragment", this::onScrollPreloadFragment);
+        addItem("图片下载", this::onClickDownloadBitmapFragment);
     }
 
     private TestFrameWorkFragment() { }
@@ -51,6 +52,10 @@ public class TestFrameWorkFragment extends SimpleRecyclerFragment {
     @Override
     protected List<Pair<String, Runnable>> bind() {
         return items;
+    }
+
+    private void onClickDownloadBitmapFragment() {
+        startContentActivity(FragmentConstants.DOWNLOAD_BITMAP_TEST_FRAGMENT_ID);
     }
 
     private void onClickMvpsActivity() {

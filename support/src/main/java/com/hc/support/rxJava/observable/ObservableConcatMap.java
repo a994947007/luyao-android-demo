@@ -5,6 +5,7 @@ import com.hc.support.rxJava.function.Function;
 import com.hc.support.rxJava.observer.BaseObserver;
 import com.hc.support.rxJava.observer.Observer;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -47,8 +48,13 @@ public class ObservableConcatMap<T, U> extends AbstractObservableWithUpStream<T,
             queue.add(new Runnable() {
                 @Override
                 public void run() {
-                    ObservableSource<U> apply = mapper.apply(t);
-                    apply.subscribe(new InnerObserver(actual));
+                    ObservableSource<U> apply = null;
+                    try {
+                        apply = mapper.apply(t);
+                        apply.subscribe(new InnerObserver(actual));
+                    } catch (IOException e) {
+                        onError(e);
+                    }
                 }
             });
             drain();
