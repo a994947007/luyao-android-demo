@@ -2,4 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jny.download">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application>
+        <service android:name=".bitmap.FileDownloadService"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:process=":FileDownloadService"/>
+    </application>
+
 </manifest>

@@ -1,6 +1,5 @@
 package com.hc.android_demo.fragment.content.framework.fragment;
 
-import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,15 +15,13 @@ import com.google.auto.service.AutoService;
 import com.hc.android_demo.R;
 import com.hc.base.activity.ActivityStarter;
 import com.hc.base.autoservice.AutoServiceManager;
-import com.hc.support.rxJava.function.Function;
 import com.hc.support.rxJava.observable.Observable;
-import com.hc.support.rxJava.observer.Consumer;
 import com.hc.support.rxJava.schedule.Schedules;
+import com.hc.util.ToastUtils;
 import com.jny.common.download.DownloadService;
 import com.jny.common.fragment.FragmentConstants;
-import com.jny.common.webview.WebViewService;
+import com.jny.common.webview.DownloadCallback;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -61,6 +58,23 @@ public class DownloadBitmapFragment extends Fragment implements ActivityStarter 
             downloadService.downloadImageObservable(new URL(IMAGE_URL2))
                     .observeOn(Schedules.MAIN)
                     .subscribe(bitmap -> imageView2.setImageDrawable(new BitmapDrawable(getResources(), bitmap)));
+
+            downloadService.downloadFile(IMAGE_URL1, DownloadService.Type.IMAGE, this, new DownloadCallback() {
+                @Override
+                public void onStart() {
+                    ToastUtils.show("download start");
+                }
+
+                @Override
+                public void onError(String err) {
+                    ToastUtils.show("download error: " + err);
+                }
+
+                @Override
+                public void onSuccess() {
+                    ToastUtils.show("download success");
+                }
+            });
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
