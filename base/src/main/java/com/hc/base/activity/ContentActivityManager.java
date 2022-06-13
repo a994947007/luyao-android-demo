@@ -56,6 +56,9 @@ public class ContentActivityManager {
     }
 
     public Fragment get(String id) {
+        if (!activityStarterMap.containsKey(id)) {
+            throw new IllegalArgumentException("id should register with interface ActivityStart");
+        }
         return activityStarterMap.get(id).getContentFragment();
     }
 
