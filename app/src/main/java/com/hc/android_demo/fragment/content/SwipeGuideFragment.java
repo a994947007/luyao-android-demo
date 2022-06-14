@@ -65,7 +65,11 @@ public class SwipeGuideFragment extends Fragment implements ActivityStarter {
             @Override
             public void onPageScrollStateChanged(int state) {
                 if (state == ViewPager.SCROLL_STATE_DRAGGING) { // start scroll
+                    mShadowLayout.setVisibility(View.VISIBLE);
                     translateAnimation.start();
+                } else {
+                    mShadowLayout.setTranslationX(0);
+                    mShadowLayout.setVisibility(View.GONE);
                 }
             }
         });
@@ -105,7 +109,7 @@ public class SwipeGuideFragment extends Fragment implements ActivityStarter {
         @NonNull
         @Override
         public Fragment getItem(int position) {
-            return new SwipeGuideItemFragment();
+            return new SwipeGuideItemFragment(position);
         }
 
         @Override
