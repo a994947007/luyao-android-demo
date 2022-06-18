@@ -13,6 +13,7 @@ import com.hc.base.AppEnvironment;
 import java.io.File;
 
 public class UriUtils {
+
     public static String getUri(int resId) {
         Resources r = AppEnvironment.getAppContext().getResources();
         Uri uri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
@@ -74,5 +75,26 @@ public class UriUtils {
         return AppEnvironment.getAppContext()
                 .getContentResolver()
                 .insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, contentValues);
+    }
+
+    public static Uri getDownloadsUri(String filename) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MediaStore.Downloads.DISPLAY_NAME, filename);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            contentValues.put(MediaStore.Downloads.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
+            return AppEnvironment.getAppContext()
+                    .getContentResolver()
+                    .insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, contentValues);
+        } else {
+            String dstPath = Environment.getExternalStorageDirectory()
+                    + File.separator
+                    + Environment.DIRECTORY_DOWNLOADS
+                    + File.separator
+                    + filename;
+            contentValues.put(MediaStore.Downloads.DATA, dstPath);
+            return AppEnvironment.getAppContext()
+                    .getContentResolver()
+                    .insert(Uri.parse(dstPath), contentValues);
+        }
     }
 }

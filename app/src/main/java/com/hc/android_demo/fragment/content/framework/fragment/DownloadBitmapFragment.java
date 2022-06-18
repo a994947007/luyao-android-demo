@@ -1,6 +1,9 @@
 package com.hc.android_demo.fragment.content.framework.fragment;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +19,17 @@ import com.hc.android_demo.R;
 import com.hc.base.activity.ActivityStarter;
 import com.hc.base.autoservice.AutoServiceManager;
 import com.hc.support.rxJava.observable.Observable;
+import com.hc.support.rxJava.observer.Consumer;
 import com.hc.support.rxJava.schedule.Schedules;
 import com.hc.util.ToastUtils;
+import com.hc.util.UriUtils;
+import com.hc.util.Utils;
 import com.jny.common.download.DownloadService;
 import com.jny.common.fragment.FragmentConstants;
 import com.jny.common.webview.DownloadCallback;
+import com.jny.core.DownloadManager;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -59,22 +67,38 @@ public class DownloadBitmapFragment extends Fragment implements ActivityStarter 
                     .observeOn(Schedules.MAIN)
                     .subscribe(bitmap -> imageView2.setImageDrawable(new BitmapDrawable(getResources(), bitmap)));
 
-            downloadService.downloadFile(IMAGE_URL1, DownloadService.Type.IMAGE, this, new DownloadCallback() {
+/*            downloadService.observeDownloadFile(getLifecycle(), IMAGE_URL1)
+                    .observeOn(Schedules.MAIN)
+                    .subscribe(resultPath -> {
+                        Uri uri = Uri.fromFile(new File(resultPath));
+                        imageView1.setImageURI(uri);
+                    });*/
+/*            downloadService.downloadFile(getLifecycle(), IMAGE_URL1, new DownloadCallback() {
                 @Override
                 public void onStart() {
-                    ToastUtils.show("download start");
+                    Utils.runOnUITread(() -> ToastUtils.show("开始下载"));
                 }
 
                 @Override
-                public void onError(String err) {
-                    ToastUtils.show("download error: " + err);
+                public void onDownload(float progress) {
+
                 }
 
                 @Override
-                public void onSuccess() {
-                    ToastUtils.show("download success");
+                public void onSuccess(String resultPath) {
+                    Utils.runOnUITread(() -> {
+                        Uri uri = Uri.fromFile(new File(resultPath));
+                        imageView1.setImageURI(uri);
+                        ToastUtils.show("下载成功");
+                    });
+                }
+
+                @Override
+                public void onError(Throwable r) {
+
                 }
             });
+        */
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
