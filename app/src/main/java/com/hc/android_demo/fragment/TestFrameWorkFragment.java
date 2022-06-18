@@ -30,7 +30,7 @@ public class TestFrameWorkFragment extends SimpleRecyclerFragment {
         addItem("老版本MVP的使用", this::onClickTestMvpActivity);
         addItem("MVVM+Databinding的使用", this::onClickMvvmDataBindingActivity);
         addItem("滑动预加载Fragment", this::onScrollPreloadFragment);
-        addItem("图片下载", this::onClickDownloadBitmapFragment);
+        addItem("图片下载+跨进程Binder通信+文件下载", this::onClickDownloadBitmapFragment);
     }
 
     private TestFrameWorkFragment() { }
