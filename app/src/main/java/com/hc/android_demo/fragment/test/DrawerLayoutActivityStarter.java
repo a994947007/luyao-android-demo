@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.google.auto.service.AutoService;
-import com.hc.android_demo.fragment.content.DrawerLayoutFragment;
+import com.hc.android_demo.fragment.content.ui.fragment.DrawerLayoutFragment;
 import com.hc.base.activity.ActivityStarter;
 import com.jny.common.fragment.FragmentConstants;
 

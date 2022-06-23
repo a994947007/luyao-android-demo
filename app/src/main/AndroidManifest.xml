@@ -15,7 +15,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/AppTheme">
         <service
-            android:name=".fragment.content.TestMyIntentService"
+            android:name=".fragment.content.framework.service.TestMyIntentService"
             android:enabled="true"
             android:exported="false"/>
         <activity

@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.google.auto.service.AutoService;
-import com.hc.android_demo.fragment.content.LazyTestFragment;
+import com.hc.android_demo.fragment.content.framework.fragment.LazyTestFragment;
 import com.hc.base.activity.ActivityStarter;
 import com.jny.common.fragment.FragmentConstants;
 

@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.google.auto.service.AutoService;
-import com.hc.android_demo.fragment.content.CustomNestedScrollViewFragment;
+import com.hc.android_demo.fragment.content.ui.fragment.CustomNestedScrollViewFragment;
 import com.hc.base.activity.ActivityStarter;
 import com.jny.common.fragment.FragmentConstants;
 
