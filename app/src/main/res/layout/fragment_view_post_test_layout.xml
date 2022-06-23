@@ -51,7 +51,8 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:text="View.post泄露原理：View.post一般不建议使用，但很多情况下，也是可以使用的。为什么不建议使用？
-        因为View.post是可能存在泄露的，若拿到的View比当前引用的对象的生命周期长，则会造成当前对象的内存泄露"
+        因为View.post是可能存在泄露的，若拿到的View比当前引用的对象的生命周期长，则会造成当前对象的内存泄露，
+        另外在Android7.0以下在异步线程调用也会造成内存泄露"
         android:textSize="15dp"
         android:textAllCaps="false"
         android:layout_marginTop="20dp"
