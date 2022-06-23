@@ -65,7 +65,7 @@ public class CustomViewFragment extends SimpleRecyclerFragment {
         items.add(new Pair<>("仿微信二层楼", this::onClickSecondFloorRefreshLayout));
         items.add(new Pair<>("可扩展半屏弹窗", this::onClickHalfBottomSheetDialog));
         items.add(new Pair<>("落坑动画", this::onClickStitchingImageFragment));
-        items.add(new Pair<>("渐变色蒙层", this::OnClickSwipeGuideFragment));
+        items.add(new Pair<>("渐变色蒙层+侧滑引导动画", this::OnClickSwipeGuideFragment));
     }
 
     @Override

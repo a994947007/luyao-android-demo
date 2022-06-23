@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.hc.android_demo.fragment.content.framework.view.TestPostLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/test_post_tv"
+        android:text="在Fragment的onViewCreated中View.post"
+        android:textSize="15dp"
+        android:textAllCaps="false"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/test_post_onAnimation_tv"
+        android:text="在Fragment的onViewCreated中View.postOnAnimation"
+        android:textSize="15dp"
+        android:textAllCaps="false"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/test_attached_handler_post_tv"
+        android:text="在View的onAttachToWindow中Handler.post"
+        android:textSize="15dp"
+        android:textAllCaps="false"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/guide_tv"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="原理：上面三处都能获取到宽高，1、2处的原理同3，都是在attachToWindow中通过Handler的post执行，
+        1、2只是先保存在一个数组中，等到attachToWindow时执行，在attachToWindow中通过post，可以将当前的Runnable置于当前正在执行的Runnable之后，
+        我们知道AndroidMain线程的代码都是跑造MainLooper的MessageQueue上面的，也就是说performTraverse()方法中的代码会被一次执行，而其中包括了attachToWindow、measure、layout、draw等，
+        当post之后，即可让当前的Runnable置于这些方法之后再执行，也就是说，View.post是在draw之后执行的"
+        android:textSize="15dp"
+        android:textAllCaps="false"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/guide_tv_2"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="View.post泄露原理：View.post一般不建议使用，但很多情况下，也是可以使用的。为什么不建议使用？
+        因为View.post是可能存在泄露的，若拿到的View比当前引用的对象的生命周期长，则会造成当前对象的内存泄露"
+        android:textSize="15dp"
+        android:textAllCaps="false"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</com.hc.android_demo.fragment.content.framework.view.TestPostLayout>
