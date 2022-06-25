@@ -1,4 +1,3 @@
-
 package com.hc.android_demo.fragment.content.framework.fragment;
 
 import android.os.Bundle;
@@ -12,7 +11,8 @@ import androidx.fragment.app.Fragment;
 
 import com.google.auto.service.AutoService;
 import com.hc.android_demo.R;
-import com.hc.android_demo.fragment.content.framework.presenter.DSLTestPresenter;
+import com.hc.android_demo.fragment.content.framework.presenter.DSLTestHTMLPresenter;
+import com.hc.android_demo.fragment.content.framework.presenter.DSLTestPersonPresenter;
 import com.hc.base.activity.ActivityStarter;
 import com.hc.base.fragment.BaseFragment;
 import com.hc.support.mvps.Presenter;
@@ -38,7 +38,8 @@ public class DSLTestFragment extends BaseFragment implements ActivityStarter {
     }
 
     protected void onCreatePresenter(Presenter presenter) {
-        presenter.add(new DSLTestPresenter());
+        presenter.add(new DSLTestPersonPresenter());
+        presenter.add(new DSLTestHTMLPresenter());
     }
 
     @Override

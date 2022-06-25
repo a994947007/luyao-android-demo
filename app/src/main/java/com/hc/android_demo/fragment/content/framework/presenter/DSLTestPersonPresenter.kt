@@ -6,7 +6,7 @@ import com.hc.android_demo.R
 import com.hc.base.util.KtPresenter
 import com.hc.util.ToastUtils
 
-class DSLTestPresenter: KtPresenter() {
+class DSLTestPersonPresenter: KtPresenter() {
 
     private lateinit var mPersonDslTestBtn: Button
 
@@ -35,7 +35,7 @@ class DSLTestPresenter: KtPresenter() {
         }
     }
 
-    fun log(person: DSLTestPresenter.Person) {
+    fun log(person: DSLTestPersonPresenter.Person) {
         ToastUtils.show("studentName:" + person.st?.name + ", studentNo:" + person.st?.no + ",,,")
     }
 
@@ -77,9 +77,9 @@ class DSLTestPresenter: KtPresenter() {
         }
 
         fun teacher(lambda: Teacher.() -> Unit): Teacher {
-            val teacher = Teacher();
+            val teacher = Teacher()
             lambda(teacher)
-            return teacher;
+            return teacher
         }
 
         fun worker(lambda: Worker.() -> Unit) {

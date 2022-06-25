@@ -20,6 +20,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="这个Toast弹出的内容经过DSL定义解析"/>
+
+            <Button
+                android:id="@+id/html_dsl_btn"
+                android:textAllCaps="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="HTML文件解析器"/>
+
+            <TextView
+                android:id="@+id/content_tv"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
     </ScrollView>
 
