@@ -29,6 +29,14 @@
                 android:layout_marginTop="10dp"
                 android:text="HTML文件解析器"/>
 
+            <Button
+                android:id="@+id/html_dsl_btn2"
+                android:textAllCaps="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="HTML文件解析器2"/>
+
             <TextView
                 android:id="@+id/content_tv"
                 android:layout_marginTop="10dp"
