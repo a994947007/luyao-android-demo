@@ -61,5 +61,70 @@
       <option name="name" value="maven2" />
       <option name="url" value="https://developer.huawei.com/repo/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven4" />
+      <option name="name" value="maven4" />
+      <option name="url" value="file:/$PROJECT_DIR$/../../IDEA%20CODE/androiddemo/'E:/React/react-app/myApp/node_modules/react-native/android'" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven4" />
+      <option name="name" value="maven4" />
+      <option name="url" value="file:/$PROJECT_DIR$/../../IDEA%20CODE/androiddemo/webview/'E:/React/react-app/myApp/node_modules/react-native/android'" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven4" />
+      <option name="name" value="maven4" />
+      <option name="url" value="file:/$PROJECT_DIR$/../../IDEA%20CODE/androiddemo/dialog/'E:/React/react-app/myApp/node_modules/react-native/android'" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven4" />
+      <option name="name" value="maven4" />
+      <option name="url" value="file:/$PROJECT_DIR$/../../IDEA%20CODE/androiddemo/support/'E:/React/react-app/myApp/node_modules/react-native/android'" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven4" />
+      <option name="name" value="maven4" />
+      <option name="url" value="file:/$PROJECT_DIR$/../../IDEA%20CODE/androiddemo/android-view/'E:/React/react-app/myApp/node_modules/react-native/android'" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven4" />
+      <option name="name" value="maven4" />
+      <option name="url" value="file:/$PROJECT_DIR$/../../IDEA%20CODE/androiddemo/my-views/'E:/React/react-app/myApp/node_modules/react-native/android'" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven4" />
+      <option name="name" value="maven4" />
+      <option name="url" value="file:/$PROJECT_DIR$/../../IDEA%20CODE/androiddemo/design/'E:/React/react-app/myApp/node_modules/react-native/android'" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven4" />
+      <option name="name" value="maven4" />
+      <option name="url" value="file:/$PROJECT_DIR$/../../IDEA%20CODE/androiddemo/react-native/'E:/React/react-app/myApp/node_modules/react-native/android'" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven4" />
+      <option name="name" value="maven4" />
+      <option name="url" value="file:/$PROJECT_DIR$/../../IDEA%20CODE/androiddemo/common/'E:/React/react-app/myApp/node_modules/react-native/android'" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven4" />
+      <option name="name" value="maven4" />
+      <option name="url" value="file:/$PROJECT_DIR$/../../IDEA%20CODE/androiddemo/base/'E:/React/react-app/myApp/node_modules/react-native/android'" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven4" />
+      <option name="name" value="maven4" />
+      <option name="url" value="file:/$PROJECT_DIR$/../../IDEA%20CODE/androiddemo/util/'E:/React/react-app/myApp/node_modules/react-native/android'" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven4" />
+      <option name="name" value="maven4" />
+      <option name="url" value="file:/$PROJECT_DIR$/../../IDEA%20CODE/androiddemo/download/'E:/React/react-app/myApp/node_modules/react-native/android'" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven4" />
+      <option name="name" value="maven4" />
+      <option name="url" value="file:/$PROJECT_DIR$/../../IDEA%20CODE/androiddemo/app/'E:/React/react-app/myApp/node_modules/react-native/android'" />
+    </remote-repository>
   </component>
 </project>
