@@ -27,7 +27,7 @@ allprojects {
         maven {
             // All of React Native (JS, Android binaries) is installed from npm
             // url properties.getProperty('reactnative.dir')
-            url 'E:/React/react-app/myApp/node_modules/react-native/android'
+            url(properties.getProperty('reactnodemodule.dir'))
         }
         maven {
             // Android JSC is installed from npm

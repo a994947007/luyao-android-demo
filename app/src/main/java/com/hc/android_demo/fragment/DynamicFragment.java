@@ -31,6 +31,8 @@ public class DynamicFragment extends SimpleRecyclerFragment {
         addItem("动态化activity", this::onClickDynamicWebViewActivity);
         addItem("React Native Fragment", this::onClickRNFragment);
         addItem("二楼+RN", this::onClickSecondFloorRNFragment);
+        addItem("纯RN双列瀑布流", this::onClickListRNView);
+        addItem("Native导出卡片+双列瀑布流", this::onClickNativeCardListRNView);
     }
 
     private DynamicFragment() { }
@@ -49,15 +51,13 @@ public class DynamicFragment extends SimpleRecyclerFragment {
         }
     }
 
-    private void addItem(String key, Runnable runnable) {
-        items.add(new Pair<>(key, runnable));
+    private void onClickNativeCardListRNView() {
+
     }
 
-    @Override
-    protected List<Pair<String, Runnable>> bind() {
-        return items;
-    }
+    private void onClickListRNView() {
 
+    }
 
     private void onClickSecondFloorRNFragment() {
         startContentActivity(FragmentConstants.REACT_NATIVE_SECOND_FLOOR);
@@ -76,5 +76,14 @@ public class DynamicFragment extends SimpleRecyclerFragment {
 
     private void startContentActivity(String id) {
         ActivityUtils.startContentActivity((LuActivity) getActivity(), id);
+    }
+
+    private void addItem(String key, Runnable runnable) {
+        items.add(new Pair<>(key, runnable));
+    }
+
+    @Override
+    protected List<Pair<String, Runnable>> bind() {
+        return items;
     }
 }
