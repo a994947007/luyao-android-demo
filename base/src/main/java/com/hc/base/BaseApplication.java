@@ -11,6 +11,7 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         AppEnvironment.setContext(getApplicationContext());
+        AppEnvironment.setApplication(this);
         for (InitModuleTask initModuleTask : ServiceLoader.load(InitModuleTask.class)) {
             initModuleTask.execute();
         }

@@ -1,5 +1,7 @@
 package com.jny.react_native;
 
+import androidx.annotation.Nullable;
+
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -32,6 +34,12 @@ public class MyReactApplication extends BaseApplication implements ReactApplicat
         @Override
         protected String getJSMainModuleName() {
             return "index";
+        }
+
+        @Nullable
+        @Override
+        protected String getBundleAssetName() {
+            return "home.android.bundle";
         }
     };
 

@@ -53,9 +53,19 @@ public class MyReactFragment extends Fragment implements ActivityStarter {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        getReactInstanceManager().onHostResume((Activity) getContext());
         return mReactRootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getReactInstanceManager().onHostResume((Activity) getContext());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        getReactInstanceManager().onHostPause((Activity) getContext());
     }
 
     @Override

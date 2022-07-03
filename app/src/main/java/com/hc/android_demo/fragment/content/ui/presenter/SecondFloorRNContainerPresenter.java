@@ -5,19 +5,22 @@ import android.view.View;
 import android.view.ViewStub;
 import android.widget.FrameLayout;
 
-import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactRootView;
 import com.hc.android_demo.R;
 import com.hc.support.mvps.Presenter;
+import com.jny.react_native.core.BaseReactNativeHost;
 
 public class SecondFloorRNContainerPresenter extends Presenter {
+
+    private static final String MODULE_NAME = "index";
     public static final String COMPONENT_NAME = "myApp";
     private ReactRootView mReactRootView;
     private FrameLayout mRNContainerView;
     private ViewStub contentViewStub;
     private View contentView;
+    private BaseReactNativeHost mReactNativeHost;
 
     @Override
     protected void onCreate() {
@@ -30,7 +33,10 @@ public class SecondFloorRNContainerPresenter extends Presenter {
     }
 
     protected ReactNativeHost getReactNativeHost() {
-        return ((ReactApplication) getActivity().getApplication()).getReactNativeHost();
+        if (mReactNativeHost == null) {
+            mReactNativeHost = new BaseReactNativeHost(MODULE_NAME);
+        }
+        return mReactNativeHost;
     }
 
     public ReactInstanceManager getReactInstanceManager() {
