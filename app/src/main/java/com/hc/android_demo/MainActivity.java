@@ -9,6 +9,7 @@ import android.os.Bundle;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.hc.android_demo.fragment.CustomViewFragment;
 import com.hc.android_demo.fragment.DynamicFragment;
+import com.hc.android_demo.fragment.PerformanceFragment;
 import com.hc.android_demo.fragment.TestFrameWorkFragment;
 import com.hc.base.activity.ContentActivityManager;
 import com.hc.base.activity.LuActivity;
@@ -54,6 +55,9 @@ public class MainActivity extends LuActivity {
                     break;
                 case R.id.navigation_web_view:
                     fragment = DynamicFragment.newInstance();
+                    break;
+                case R.id.navigation_performance:
+                    fragment = PerformanceFragment.newInstance();
                     break;
                 default:
                     fragment = CustomViewFragment.newInstance();

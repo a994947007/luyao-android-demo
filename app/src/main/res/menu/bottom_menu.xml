@@ -3,5 +3,5 @@
     <item android:id="@+id/navigation_view" android:title="View" android:icon="@drawable/icon_home_normal"/>
     <item android:id="@+id/navigation_framework" android:title="Framework" android:icon="@drawable/icon_trends_normal"/>
     <item android:id="@+id/navigation_web_view" android:title="动态化" android:icon="@drawable/icon_chat_normal"/>
-    <item android:id="@+id/navigation_speed" android:title="性能" android:icon="@drawable/icon_me_normal"/>
+    <item android:id="@+id/navigation_performance" android:title="性能" android:icon="@drawable/icon_me_normal"/>
 </menu>

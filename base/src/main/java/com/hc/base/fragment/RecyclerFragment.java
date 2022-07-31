@@ -1,5 +1,5 @@
 package com.hc.base.fragment;
 
-public class RecyclerFragment extends BaseFragment {
+public class RecyclerFragment extends LuFragment {
 
 }

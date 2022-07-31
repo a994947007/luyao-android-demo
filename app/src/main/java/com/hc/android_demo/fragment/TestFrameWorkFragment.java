@@ -80,7 +80,8 @@ public class TestFrameWorkFragment extends SimpleRecyclerFragment {
         startContentActivity(FragmentConstants.MVVM_TEST_FRAGMENT_ID);
     }
 
-    private void startContentActivity(String id) {
+    @Override
+    protected void startContentActivity(String id) {
         Intent intent = new Intent(getActivity(), ContentActivity.class);
         intent.putExtra(Constants.CONTENT_FRAGMENT_KEY, id);
         startActivity(intent);

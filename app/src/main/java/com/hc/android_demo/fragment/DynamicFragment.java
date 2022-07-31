@@ -74,7 +74,8 @@ public class DynamicFragment extends SimpleRecyclerFragment {
         // startActivity(new Intent(getActivity(), MyReactActivity.class));
     }
 
-    private void startContentActivity(String id) {
+    @Override
+    protected void startContentActivity(String id) {
         ActivityUtils.startContentActivity((LuActivity) getActivity(), id);
     }
 

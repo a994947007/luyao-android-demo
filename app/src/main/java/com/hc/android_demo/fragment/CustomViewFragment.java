@@ -96,7 +96,8 @@ public class CustomViewFragment extends SimpleRecyclerFragment {
         startContentActivity(FragmentConstants.SECOND_FLOOR_REFRESH_LAYOUT);
     }
 
-    private void startContentActivity(String id) {
+    @Override
+    protected void startContentActivity(String id) {
         ActivityUtils.startContentActivity((LuActivity) getActivity(), id);
     }
 
