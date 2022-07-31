@@ -61,5 +61,5 @@ dependencies {
     annotationProcessor rootProject.autoServiceDependency
     implementation rootProject.autoServiceDependency
     implementation 'com.android.support:multidex:1.0.1'
-
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.5'
 }
