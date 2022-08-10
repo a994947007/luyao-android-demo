@@ -33,6 +33,7 @@ public class TestFrameWorkFragment extends SimpleRecyclerFragment {
         addItem("图片下载+跨进程Binder通信+文件下载", this::onClickDownloadBitmapFragment);
         addItem("post、postOnAnimation原理", this::onClickTextViewPostFragment);
         addItem("KT DSL、高阶函数", this::onClickDSLTestFragment);
+        addItem("Room数据库使用测试", this::onClickRoomDBFragment);
     }
 
     private TestFrameWorkFragment() { }
@@ -58,6 +59,10 @@ public class TestFrameWorkFragment extends SimpleRecyclerFragment {
 
     private void onClickDSLTestFragment() {
         startContentActivity(FragmentConstants.KT_DSL_TEST_FRAGMENT_ID);
+    }
+
+    private void onClickRoomDBFragment() {
+        startContentActivity(FragmentConstants.ROOM_DB_FRAGMENT_ID);
     }
 
     private void onClickTextViewPostFragment() {

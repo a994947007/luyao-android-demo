@@ -50,4 +50,5 @@ ext {
     autoServiceDependency = 'com.google.auto.service:auto-service:1.0-rc7'
     asmVersion = '9.0'
     reactVersion = "0.67.4"
+    roomVersion = "2.3.0"
 }
