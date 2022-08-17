@@ -12,6 +12,7 @@ import com.hc.android_demo.R;
 
 import com.hc.android_demo.dialog.bottom.sheet.HalfBottomSheetDialogFragmentTest;
 import com.hc.android_demo.fragment.base.SimpleRecyclerFragment;
+import com.hc.android_demo.fragment.content.ui.fragment.CircleBottomSheetDialogFragment;
 import com.hc.base.activity.LuActivity;
 import com.hc.base.autoservice.AutoServiceManager;
 import com.hc.dialog.BottomSheetDialogFragmentV1;
@@ -66,6 +67,7 @@ public class CustomViewFragment extends SimpleRecyclerFragment {
         items.add(new Pair<>("可扩展半屏弹窗", this::onClickHalfBottomSheetDialog));
         items.add(new Pair<>("落坑动画", this::onClickStitchingImageFragment));
         items.add(new Pair<>("渐变色蒙层+侧滑引导动画", this::OnClickSwipeGuideFragment));
+        items.add(new Pair<>("圆角BottomSheet，支持图片", this::OnClickCircleBottomSheetFragment));
     }
 
     @Override
@@ -86,6 +88,11 @@ public class CustomViewFragment extends SimpleRecyclerFragment {
             ((Activity)getContext()).getWindow().setStatusBarColor(ViewUtils.getColor(R.color.bottom_nav_color));
             ((Activity)getContext()).getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
+    }
+
+    private void OnClickCircleBottomSheetFragment() {
+        CircleBottomSheetDialogFragment dialogFragment = new CircleBottomSheetDialogFragment();
+        dialogFragment.show(getFragmentManager(), "CircleBottomSheetDialogFragment");
     }
 
     private void OnClickSwipeGuideFragment() {
