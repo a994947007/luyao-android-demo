@@ -3,6 +3,7 @@ package com.hc.design.drawable;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
@@ -18,12 +19,13 @@ import androidx.annotation.Nullable;
 import com.hc.design.R;
 
 public class CircleBitmapDrawable extends Drawable {
-    private final Paint mPaint;
-    private final Bitmap mBitmap;
-    private final Matrix mMatrix;
-    private final BitmapShader mBitmapShader;
+    private Paint mPaint;
+    private Bitmap mBitmap;
+    private Matrix mMatrix;
+    private BitmapShader mBitmapShader;
     private RectF mRectF = null;
     private Rect mTempRect = new Rect();
+    private int mColor = 0;
 
     private int mRadius = 0;
     boolean mUseTopLeftCircle;
@@ -33,12 +35,23 @@ public class CircleBitmapDrawable extends Drawable {
 
     public CircleBitmapDrawable(Bitmap bitmap) {
         mBitmap = bitmap;
-        mPaint = new Paint();
-        mPaint.setStyle(Paint.Style.FILL);
-        mPaint.setAntiAlias(true);
-        mPaint.setDither(true);
-        mMatrix = new Matrix();
         mBitmapShader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+        init();
+    }
+
+    public CircleBitmapDrawable(int color,
+                                int radius,
+                                boolean useTopLeftCircle,
+                                boolean useTopRightCircle,
+                                boolean useBottomLeftCircle,
+                                boolean useBottomRightCircle) {
+        this.mColor = color;
+        this.mRadius = radius;
+        mUseTopLeftCircle = useTopLeftCircle;
+        mUseTopRightCircle = useTopRightCircle;
+        mUseBottomLeftCircle = useBottomLeftCircle;
+        mUseBottomRightCircle = useBottomRightCircle;
+        init();
     }
 
     public CircleBitmapDrawable(Bitmap bitmap,
@@ -60,6 +73,14 @@ public class CircleBitmapDrawable extends Drawable {
         mUseBottomRightCircle = useBottomRightCircle;
     }
 
+    private void init() {
+        mPaint = new Paint();
+        mPaint.setStyle(Paint.Style.FILL);
+        mPaint.setAntiAlias(true);
+        mPaint.setDither(true);
+        mMatrix = new Matrix();
+    }
+
     public void setRadius(int radius) {
         mRadius = radius;
     }
@@ -69,13 +90,18 @@ public class CircleBitmapDrawable extends Drawable {
         if (mRectF == null) {
             mRectF =  new RectF(0, 0, getBounds().width(), getBounds().height());
         }
-        int srcW = mBitmap.getWidth();
-        int srcH = mBitmap.getHeight();
-        float scaleW = ((float) getBounds().width()) / srcW;
-        float scaleH = ((float) getBounds().height()) / srcH;
-        mMatrix.postScale(scaleW, scaleH);
-        mBitmapShader.setLocalMatrix(mMatrix); //将矩阵变化设置到BitmapShader,其实就是作用到Bitmap
-        mPaint.setShader(mBitmapShader);
+        if (mBitmap != null) {
+            int srcW = mBitmap.getWidth();
+            int srcH = mBitmap.getHeight();
+            float scaleW = ((float) getBounds().width()) / srcW;
+            float scaleH = ((float) getBounds().height()) / srcH;
+            mMatrix.reset();
+            mMatrix.postScale(scaleW, scaleH);
+            mBitmapShader.setLocalMatrix(mMatrix); //将矩阵变化设置到BitmapShader,其实就是作用到Bitmap
+            mPaint.setShader(mBitmapShader);
+        } else {
+            mPaint.setColor(mColor);
+        }
         canvas.drawRoundRect(mRectF, mRadius, mRadius, mPaint);
         if (!mUseTopLeftCircle) {
             resetTempRect(0, 0, mRadius, mRadius);

@@ -1,6 +1,7 @@
 package com.hc.android_demo.fragment.content.ui.fragment;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -39,7 +40,8 @@ public class CircleBottomSheetDialogFragment extends BottomSheetDialogFragment {
                     .observeOn(Schedules.MAIN)
                     .subscribe(bitmap -> {
                         //requireView().setBackground(new BitmapDrawable(getResources(), bitmap.copy(bitmap.getConfig(),true)));
-                        requireView().setBackground(new CircleBitmapDrawable(bitmap, 50, true, true, false, false));
+                        //requireView().setBackground(new CircleBitmapDrawable(bitmap, 50, true, true, false, false));
+                        requireView().setBackground(new CircleBitmapDrawable(Color.WHITE, 50, true, true, false, false));
                     });
         } catch (MalformedURLException e) {
             e.printStackTrace();
