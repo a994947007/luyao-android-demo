@@ -4,4 +4,15 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="bottom_nav_color">#E1DCE1</color>
+
+    <!-- 换肤用 -->
+    <!-- 默认皮肤 -->
+    <color name="content_view_bg_default">#FF00FF</color>
+    <color name="content_text_color_default">#FFFFFF</color>
+    <color name="content_rec_color_default">#222222</color>
+
+    <!-- 换肤后 -->
+    <color name="content_view_bg_style1">#FFCCFF</color>
+    <color name="content_text_color_style1">#222222</color>
+    <color name="content_rec_color_style1">#FAFAFA</color>
 </resources>

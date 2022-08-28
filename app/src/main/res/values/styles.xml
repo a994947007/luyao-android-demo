@@ -5,6 +5,9 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="content_view_bg">@color/content_view_bg_default</item>
+        <item name="content_text_color">@color/content_text_color_default</item>
+        <item name="content_rec_style">@style/content_rec_view_default</item>
     </style>
 
     <!-- 该主题只能在启动MainActivity时使用，在onCreate时应该替换掉该主题 -->
@@ -26,6 +29,7 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>
+        <item name="content_rec_style">@style/content_rec_view_default</item>
     </style>
 
     <!--背景透明的style，需要自己定义过度动画和background-->
@@ -38,5 +42,19 @@
     <style name="none_anim" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/in_from_right</item>
         <item name="android:activityOpenExitAnimation">@anim/out_to_right</item>
+    </style>
+
+    <style name="activity_style1" parent="AppTheme">
+        <item name="content_view_bg">@color/content_view_bg_style1</item>
+        <item name="content_text_color">@color/content_text_color_style1</item>
+        <item name="content_rec_style">@style/content_rec_view_style1</item>
+    </style>
+
+    <style name="content_rec_view_default">
+        <item name="android:background">@color/content_rec_color_default</item>
+    </style>
+
+    <style name="content_rec_view_style1">
+        <item name="android:background">@color/content_rec_color_style1</item>
     </style>
 </resources>

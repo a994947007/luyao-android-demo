@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 换皮肤用 -->
+    <attr name="content_view_bg" format="color"/>
+    <attr name="content_text_color" format="color"/>
+    <attr name="content_rec_color" format="color" />
+    <attr name="content_rec_style" format="reference" />
+</resources>

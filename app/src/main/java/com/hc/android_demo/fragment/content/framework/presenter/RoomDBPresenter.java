@@ -1,27 +1,18 @@
 package com.hc.android_demo.fragment.content.framework.presenter;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import androidx.room.Room;
-
 import com.hc.android_demo.R;
 import com.hc.android_demo.fragment.content.framework.db.User;
 import com.hc.android_demo.fragment.content.framework.db.UserDB;
-import com.hc.android_demo.fragment.content.framework.db.UserDao;
-import com.hc.base.AppEnvironment;
 import com.hc.support.mvps.Presenter;
 import com.hc.support.rxJava.observable.Observable;
-import com.hc.support.rxJava.observer.Consumer;
 import com.hc.support.rxJava.schedule.Schedules;
 import com.hc.support.util.TextUtils;
 import com.hc.util.ThreadUtils;
 import com.hc.util.ToastUtils;
-import com.hc.util.Utils;
-
-import java.util.concurrent.Callable;
 
 public class RoomDBPresenter extends Presenter {
 
