@@ -4,15 +4,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleOwner;
 
 import com.google.auto.service.AutoService;
 import com.hc.support.rxJava.observable.Observable;
-import com.hc.support.rxJava.observer.Subscriber;
 import com.hc.support.rxJava.schedule.Schedules;
 import com.jny.common.download.DownloadService;
 import com.jny.common.webview.DownloadCallback;
-import com.jny.core.DownloadManager;
 import com.jny.process.DownloadCenter;
 
 import java.io.IOException;

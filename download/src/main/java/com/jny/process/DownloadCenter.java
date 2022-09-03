@@ -50,4 +50,13 @@ public class DownloadCenter {
             }
         });
     }
+
+    public DownloadDisposable download(String url, DownloadCallback downloadCallback) {
+        String id = DownloadCallbackManager.getInstance().addDownloadCallback(downloadCallback);
+        Intent intent = new Intent(AppEnvironment.getAppContext(), DownloadService.class);
+        intent.putExtra(DownloadService.URL_KEY, url);
+        intent.putExtra(DownloadService.DOWNLOAD_CALLBACK_ID, id);
+        DownloadService.enqueueWork(AppEnvironment.getAppContext(), intent);
+        return () -> DownloadCallbackManager.getInstance().removeDownloadCallback(id);
+    }
 }

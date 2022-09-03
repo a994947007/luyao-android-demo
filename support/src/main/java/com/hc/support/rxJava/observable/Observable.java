@@ -164,4 +164,8 @@ public abstract class Observable<T> implements ObservableSource<T>{
         this.subscribe(ls);
         return ls;
     }
+
+    public Disposable subscribe() {
+        return subscribe(Functions.<T>emptyConsumer());
+    }
 }

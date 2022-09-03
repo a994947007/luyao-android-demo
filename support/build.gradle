@@ -28,6 +28,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$rootProject.androidxVersion"
     api 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    implementation project(path: ':base')
     annotationProcessor rootProject.autoServiceDependency
     implementation rootProject.autoServiceDependency
 
@@ -36,6 +37,8 @@ dependencies {
     implementation "org.ow2.asm:asm-util:$rootProject.asmVersion"
     implementation "org.ow2.asm:asm-tree:$rootProject.asmVersion"
     implementation "org.ow2.asm:asm-analysis:$rootProject.asmVersion"
+    implementation project(path: ':download')
+    implementation project(path: ':common')
 
     api "androidx.room:room-runtime:$rootProject.roomVersion"
     annotationProcessor "androidx.room:room-compiler:$rootProject.roomVersion"
