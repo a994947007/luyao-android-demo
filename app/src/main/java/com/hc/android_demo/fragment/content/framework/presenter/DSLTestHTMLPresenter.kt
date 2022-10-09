@@ -5,7 +5,6 @@ import android.widget.Button
 import android.widget.TextView
 import com.hc.android_demo.R
 import com.hc.base.util.KtPresenter
-import com.hc.support.util.TextUtils
 import java.lang.StringBuilder
 
 class DSLTestHTMLPresenter: KtPresenter() {
@@ -81,14 +80,14 @@ class DSLTestHTMLPresenter: KtPresenter() {
     }
 
     class Header: Tag("header") {
-        fun style(type: String = TextUtils.emptyString(),
+        fun style(type: String = com.jny.android.demo.base_util.TextUtils.emptyString(),
                   lambda: Style.() -> Unit) {
             val style = Style()
             style.setAttribute("type", type)
             initTag(lambda, style)
         }
 
-        fun script(type: String = TextUtils.emptyString(),
+        fun script(type: String = com.jny.android.demo.base_util.TextUtils.emptyString(),
                    lambda: Script.() -> Unit) {
             val script = Script()
             script.setAttribute("type", type)
@@ -97,7 +96,7 @@ class DSLTestHTMLPresenter: KtPresenter() {
     }
 
     class Body: Tag("body") {
-        fun a(href: String = TextUtils.emptyString(),
+        fun a(href: String = com.jny.android.demo.base_util.TextUtils.emptyString(),
               lambda: A.() -> Unit) {
             val a = A()
             a.setAttribute("href", href)
@@ -118,7 +117,7 @@ class DSLTestHTMLPresenter: KtPresenter() {
 
         fun build():String {
             val builder = StringBuilder()
-            render(builder, TextUtils.emptyString())
+            render(builder, com.jny.android.demo.base_util.TextUtils.emptyString())
             return builder.toString()
         }
     }

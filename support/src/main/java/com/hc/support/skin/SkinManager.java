@@ -5,13 +5,13 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.jny.android.demo.rxandroid.observer.Consumer;
 import com.hc.support.skin.cache.SkinConfig;
 import com.hc.support.skin.cache.SkinPreference;
 import com.hc.support.skin.util.SkinResources;
-import com.hc.support.util.TextUtils;
 import com.jny.core.DownloadCallback;
 import com.jny.process.DownloadCenter;
 import com.jny.process.DownloadDisposable;

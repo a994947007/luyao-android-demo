@@ -32,6 +32,7 @@ dependencies {
     implementation project(path: ':common')
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation project(path: ':design')
+    implementation project(path: ':base-util')
     annotationProcessor rootProject.autoServiceDependency
     implementation rootProject.autoServiceDependency
 }

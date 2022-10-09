@@ -16,7 +16,6 @@ import com.hc.base.activity.LuActivity;
 import com.hc.util.ActivityUtils;
 import com.hc.util.ViewUtils;
 import com.jny.common.fragment.FragmentConstants;
-import com.jny.react_native.MyReactActivity;
 import com.jny.webview.webviewProgress.constants.Constants;
 import com.jny.webview.webviewProgress.ui.DynamicWebViewActivity;
 

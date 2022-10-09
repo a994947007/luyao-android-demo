@@ -1,7 +1,6 @@
 package com.hc.base.init;
 
 import com.google.auto.service.AutoService;
-import com.hc.support.init.InitModuleTask;
 import com.hc.support.preload.edition3.core.PreloadActionFactory;
 import com.hc.support.preload.edition3.core.PreloadPipeline;
 import java.util.ServiceLoader;

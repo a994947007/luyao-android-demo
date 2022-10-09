@@ -6,7 +6,7 @@ import android.graphics.BitmapFactory;
 
 import androidx.annotation.DrawableRes;
 
-import com.hc.base.AppEnvironment;
+import com.jny.android.demo.base_util.AppEnvironment;
 
 public final class BitmapUtils {
 

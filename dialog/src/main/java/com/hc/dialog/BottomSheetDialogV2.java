@@ -10,8 +10,8 @@ import android.view.*;
 import androidx.annotation.NonNull;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.hc.util.InflaterUtils;
-import com.hc.util.ThreadUtils;
+import com.jny.android.demo.base_util.InflaterUtils;
+import com.jny.android.demo.base_util.ThreadUtils;
 
 /**
  * 通过设置Behavior的peekHeight来展示展示的dialog高度

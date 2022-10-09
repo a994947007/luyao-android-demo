@@ -3,7 +3,7 @@ package com.jny.core;
 import android.content.Context;
 import android.net.Uri;
 
-import com.hc.util.UriUtils;
+import com.jny.android.demo.base_util.UriUtils;
 import com.jny.util.DownloadUtils;
 
 import java.io.IOException;

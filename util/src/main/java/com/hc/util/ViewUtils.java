@@ -4,14 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.ViewConfiguration;
 
 import androidx.annotation.ColorRes;
 import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 
-import com.hc.base.AppEnvironment;
+import com.jny.android.demo.base_util.AppEnvironment;
 
 
 public class ViewUtils {

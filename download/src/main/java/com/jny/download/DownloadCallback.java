@@ -1,4 +1,4 @@
-package com.jny.common.webview;
+package com.jny.download;
 
 public interface DownloadCallback {
     void onStart();

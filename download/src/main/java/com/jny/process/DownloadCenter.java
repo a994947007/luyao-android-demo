@@ -7,7 +7,7 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleEventObserver;
 import androidx.lifecycle.LifecycleOwner;
 
-import com.hc.base.AppEnvironment;
+import com.jny.android.demo.base_util.AppEnvironment;
 import com.jny.core.DownloadCallback;
 import com.jny.process.main.DownloadCallbackManager;
 

@@ -6,7 +6,8 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 
-import com.hc.support.util.TextUtils;
+import com.jny.android.demo.base_util.TextUtils;
+
 
 public class SkinResources {
 

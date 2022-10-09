@@ -1,7 +1,7 @@
 package com.jny.react_native;
 
 import com.google.auto.service.AutoService;
-import com.hc.support.init.InitModuleTask;
+import com.hc.base.init.InitModuleTask;
 import com.jny.react_native.core.ReactPackageManager;
 
 @AutoService({InitModuleTask.class})

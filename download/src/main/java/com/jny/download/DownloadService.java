@@ -1,11 +1,10 @@
-package com.jny.common.download;
+package com.jny.download;
 
 import android.graphics.Bitmap;
 
 import androidx.lifecycle.Lifecycle;
 
 import com.jny.android.demo.rxandroid.observable.Observable;
-import com.jny.common.webview.DownloadCallback;
 
 import java.net.URL;
 

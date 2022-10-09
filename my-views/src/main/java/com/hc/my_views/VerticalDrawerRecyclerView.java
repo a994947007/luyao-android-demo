@@ -8,7 +8,7 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.customview.widget.ViewDragHelper;
-import androidx.recyclerview.widget.RecyclerView;
+
 import com.hc.util.ViewUtils;
 
 /**

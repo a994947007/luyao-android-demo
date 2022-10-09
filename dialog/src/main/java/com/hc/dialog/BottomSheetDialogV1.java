@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.*;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
+
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.hc.util.InflaterUtils;
+import com.jny.android.demo.base_util.InflaterUtils;
 
 public class BottomSheetDialogV1 extends BottomSheetDialog {
     private View contentView;

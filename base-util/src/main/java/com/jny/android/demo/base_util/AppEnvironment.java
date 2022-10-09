@@ -1,4 +1,4 @@
-package com.hc.base;
+package com.jny.android.demo.base_util;
 
 import android.app.Application;
 import android.content.Context;

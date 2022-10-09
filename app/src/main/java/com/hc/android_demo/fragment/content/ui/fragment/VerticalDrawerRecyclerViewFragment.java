@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hc.android_demo.R;
-import com.hc.util.InflaterUtils;
+import com.jny.android.demo.base_util.InflaterUtils;
 
 import java.util.ArrayList;
 import java.util.List;

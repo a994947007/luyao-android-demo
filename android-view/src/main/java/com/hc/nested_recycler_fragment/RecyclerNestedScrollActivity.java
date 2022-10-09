@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import com.hc.android_view.R;
-import com.hc.util.InflaterUtils;
+import com.jny.android.demo.base_util.InflaterUtils;
 
 import java.util.Arrays;
 import java.util.List;

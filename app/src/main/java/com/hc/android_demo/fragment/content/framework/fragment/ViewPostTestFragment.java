@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.google.auto.service.AutoService;
 import com.hc.android_demo.R;
 import com.hc.base.activity.ActivityStarter;
-import com.hc.support.util.TextUtils;
+import com.jny.android.demo.base_util.TextUtils;
 import com.jny.common.fragment.FragmentConstants;
 
 @AutoService({ActivityStarter.class})

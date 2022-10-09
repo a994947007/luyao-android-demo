@@ -1,4 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply from: 'build-config.gradle'
+
 buildscript {
     repositories {
         google()
@@ -38,17 +40,4 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
-}
-
-ext {
-    compileSdkVersion = 30
-    buildToolsVersion = "30.0.2"
-    applicationId = "com.hc.android_demo"
-    minSdkVersion = 21
-    targetSdkVersion = 30
-    androidxVersion = "1.2.0"
-    autoServiceDependency = 'com.google.auto.service:auto-service:1.0-rc7'
-    asmVersion = '9.0'
-    reactVersion = "0.67.4"
-    roomVersion = "2.3.0"
 }

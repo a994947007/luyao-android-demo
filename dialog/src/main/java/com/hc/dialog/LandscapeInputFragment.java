@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.DialogFragment;
 
-import com.hc.util.SystemServiceUtils;
+import com.jny.android.demo.base_util.SystemServiceUtils;
 
 public class LandscapeInputFragment extends DialogFragment {
     private Activity activity;

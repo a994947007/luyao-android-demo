@@ -8,10 +8,10 @@ import com.hc.android_demo.R;
 import com.hc.android_demo.fragment.content.framework.db.User;
 import com.hc.android_demo.fragment.content.framework.db.UserDB;
 import com.hc.support.mvps.Presenter;
+import com.jny.android.demo.base_util.TextUtils;
+import com.jny.android.demo.base_util.ThreadUtils;
 import com.jny.android.demo.rxandroid.observable.Observable;
 import com.jny.android.demo.rxandroid.schedule.Schedules;
-import com.hc.support.util.TextUtils;
-import com.hc.util.ThreadUtils;
 import com.hc.util.ToastUtils;
 
 public class RoomDBPresenter extends Presenter {

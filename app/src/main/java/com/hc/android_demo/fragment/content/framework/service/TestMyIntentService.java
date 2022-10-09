@@ -6,9 +6,9 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.hc.support.looper.MyIntentService;
-import com.hc.support.util.TextUtils;
-import com.hc.util.ThreadUtils;
 import com.hc.util.ToastUtils;
+import com.jny.android.demo.base_util.TextUtils;
+import com.jny.android.demo.base_util.ThreadUtils;
 
 import java.util.Objects;
 

@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 
-import com.hc.base.AppEnvironment;
+import com.jny.android.demo.base_util.AppEnvironment;
 import com.jny.process.DownloadCallbackProgressInterface;
 
 import java.util.concurrent.locks.Condition;

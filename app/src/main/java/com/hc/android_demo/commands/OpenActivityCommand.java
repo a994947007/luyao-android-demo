@@ -1,9 +1,9 @@
 package com.hc.android_demo.commands;
 
 import com.google.auto.service.AutoService;
-import com.hc.base.AppEnvironment;
 import com.hc.util.ActivityUtils;
-import com.hc.util.ThreadUtils;
+import com.jny.android.demo.base_util.AppEnvironment;
+import com.jny.android.demo.base_util.ThreadUtils;
 import com.jny.common.fragment.FragmentConstants;
 import com.jny.common.webview.Command;
 import com.jny.common.webview.WebViewCallback;

@@ -1,4 +1,4 @@
-package com.hc.support.util;
+package com.jny.android.demo.base_util;
 
 public final class TextUtils {
 

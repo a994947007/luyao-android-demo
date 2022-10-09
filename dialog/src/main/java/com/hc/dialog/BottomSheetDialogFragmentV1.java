@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.hc.util.InflaterUtils;
+import com.jny.android.demo.base_util.InflaterUtils;
 
 public class BottomSheetDialogFragmentV1 extends BottomSheetDialogFragment {
     private Dialog dialog;

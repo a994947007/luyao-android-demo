@@ -5,7 +5,7 @@ import androidx.annotation.Nullable;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
-import com.hc.base.AppEnvironment;
+import com.jny.android.demo.base_util.AppEnvironment;
 
 import java.util.ArrayList;
 import java.util.List;

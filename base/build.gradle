@@ -30,8 +30,10 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$rootProject.androidxVersion"
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation project(path: ':base-util')
     annotationProcessor rootProject.autoServiceDependency
     implementation rootProject.autoServiceDependency
+    api project(path: ':rxAndroid')
     api project(path: ':support')
     api 'com.google.code.gson:gson:2.8.8'
     api 'com.facebook.fresco:fresco:2.6.0'

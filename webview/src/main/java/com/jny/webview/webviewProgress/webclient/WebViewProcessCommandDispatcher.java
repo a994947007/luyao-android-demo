@@ -8,7 +8,7 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.os.RemoteException;
 
-import com.hc.base.AppEnvironment;
+import com.jny.android.demo.base_util.AppEnvironment;
 import com.jny.webview.IWebviewProcessToMainProcessInterface;
 import com.jny.webview.mainProgress.MainProcessCommandService;
 import com.jny.webview.webviewProgress.bridge.WebViewResponseCallback;

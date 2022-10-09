@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.hc.android_view.R;
 import com.hc.recyclerView.ItemBean;
-import com.hc.util.InflaterUtils;
+import com.jny.android.demo.base_util.InflaterUtils;
 
 import java.util.List;
 

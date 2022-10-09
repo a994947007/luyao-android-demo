@@ -1,4 +1,4 @@
-package com.hc.util;
+package com.jny.android.demo.base_util;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -7,8 +7,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
-
-import com.hc.base.AppEnvironment;
 
 import java.io.File;
 

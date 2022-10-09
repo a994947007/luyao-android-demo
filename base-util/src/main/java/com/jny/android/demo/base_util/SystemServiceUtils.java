@@ -1,4 +1,4 @@
-package com.hc.util;
+package com.jny.android.demo.base_util;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

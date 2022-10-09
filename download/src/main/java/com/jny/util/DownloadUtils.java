@@ -9,7 +9,7 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 
-import com.hc.support.util.TextUtils;
+import com.jny.android.demo.base_util.TextUtils;
 
 import java.util.UUID;
 import java.util.regex.Matcher;

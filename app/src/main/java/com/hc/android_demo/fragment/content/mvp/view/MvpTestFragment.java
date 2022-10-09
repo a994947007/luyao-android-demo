@@ -18,8 +18,8 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.hc.android_demo.R;
 import com.hc.android_demo.fragment.content.mvp.model.UserModel;
 import com.hc.android_demo.fragment.content.mvp.presenter.UserPresenter;
-import com.hc.util.InflaterUtils;
 import com.hc.util.ToastUtils;
+import com.jny.android.demo.base_util.InflaterUtils;
 
 import java.util.ArrayList;
 import java.util.List;

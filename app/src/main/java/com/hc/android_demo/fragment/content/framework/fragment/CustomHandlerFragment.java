@@ -19,14 +19,14 @@ import androidx.fragment.app.Fragment;
 import com.google.auto.service.AutoService;
 import com.hc.android_demo.R;
 import com.hc.android_demo.fragment.content.framework.service.TestMyIntentService;
-import com.hc.base.AppEnvironment;
 import com.hc.base.activity.ActivityStarter;
 import com.hc.my_views.SimpleRecyclerView;
 import com.hc.support.looper.MyHandler;
 import com.hc.support.looper.MyLooper;
 import com.hc.support.looper.MyMessage;
-import com.hc.util.ThreadUtils;
 import com.hc.util.ToastUtils;
+import com.jny.android.demo.base_util.AppEnvironment;
+import com.jny.android.demo.base_util.ThreadUtils;
 import com.jny.common.fragment.FragmentConstants;
 
 import java.util.ArrayList;

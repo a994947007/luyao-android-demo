@@ -2,7 +2,8 @@ package com.hc.base;
 
 import android.app.Application;
 
-import com.hc.support.init.InitModuleTask;
+import com.hc.base.init.InitModuleTask;
+import com.jny.android.demo.base_util.AppEnvironment;
 
 import java.util.ServiceLoader;
 

@@ -2,7 +2,7 @@ package com.hc.util;
 
 import android.widget.Toast;
 
-import com.hc.base.AppEnvironment;
+import com.jny.android.demo.base_util.AppEnvironment;
 
 public final class ToastUtils {
     

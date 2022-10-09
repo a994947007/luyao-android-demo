@@ -32,6 +32,7 @@ dependencies {
     api project(path: ':base')
     api project(path: ':common')
     api project(path: ':my-views')
+    implementation project(path: ':base-util')
     annotationProcessor rootProject.autoServiceDependency
     implementation rootProject.autoServiceDependency
     if (useIntlJsc) {

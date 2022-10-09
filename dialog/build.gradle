@@ -31,4 +31,5 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     implementation "android.arch.lifecycle:common-java8:1.1.1"
     implementation project(path: ':my-views')
+    implementation project(path: ':base-util')
 }

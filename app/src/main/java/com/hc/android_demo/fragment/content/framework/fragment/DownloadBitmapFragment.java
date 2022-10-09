@@ -16,9 +16,8 @@ import com.hc.android_demo.R;
 import com.hc.base.activity.ActivityStarter;
 import com.hc.base.autoservice.AutoServiceManager;
 import com.jny.android.demo.rxandroid.observable.Observable;
-import com.jny.android.demo.rxandroid.observer.Consumer;
 import com.jny.android.demo.rxandroid.schedule.Schedules;
-import com.jny.common.download.DownloadService;
+import com.jny.download.DownloadService;
 import com.jny.common.fragment.FragmentConstants;
 
 import java.net.MalformedURLException;
