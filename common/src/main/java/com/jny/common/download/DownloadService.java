@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 
 import androidx.lifecycle.Lifecycle;
 
-import com.hc.support.rxJava.observable.Observable;
+import com.jny.android.demo.rxandroid.observable.Observable;
 import com.jny.common.webview.DownloadCallback;
 
 import java.net.URL;

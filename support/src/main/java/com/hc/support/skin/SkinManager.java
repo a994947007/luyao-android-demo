@@ -7,7 +7,7 @@ import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.util.Log;
 
-import com.hc.support.rxJava.observer.Consumer;
+import com.jny.android.demo.rxandroid.observer.Consumer;
 import com.hc.support.skin.cache.SkinConfig;
 import com.hc.support.skin.cache.SkinPreference;
 import com.hc.support.skin.util.SkinResources;

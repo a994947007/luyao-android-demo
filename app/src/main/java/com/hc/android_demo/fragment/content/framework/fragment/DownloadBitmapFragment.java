@@ -1,9 +1,6 @@
 package com.hc.android_demo.fragment.content.framework.fragment;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,18 +15,12 @@ import com.google.auto.service.AutoService;
 import com.hc.android_demo.R;
 import com.hc.base.activity.ActivityStarter;
 import com.hc.base.autoservice.AutoServiceManager;
-import com.hc.support.rxJava.observable.Observable;
-import com.hc.support.rxJava.observer.Consumer;
-import com.hc.support.rxJava.schedule.Schedules;
-import com.hc.util.ToastUtils;
-import com.hc.util.UriUtils;
-import com.hc.util.Utils;
+import com.jny.android.demo.rxandroid.observable.Observable;
+import com.jny.android.demo.rxandroid.observer.Consumer;
+import com.jny.android.demo.rxandroid.schedule.Schedules;
 import com.jny.common.download.DownloadService;
 import com.jny.common.fragment.FragmentConstants;
-import com.jny.common.webview.DownloadCallback;
-import com.jny.core.DownloadManager;
 
-import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 

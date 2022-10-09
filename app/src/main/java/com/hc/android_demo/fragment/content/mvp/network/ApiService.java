@@ -1,23 +1,11 @@
 package com.hc.android_demo.fragment.content.mvp.network;
 
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-
 import com.google.gson.Gson;
 import com.hc.android_demo.fragment.content.mvp.model.UserListResponse;
 import com.hc.android_demo.fragment.content.mvp.model.UserModel;
-import com.hc.support.rxJava.observable.Observable;
-import com.hc.support.rxJava.observer.Subscriber;
-import com.hc.support.rxJava.schedule.Schedules;
-
-import java.io.IOException;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import com.jny.android.demo.rxandroid.observable.Observable;
+import com.jny.android.demo.rxandroid.observer.Subscriber;
+import com.jny.android.demo.rxandroid.schedule.Schedules;
 
 public class ApiService {
 

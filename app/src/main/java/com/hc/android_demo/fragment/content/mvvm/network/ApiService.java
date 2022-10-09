@@ -3,8 +3,8 @@ package com.hc.android_demo.fragment.content.mvvm.network;
 import com.google.gson.Gson;
 import com.hc.android_demo.fragment.content.mvvm.model.UserListResponse;
 import com.hc.android_demo.fragment.content.mvvm.model.UserModel;
-import com.hc.support.rxJava.observable.Observable;
-import com.hc.support.rxJava.schedule.Schedules;
+import com.jny.android.demo.rxandroid.observable.Observable;
+import com.jny.android.demo.rxandroid.schedule.Schedules;
 
 public class ApiService {
 

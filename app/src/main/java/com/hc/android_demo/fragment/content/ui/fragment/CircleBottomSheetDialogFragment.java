@@ -1,8 +1,6 @@
 package com.hc.android_demo.fragment.content.ui.fragment;
 
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.hc.android_demo.R;
 import com.hc.base.autoservice.AutoServiceManager;
 import com.hc.design.drawable.CircleBitmapDrawable;
-import com.hc.support.rxJava.schedule.Schedules;
+import com.jny.android.demo.rxandroid.schedule.Schedules;
 import com.jny.common.download.DownloadService;
 
 import java.net.MalformedURLException;

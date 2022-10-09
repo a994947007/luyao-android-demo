@@ -6,8 +6,8 @@ import android.graphics.BitmapFactory;
 import androidx.lifecycle.Lifecycle;
 
 import com.google.auto.service.AutoService;
-import com.hc.support.rxJava.observable.Observable;
-import com.hc.support.rxJava.schedule.Schedules;
+import com.jny.android.demo.rxandroid.observable.Observable;
+import com.jny.android.demo.rxandroid.schedule.Schedules;
 import com.jny.common.download.DownloadService;
 import com.jny.common.webview.DownloadCallback;
 import com.jny.process.DownloadCenter;

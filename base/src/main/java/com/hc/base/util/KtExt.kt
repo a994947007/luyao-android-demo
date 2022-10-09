@@ -1,8 +1,8 @@
 package com.hc.base.util
 
 import com.hc.support.mvps.Presenter
-import com.hc.support.rxJava.disposable.Disposable
-import com.hc.support.rxJava.observable.Observable
+import com.jny.android.demo.rxandroid.disposable.Disposable
+import com.jny.android.demo.rxandroid.observable.Observable
 
 open class KtPresenter: Presenter() {
     fun Disposable.autoDispose() {

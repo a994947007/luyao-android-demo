@@ -15,7 +15,7 @@ import com.hc.android_demo.R;
 import com.hc.android_demo.databinding.FragmentMvvmLayoutBinding;
 import com.hc.android_demo.fragment.content.mvvm.network.ApiService;
 import com.hc.android_demo.fragment.content.mvvm.view.RecyclerUserListAdapter;
-import com.hc.support.rxJava.schedule.Schedules;
+import com.jny.android.demo.rxandroid.schedule.Schedules;
 
 public class MvvmTestFragment extends Fragment {
 

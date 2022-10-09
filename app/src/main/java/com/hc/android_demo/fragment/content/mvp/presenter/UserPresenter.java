@@ -7,7 +7,7 @@ import com.hc.android_demo.fragment.content.mvp.network.ApiService;
 import com.hc.android_demo.fragment.content.mvp.view.MvpTestFragment;
 import com.hc.android_demo.fragment.content.mvp.view.UserItemView;
 import com.hc.support.mvps.Presenter;
-import com.hc.support.rxJava.schedule.Schedules;
+import com.jny.android.demo.rxandroid.schedule.Schedules;
 import com.hc.support.util.TextUtils;
 
 public class UserPresenter extends Presenter {
