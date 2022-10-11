@@ -15,4 +15,7 @@
     <color name="content_view_bg_style1">#FFCCFF</color>
     <color name="content_text_color_style1">#222222</color>
     <color name="content_rec_color_style1">#FAFAFA</color>
+    
+    <color name="s_2B2B2F">#2B2B2F</color>
+    <color name="s_FFFFFF">#FFFFFF</color>
 </resources>
