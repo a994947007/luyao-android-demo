@@ -17,6 +17,12 @@ android {
         versionName rootProject.versionName
         multiDexEnabled true
         resConfigs 'en','zh-rCN'
+
+        javaCompileOptions{
+            annotationProcessorOptions {
+                arguments = [student: 'hello luyao']
+            }
+        }
     }
 
     buildTypes {
@@ -60,6 +66,12 @@ dependencies {
     implementation project(path: ':download')
     implementation project(path: ':rxAndroid')
     implementation project(path: ':base-util')
+
+    // ARouter注解处理器
+    implementation project(":arouter-annotations")
+    implementation project(":arouter-compiler")
+    annotationProcessor project(":arouter-compiler")
+
     annotationProcessor rootProject.autoServiceDependency
     implementation rootProject.autoServiceDependency
     implementation 'com.android.support:multidex:1.0.1'

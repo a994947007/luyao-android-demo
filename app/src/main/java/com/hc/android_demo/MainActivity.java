@@ -13,10 +13,12 @@ import com.hc.android_demo.fragment.PerformanceFragment;
 import com.hc.android_demo.fragment.TestFrameWorkFragment;
 import com.hc.base.activity.ContentActivityManager;
 import com.hc.base.activity.LuActivity;
+import com.jny.android.demo.arouter_annotations.ARouter;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@ARouter(path = "/path/MainActivity")
 public class MainActivity extends LuActivity {
 
     private int currentItemId = 0;
