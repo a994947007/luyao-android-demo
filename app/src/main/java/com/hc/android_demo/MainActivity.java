@@ -18,7 +18,7 @@ import com.jny.android.demo.arouter_annotations.ARouter;
 import java.util.HashMap;
 import java.util.Map;
 
-@ARouter(path = "/path/MainActivity")
+@ARouter(path = "/app/MainActivity")
 public class MainActivity extends LuActivity {
 
     private int currentItemId = 0;

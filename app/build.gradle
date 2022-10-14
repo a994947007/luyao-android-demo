@@ -20,7 +20,8 @@ android {
 
         javaCompileOptions{
             annotationProcessorOptions {
-                arguments = [student: 'hello luyao']
+                arguments = [moduleName: 'app']
+                arguments += [packageNameForAPT: 'com.hc.android_demo']
             }
         }
     }
