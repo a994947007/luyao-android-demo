@@ -7,7 +7,15 @@ public interface ProcessorConfig {
 
     String ACTIVITY_PACKAGE = "android.app.Activity";
 
-    String DEFAULT_GROUP = "/group/default";
+    String ROUTER_TAB_CLASS_PACKAGE = "com.jny.android.demo.router";
+
+    String ROUTER_TAB_CLASS = "$RouterTab";
+
+    String ROUTER_TAB_METHOD_NAME = "getRouterTab";
+
+    String ROUTER_TAB_MAP_NAME = "router";
+
+    String DEFAULT_GROUP = "default";
 
     String ROUTER_API_PATH = "com.jny.android.demo.api.ARouterPath";
 
@@ -24,4 +32,14 @@ public interface ProcessorConfig {
     String PREFIX_PATH_CLASS_NAME = "ARouter$$Path$$";
 
     String PREFIX_GROUP_CLASS_NAME = "ARouter$$Group$$";
+
+    String LOAD_PARAM_METHOD_PARAM_NAME = "entity";
+
+    String LOAD_PARAM_METHOD_NAME = "load";
+
+    String LOAD_PARAM_METHOD_TEMP_ARG = "t";
+
+    String STRING = "java.lang.String";
+
+    String PARAMETER_LOADER_CLASS_NAME = "$Parameter";
 }

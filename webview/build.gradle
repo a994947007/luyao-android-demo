@@ -11,6 +11,13 @@ android {
         versionCode 1
         versionName "1.0"
         consumerProguardFiles "consumer-rules.pro"
+
+        javaCompileOptions{
+            annotationProcessorOptions {
+                arguments += [moduleName: 'webview',
+                               packageNameForAPT: 'com.jny.webview.webviewProgress']
+            }
+        }
     }
 
     buildTypes {
@@ -33,6 +40,12 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation project(path: ':design')
     implementation project(path: ':base-util')
+    implementation project(path: ':arouter-api')
     annotationProcessor rootProject.autoServiceDependency
     implementation rootProject.autoServiceDependency
+
+    // ARouter注解处理器
+    implementation project(":arouter-annotations")
+    implementation project(":arouter-compiler")
+    annotationProcessor project(":arouter-compiler")
 }

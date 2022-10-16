@@ -71,6 +71,7 @@ dependencies {
     // ARouter注解处理器
     implementation project(":arouter-annotations")
     implementation project(":arouter-compiler")
+    implementation project(":arouter-api")
     annotationProcessor project(":arouter-compiler")
 
     annotationProcessor rootProject.autoServiceDependency

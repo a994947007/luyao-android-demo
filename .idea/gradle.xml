@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/android-view" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/arouter-annotations" />
+            <option value="$PROJECT_DIR$/arouter-api" />
             <option value="$PROJECT_DIR$/arouter-compiler" />
             <option value="$PROJECT_DIR$/base" />
             <option value="$PROJECT_DIR$/base-util" />

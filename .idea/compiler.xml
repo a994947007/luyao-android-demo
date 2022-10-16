@@ -25,6 +25,7 @@
       <module name="android-demo.annotations" target="1.8" />
       <module name="android-demo.annotations.arouter" target="1.8" />
       <module name="android-demo.app" target="1.8" />
+      <module name="android-demo.arouter-api" target="1.8" />
       <module name="android-demo.base" target="1.8" />
       <module name="android-demo.base-util" target="1.8" />
       <module name="android-demo.common" target="1.8" />

@@ -24,6 +24,7 @@ import com.hc.nested_recycler_fragment.RecyclerNestedScrollActivity;
 import com.hc.recyclerView.RecyclerActivity;
 import com.hc.util.ActivityUtils;
 import com.hc.util.ViewUtils;
+import com.jny.android.demo.arouter_api.RouterManager;
 import com.jny.common.fragment.FragmentConstants;
 import com.jny.common.webview.WebViewService;
 import com.jny.webview.webviewProgress.constants.Constants;
@@ -60,7 +61,7 @@ public class CustomViewFragment extends SimpleRecyclerFragment {
         items.add(new Pair<>("自定义NestedScrollView", this::onClickCustomNestedScrollViewActivity));
         items.add(new Pair<>("全屏Dialog和全屏DialogFragment", this::onClickFullScreenDialogActivity));
         items.add(new Pair<>("输入框Dialog", this::onClickLandscapeInputFragment));
-        items.add(new Pair<>("组件化(AutoService)+DataBinding+WebVIew", this::onClickWebViewActivity));
+        items.add(new Pair<>("组件化(AutoService)+DataBinding+WebView", this::onClickWebViewActivity));
         items.add(new Pair<>("PhotoView，支持图片双击放大双击缩小", this::onClickPhotoViewActivity));
         items.add(new Pair<>("PhotoView，长图", this::onClickLongImageViewActivity));
         items.add(new Pair<>("仿微信二层楼", this::onClickSecondFloorRefreshLayout));

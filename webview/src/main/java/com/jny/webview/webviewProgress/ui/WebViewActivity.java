@@ -6,23 +6,31 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.ViewGroup;
 
+import com.jny.android.demo.arouter_annotations.ARouter;
+import com.jny.android.demo.arouter_annotations.Parameter;
+import com.jny.android.demo.arouter_api.BundleManager;
 import com.jny.webview.R;
 import com.jny.webview.webviewProgress.constants.Constants;
 
+@ARouter(path = "WebViewActivity", group = "webview")
 public class WebViewActivity extends AppCompatActivity {
     private ViewGroup mFragmentContainer;
-    private boolean mIsShowActionBar;
-    private String mTitle;
-    private String mUrl;
+
+    @Parameter(Constants.ACTION_BAR_ENABLE)
+    boolean mIsShowActionBar;
+
+    @Parameter(Constants.TITLE)
+    String mTitle;
+
+    @Parameter(Constants.URL)
+    String mUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view);
 
-        mUrl = getIntent().getStringExtra(Constants.URL);
-        mTitle = getIntent().getStringExtra(Constants.TITLE);
-        mIsShowActionBar = getIntent().getBooleanExtra(Constants.ACTION_BAR_ENABLE, false);
+        BundleManager.getInstance().bind(this);
         bindView();
         bindEvent();
     }

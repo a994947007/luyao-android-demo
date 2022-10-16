@@ -4,6 +4,7 @@ import com.google.auto.service.AutoService;
 import com.jny.android.demo.ProcessorConfig;
 import com.jny.android.demo.RouterBean;
 import com.jny.android.demo.api.ARouterPath;
+import com.jny.android.demo.api.IRouterTab;
 import com.jny.android.demo.arouter_annotations.ARouter;
 import com.jny.android.demo.util.ProcessorUtils;
 import com.squareup.javapoet.ClassName;
@@ -51,7 +52,7 @@ public class ARouterProcessor extends AbstractProcessor {
     private Filer filer;
 
     private String options; // 各个模块传递过来的模块名 例如：app order personal
-    private String aptPackage; // 各个模块传递过来的目录 用于统一存放 apt生成的文件
+    private String aptPackage; // 各个模块传递过来的目录 用于存放 apt生成的文件
 
     private final Map<String, RouterBean> mRouterBeanPool = new HashMap<>();
 
@@ -86,6 +87,24 @@ public class ARouterProcessor extends AbstractProcessor {
         TypeElement activityType = elementUtils.getTypeElement(ProcessorConfig.ACTIVITY_PACKAGE);
         // 显示类信息（获取被注解的节点，类节点）这也叫自描述 Mirror
         TypeMirror activityMirror = activityType.asType();
+
+        TypeName routerTabMethodReturn = ParameterizedTypeName.get(
+                ClassName.get(Map.class),
+                ClassName.get(String.class),
+                ClassName.get(String.class)
+        );
+
+        MethodSpec.Builder routerTabMethodSpecBuilder = MethodSpec.methodBuilder(ProcessorConfig.ROUTER_TAB_METHOD_NAME)
+                .addModifiers(Modifier.PUBLIC)
+                .returns(routerTabMethodReturn)
+                .addAnnotation(Override.class)
+                .addStatement("$T<$T, $T> $N = new $T<>()",
+                        ClassName.get(Map.class),
+                        ClassName.get(String.class),
+                        ClassName.get(String.class),
+                        ProcessorConfig.ROUTER_TAB_MAP_NAME,
+                        ClassName.get(HashMap.class));
+
         for (Element element : elements) {
             TypeMirror elementMirror = element.asType();
             if (!typeUtils.isSubtype(elementMirror, activityMirror)) {
@@ -112,6 +131,11 @@ public class ARouterProcessor extends AbstractProcessor {
                 mAllPathMap.put(routerBean.getGroup(), routerBeans);
             }
             routerBeans.add(routerBean);
+
+            routerTabMethodSpecBuilder.addStatement("$N.put($S, $S)",
+                    ProcessorConfig.ROUTER_TAB_MAP_NAME,
+                    routerBean.getPath(),
+                    aptPackage);
         }
 
         TypeElement pathType = elementUtils.getTypeElement(ProcessorConfig.ROUTER_API_PATH);
@@ -120,6 +144,21 @@ public class ARouterProcessor extends AbstractProcessor {
         try {
             createPathFile(pathType);
             createGroupFile(groupType, pathType);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        routerTabMethodSpecBuilder.addStatement("return $N", ProcessorConfig.ROUTER_TAB_MAP_NAME);
+        TypeSpec typeSpec = TypeSpec.classBuilder(ProcessorUtils.upperCaseFirstChat(options) + ProcessorConfig.ROUTER_TAB_CLASS)
+                .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
+                .addMethod(routerTabMethodSpecBuilder.build())
+                .addSuperinterface(IRouterTab.class)
+                .build();
+
+        try {
+            JavaFile.builder(ProcessorConfig.ROUTER_TAB_CLASS_PACKAGE, typeSpec)
+                    .build()
+                    .writeTo(filer);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -238,27 +277,51 @@ public class ARouterProcessor extends AbstractProcessor {
         String path = routerBean.getPath();
         String group = routerBean.getGroup();
 
-        if (path == null || "".equals(path) || !path.startsWith("/")) {
-            messager.printMessage(Diagnostic.Kind.ERROR, "@ARouter注解中的path值，必须要以 / 开头");
+        if (path == null || "".equals(path)) {
+            messager.printMessage(Diagnostic.Kind.ERROR, "@ARouter注解中的path值不能为空");
             return false;
         }
 
         if (group == null || "".equals(group)) {
-            if (path.lastIndexOf("/") != 0) {
+            messager.printMessage(Diagnostic.Kind.NOTE, "routerPath >> " + path.lastIndexOf("/") + " path " + path);
+            if (path.lastIndexOf("/") > 0) {
                 if (mRouterBeanPool.containsKey(path)) {
                     messager.printMessage(Diagnostic.Kind.ERROR, path + "已经被注册");
                     return false;
                 }
                 mRouterBeanPool.put(path, routerBean);
-                routerBean.setGroup(path.substring(1, path.indexOf("/", 1)));
+                if (path.startsWith("/")) {
+                    routerBean.setGroup(path.substring(1, path.indexOf("/", 1)));
+                } else {
+                    routerBean.setGroup(path.substring(0, path.indexOf("/", 1)));
+                }
             } else {
+                if (path.startsWith("/")) {
+                    path = path.substring(1);
+                }
                 String fullPath = ProcessorUtils.getFullPath(path);
                 if (mRouterBeanPool.containsKey(fullPath)) {
                     messager.printMessage(Diagnostic.Kind.ERROR, fullPath + "已经被注册");
                     return false;
                 }
                 mRouterBeanPool.put(fullPath, routerBean);
+                routerBean.setPath(fullPath);
                 routerBean.setGroup(ProcessorConfig.DEFAULT_GROUP);
+            }
+        } else {
+            int lastIndex = path.lastIndexOf("/");
+            if (lastIndex == 0) {
+                routerBean.setPath("/" + group + "/" + path.substring(1));
+            } else if (lastIndex < 0){
+                routerBean.setPath("/" + group + "/" + path);
+            } else {
+                if (!path.startsWith("/")) {
+                    if (!group.equals(path.substring(0, path.indexOf("/")))) {
+                        routerBean.setPath("/" + group + "/" + path);
+                    } else {
+                        routerBean.setPath("/" + path);
+                    }
+                }
             }
         }
 
