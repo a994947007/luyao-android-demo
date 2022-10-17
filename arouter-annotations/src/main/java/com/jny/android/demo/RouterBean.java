@@ -5,7 +5,8 @@ import javax.lang.model.element.Element;
 public class RouterBean {
 
     public enum TypeEnum {
-        ACTIVITY
+        ACTIVITY,
+        FRAGMENT
     }
 
     private TypeEnum typeEnum;

@@ -7,6 +7,8 @@ public interface ProcessorConfig {
 
     String ACTIVITY_PACKAGE = "android.app.Activity";
 
+    String FRAGMENT_PACKAGE = "androidx.fragment.app.Fragment";
+
     String ROUTER_TAB_CLASS_PACKAGE = "com.jny.android.demo.router";
 
     String ROUTER_TAB_CLASS = "$RouterTab";

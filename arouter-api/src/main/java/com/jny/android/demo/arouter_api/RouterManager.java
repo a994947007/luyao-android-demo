@@ -42,7 +42,7 @@ public class RouterManager {
 
         RouterBean routerBean = mRouterMap.get(path);
         if (routerBean == null) {
-            routerBean = loadRouterBean(context, path);
+            routerBean = loadRouterBean(path);
             mRouterMap.put(path, routerBean);
         }
         Intent intent = new Intent(context, routerBean.getMyClass());
@@ -54,7 +54,7 @@ public class RouterManager {
         nav(context, builder.build(), path);
     }
 
-    private RouterBean loadRouterBean(Context context, String path) {
+    public RouterBean loadRouterBean(String path) {
         String group;
         String fullPath = path;
 

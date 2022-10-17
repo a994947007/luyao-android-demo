@@ -16,10 +16,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hc.android_demo.R;
 import com.hc.recyclerView.ItemBean;
 import com.hc.recyclerView.listView.BaseRecyclerView;
+import com.jny.android.demo.arouter_annotations.ARouter;
+import com.jny.common.fragment.FragmentConstants;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@ARouter(path = FragmentConstants.DRAWER_LAYOUT_TEST_FRAGMENT_ID,
+        group = FragmentConstants.CUSTOM_VIEW)
 public class DrawerLayoutFragment extends Fragment {
 
     private BaseRecyclerView recyclerViewManager;

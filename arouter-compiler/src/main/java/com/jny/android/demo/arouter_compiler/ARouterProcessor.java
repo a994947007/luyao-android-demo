@@ -88,6 +88,9 @@ public class ARouterProcessor extends AbstractProcessor {
         // 显示类信息（获取被注解的节点，类节点）这也叫自描述 Mirror
         TypeMirror activityMirror = activityType.asType();
 
+        TypeElement fragmentType = elementUtils.getTypeElement(ProcessorConfig.FRAGMENT_PACKAGE);
+        TypeMirror fragmentMirror = fragmentType.asType();
+
         TypeName routerTabMethodReturn = ParameterizedTypeName.get(
                 ClassName.get(Map.class),
                 ClassName.get(String.class),
@@ -107,17 +110,22 @@ public class ARouterProcessor extends AbstractProcessor {
 
         for (Element element : elements) {
             TypeMirror elementMirror = element.asType();
-            if (!typeUtils.isSubtype(elementMirror, activityMirror)) {
-                throw new RuntimeException("@ARouter注解仅能使用在Activity");
-            }
 
             ARouter aRouterAnnotation = element.getAnnotation(ARouter.class);
-            RouterBean routerBean = new RouterBean.Builder()
+            RouterBean.Builder builder = new RouterBean.Builder()
                     .addGroup(aRouterAnnotation.group())
                     .addPath(aRouterAnnotation.path())
-                    .addElement(element)
-                    .addType(RouterBean.TypeEnum.ACTIVITY)
-                    .build();
+                    .addElement(element);
+
+            if (typeUtils.isSubtype(elementMirror, activityMirror)) {
+                builder.addType(RouterBean.TypeEnum.ACTIVITY);
+            } else if (typeUtils.isSubtype(elementMirror, fragmentMirror)){
+                builder.addType(RouterBean.TypeEnum.FRAGMENT);
+            } else {
+                throw new RuntimeException("@ARouter注解仅能使用在Activity或Fragment上了");
+            }
+
+            RouterBean routerBean = builder.build();
 
             // 校验
             if (!checkRouterPath(routerBean)) {
@@ -250,9 +258,9 @@ public class ARouterProcessor extends AbstractProcessor {
                         ClassName.get((TypeElement) routerBean.getElement()),
                         routerBean.getPath(),
                         routerBean.getGroup());
-
-                methodBuilder.addStatement("return $N", ProcessorConfig.PATH_MAP_NAME);
             }
+            methodBuilder.addStatement("return $N", ProcessorConfig.PATH_MAP_NAME);
+
             // 类
             String finalClassName = ProcessorConfig.PREFIX_PATH_CLASS_NAME
                     + String.valueOf(entry.getKey().charAt(0)).toUpperCase()
