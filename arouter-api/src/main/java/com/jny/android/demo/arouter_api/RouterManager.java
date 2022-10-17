@@ -50,6 +50,10 @@ public class RouterManager {
         context.startActivity(intent);
     }
 
+    public void nav(Context context, String path, BundleBuilder builder) {
+        nav(context, builder.build(), path);
+    }
+
     private RouterBean loadRouterBean(Context context, String path) {
         String group;
         String fullPath = path;
