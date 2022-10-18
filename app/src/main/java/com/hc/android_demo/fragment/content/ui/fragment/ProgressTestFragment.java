@@ -15,7 +15,11 @@ import com.hc.android_demo.R;
 import com.hc.my_views.ProgressView;
 import com.hc.my_views.ProgressView2;
 import com.hc.my_views.ProgressView3;
+import com.jny.android.demo.arouter_annotations.ARouter;
+import com.jny.common.fragment.FragmentConstants;
 
+@ARouter(path = FragmentConstants.PROGRESS_TEST_FRAGMENT_ID,
+        group = FragmentConstants.CUSTOM_VIEW)
 public class ProgressTestFragment extends Fragment {
     @Nullable
     @Override

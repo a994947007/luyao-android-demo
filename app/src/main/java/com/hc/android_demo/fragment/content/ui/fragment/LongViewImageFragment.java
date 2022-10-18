@@ -13,7 +13,11 @@ import androidx.fragment.app.Fragment;
 
 import com.hc.android_demo.R;
 import com.hc.my_views.PhotoView;
+import com.jny.android.demo.arouter_annotations.ARouter;
+import com.jny.common.fragment.FragmentConstants;
 
+@ARouter(path = FragmentConstants.LONG_VIEW_IMAGE_TEST_FRAGMENT_ID,
+        group = FragmentConstants.CUSTOM_VIEW)
 public class LongViewImageFragment extends Fragment {
 
     private PhotoView draweeView;

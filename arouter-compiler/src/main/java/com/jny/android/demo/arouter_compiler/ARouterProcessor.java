@@ -90,24 +90,7 @@ public class ARouterProcessor extends AbstractProcessor {
 
         TypeElement fragmentType = elementUtils.getTypeElement(ProcessorConfig.FRAGMENT_PACKAGE);
         TypeMirror fragmentMirror = fragmentType.asType();
-
-        TypeName routerTabMethodReturn = ParameterizedTypeName.get(
-                ClassName.get(Map.class),
-                ClassName.get(String.class),
-                ClassName.get(String.class)
-        );
-
-        MethodSpec.Builder routerTabMethodSpecBuilder = MethodSpec.methodBuilder(ProcessorConfig.ROUTER_TAB_METHOD_NAME)
-                .addModifiers(Modifier.PUBLIC)
-                .returns(routerTabMethodReturn)
-                .addAnnotation(Override.class)
-                .addStatement("$T<$T, $T> $N = new $T<>()",
-                        ClassName.get(Map.class),
-                        ClassName.get(String.class),
-                        ClassName.get(String.class),
-                        ProcessorConfig.ROUTER_TAB_MAP_NAME,
-                        ClassName.get(HashMap.class));
-
+        
         for (Element element : elements) {
             TypeMirror elementMirror = element.asType();
 
@@ -139,11 +122,6 @@ public class ARouterProcessor extends AbstractProcessor {
                 mAllPathMap.put(routerBean.getGroup(), routerBeans);
             }
             routerBeans.add(routerBean);
-
-            routerTabMethodSpecBuilder.addStatement("$N.put($S, $S)",
-                    ProcessorConfig.ROUTER_TAB_MAP_NAME,
-                    routerBean.getPath(),
-                    aptPackage);
         }
 
         TypeElement pathType = elementUtils.getTypeElement(ProcessorConfig.ROUTER_API_PATH);
@@ -152,10 +130,40 @@ public class ARouterProcessor extends AbstractProcessor {
         try {
             createPathFile(pathType);
             createGroupFile(groupType, pathType);
+            createRouterTab();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return true;
+    }
 
+    private void createRouterTab() {
+        TypeName routerTabMethodReturn = ParameterizedTypeName.get(
+                ClassName.get(Map.class),
+                ClassName.get(String.class),
+                ClassName.get(String.class)
+        );
+
+        MethodSpec.Builder routerTabMethodSpecBuilder = MethodSpec.methodBuilder(ProcessorConfig.ROUTER_TAB_METHOD_NAME)
+                .addModifiers(Modifier.PUBLIC)
+                .returns(routerTabMethodReturn)
+                .addAnnotation(Override.class)
+                .addStatement("$T<$T, $T> $N = new $T<>()",
+                        ClassName.get(Map.class),
+                        ClassName.get(String.class),
+                        ClassName.get(String.class),
+                        ProcessorConfig.ROUTER_TAB_MAP_NAME,
+                        ClassName.get(HashMap.class));
+
+        for (Map.Entry<String, List<RouterBean>> entry : mAllPathMap.entrySet()) {
+            List<RouterBean> routerBeans = entry.getValue();
+            for (RouterBean routerBean : routerBeans) {
+                routerTabMethodSpecBuilder.addStatement("$N.put($S, $S)",
+                        ProcessorConfig.ROUTER_TAB_MAP_NAME,
+                        routerBean.getPath(),
+                        aptPackage);
+            }
+        }
         routerTabMethodSpecBuilder.addStatement("return $N", ProcessorConfig.ROUTER_TAB_MAP_NAME);
         TypeSpec typeSpec = TypeSpec.classBuilder(ProcessorUtils.upperCaseFirstChat(options) + ProcessorConfig.ROUTER_TAB_CLASS)
                 .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
@@ -170,7 +178,6 @@ public class ARouterProcessor extends AbstractProcessor {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return true;
     }
 
     private void createGroupFile(TypeElement groupType, TypeElement pathType) throws IOException {

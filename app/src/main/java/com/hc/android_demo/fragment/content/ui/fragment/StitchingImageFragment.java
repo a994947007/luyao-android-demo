@@ -18,10 +18,12 @@ import com.hc.android_demo.R;
 import com.hc.android_demo.constants.Constants;
 import com.hc.base.activity.ActivityStarter;
 import com.hc.base.fragment.BaseFragment;
+import com.jny.android.demo.arouter_annotations.ARouter;
 import com.jny.common.fragment.FragmentConstants;
 
-@AutoService({ActivityStarter.class})
-public class StitchingImageFragment extends BaseFragment implements ActivityStarter {
+@ARouter(path = FragmentConstants.STITCHING_IMAGE_FRAGMENT_ID,
+        group = FragmentConstants.CUSTOM_VIEW)
+public class StitchingImageFragment extends BaseFragment {
 
     private ImageView imageView;
     private StitchingAnimation stitchingAnimation;
@@ -78,16 +80,5 @@ public class StitchingImageFragment extends BaseFragment implements ActivityStar
             stitchingAnimation.close();
         }
         return true;
-    }
-
-    @Override
-    public String getStarterId() {
-        return FragmentConstants.STITCHING_IMAGE_FRAGMENT_ID;
-    }
-
-    @NonNull
-    @Override
-    public Fragment getContentFragment() {
-        return new StitchingImageFragment();
     }
 }

@@ -24,7 +24,7 @@ public class ContentActivity extends LuActivity {
     private void bindFragment() {
         Intent intent = getIntent();
         String fragmentId = intent.getStringExtra(Constants.CONTENT_FRAGMENT_KEY);
-        RouterBean routerBean = RouterManager.getInstance().loadRouterBean("/app/" + fragmentId);
+        RouterBean routerBean = RouterManager.getInstance().loadRouterBean(fragmentId);
         Fragment fragment = null;
         if (routerBean != null) {
             try {

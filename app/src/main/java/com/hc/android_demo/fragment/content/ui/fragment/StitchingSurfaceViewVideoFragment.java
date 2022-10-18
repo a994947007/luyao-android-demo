@@ -19,10 +19,12 @@ import com.hc.android_demo.constants.Constants;
 import com.hc.android_demo.fragment.content.player.LuPlayer;
 import com.hc.base.activity.ActivityStarter;
 import com.hc.base.fragment.BaseFragment;
+import com.jny.android.demo.arouter_annotations.ARouter;
 import com.jny.common.fragment.FragmentConstants;
 
-@AutoService({ActivityStarter.class})
-public class StitchingSurfaceViewVideoFragment extends BaseFragment implements ActivityStarter {
+@ARouter(path = FragmentConstants.STITCHING_VIDEO_FRAGMENT_ID,
+        group = FragmentConstants.CUSTOM_VIEW)
+public class StitchingSurfaceViewVideoFragment extends BaseFragment {
 
     private SurfaceView surfaceView;
     private StitchingAnimation stitchingAnimation;
@@ -92,16 +94,5 @@ public class StitchingSurfaceViewVideoFragment extends BaseFragment implements A
     public void onDestroyView() {
         super.onDestroyView();
         mPlayer.stop();
-    }
-
-    @Override
-    public String getStarterId() {
-        return FragmentConstants.STITCHING_VIDEO_FRAGMENT_ID;
-    }
-
-    @NonNull
-    @Override
-    public Fragment getContentFragment() {
-        return new StitchingSurfaceViewVideoFragment();
     }
 }

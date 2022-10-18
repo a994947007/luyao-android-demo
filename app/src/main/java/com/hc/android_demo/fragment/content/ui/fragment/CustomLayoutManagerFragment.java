@@ -15,11 +15,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hc.android_demo.R;
 import com.hc.my_views.SlideCardView;
 import com.hc.recyclerView.ItemBean;
+import com.jny.android.demo.arouter_annotations.ARouter;
 import com.jny.android.demo.base_util.InflaterUtils;
+import com.jny.common.fragment.FragmentConstants;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@ARouter(path = FragmentConstants.CUSTOM_LAYOUT_MANAGER_TEST_FRAGMENT_ID,
+        group = FragmentConstants.CUSTOM_VIEW)
 public class CustomLayoutManagerFragment extends Fragment {
 
     private SlideCardView mRecyclerView;

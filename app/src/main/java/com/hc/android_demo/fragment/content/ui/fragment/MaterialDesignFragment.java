@@ -21,10 +21,14 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.hc.android_demo.R;
 import com.hc.nested_recycler_fragment.ViewFragment;
+import com.jny.android.demo.arouter_annotations.ARouter;
+import com.jny.common.fragment.FragmentConstants;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@ARouter(path = FragmentConstants.MATERIAL_DESIGN_TEST_ID,
+        group = FragmentConstants.CUSTOM_VIEW)
 public class MaterialDesignFragment extends Fragment {
     @Nullable
     @Override

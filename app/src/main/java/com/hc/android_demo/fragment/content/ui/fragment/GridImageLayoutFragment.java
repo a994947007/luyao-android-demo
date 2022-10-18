@@ -12,7 +12,11 @@ import androidx.fragment.app.Fragment;
 
 import com.hc.android_demo.R;
 import com.hc.my_views.ImageGridLayout;
+import com.jny.android.demo.arouter_annotations.ARouter;
+import com.jny.common.fragment.FragmentConstants;
 
+@ARouter(path = FragmentConstants.GRID_IMAGE_LAYOUT_TEST_FRAGMENT_ID,
+        group = FragmentConstants.CUSTOM_VIEW)
 public class GridImageLayoutFragment extends Fragment {
 
     private int resIds[] = {

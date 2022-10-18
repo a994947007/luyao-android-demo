@@ -12,7 +12,11 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.hc.android_demo.R;
+import com.jny.android.demo.arouter_annotations.ARouter;
+import com.jny.common.fragment.FragmentConstants;
 
+@ARouter(path = FragmentConstants.MATERIAL_VIEW_TEST_FRAGMENT_ID,
+        group = FragmentConstants.CUSTOM_VIEW)
 public class MaterialViewFragment extends Fragment {
 
     @Override

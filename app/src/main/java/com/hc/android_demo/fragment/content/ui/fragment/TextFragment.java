@@ -16,7 +16,11 @@ import androidx.viewpager.widget.ViewPager;
 import com.hc.android_demo.R;
 import com.hc.my_views.GradientTextView;
 import com.hc.nested_recycler_fragment.ViewFragment;
+import com.jny.android.demo.arouter_annotations.ARouter;
+import com.jny.common.fragment.FragmentConstants;
 
+@ARouter(path = FragmentConstants.TEXT_TEST_FRAGMENT_ID,
+        group = FragmentConstants.CUSTOM_VIEW)
 public class TextFragment extends Fragment {
     @Nullable
     @Override

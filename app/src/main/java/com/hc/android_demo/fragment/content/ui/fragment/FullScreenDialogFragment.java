@@ -12,7 +12,11 @@ import androidx.fragment.app.Fragment;
 
 import com.hc.android_demo.R;
 import com.hc.android_demo.dialog.FullScreenDialog;
+import com.jny.android.demo.arouter_annotations.ARouter;
+import com.jny.common.fragment.FragmentConstants;
 
+@ARouter(path = FragmentConstants.FULL_SCREEN_DIALOG_TEST_FRAGMENT_ID,
+        group = FragmentConstants.CUSTOM_VIEW)
 public class FullScreenDialogFragment extends Fragment {
 
     private Button fullScreenDialogBtn;

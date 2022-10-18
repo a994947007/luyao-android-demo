@@ -19,10 +19,12 @@ import com.hc.android_demo.fragment.content.player.LuSurfaceTexturePlayer;
 import com.hc.base.activity.ActivityStarter;
 import com.hc.base.activity.LuActivity;
 import com.hc.util.ActivityUtils;
+import com.jny.android.demo.arouter_annotations.ARouter;
 import com.jny.common.fragment.FragmentConstants;
 
-@AutoService({ActivityStarter.class})
-public class StitchingAnimationTestFragment extends Fragment implements ActivityStarter {
+@ARouter(path = FragmentConstants.STITCHING_ANIMATION_FRAGMENT_ID,
+        group = FragmentConstants.CUSTOM_VIEW)
+public class StitchingAnimationTestFragment extends Fragment {
 
     private ImageView imgView;
     private TextureView textureView;
@@ -67,16 +69,5 @@ public class StitchingAnimationTestFragment extends Fragment implements Activity
     public void onPause() {
         super.onPause();
         mPlayer.pause();
-    }
-
-    @Override
-    public String getStarterId() {
-        return FragmentConstants.STITCHING_ANIMATION_FRAGMENT_ID;
-    }
-
-    @NonNull
-    @Override
-    public Fragment getContentFragment() {
-        return new StitchingAnimationTestFragment();
     }
 }

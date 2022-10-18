@@ -17,10 +17,12 @@ import com.google.auto.service.AutoService;
 import com.hc.android_demo.R;
 import com.hc.base.activity.ActivityStarter;
 import com.hc.drawable.SwipeShadow;
+import com.jny.android.demo.arouter_annotations.ARouter;
 import com.jny.common.fragment.FragmentConstants;
 
-@AutoService({ActivityStarter.class})
-public class SwipeGuideFragment extends Fragment implements ActivityStarter {
+@ARouter(path = FragmentConstants.SWIPE_GUIDE_FRAGMENT_ID,
+        group = FragmentConstants.CUSTOM_VIEW)
+public class SwipeGuideFragment extends Fragment {
 
     private ViewPager mViewPage;
     private View mShadowLayout;
@@ -79,17 +81,6 @@ public class SwipeGuideFragment extends Fragment implements ActivityStarter {
                 mShadowLayout.setTranslationX(currentX);
             }
         });
-    }
-
-    @Override
-    public String getStarterId() {
-        return FragmentConstants.SWIPE_GUIDE_FRAGMENT_ID;
-    }
-
-    @NonNull
-    @Override
-    public Fragment getContentFragment() {
-        return new SwipeGuideFragment();
     }
 
     private static class MyPageAdapter extends FragmentPagerAdapter {

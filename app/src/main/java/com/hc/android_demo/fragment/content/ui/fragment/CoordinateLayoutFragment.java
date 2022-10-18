@@ -20,10 +20,12 @@ import com.hc.android_demo.R;
 import com.hc.base.activity.ActivityStarter;
 import com.hc.my_views.coordinateLayout.Behavior;
 import com.hc.util.ViewUtils;
+import com.jny.android.demo.arouter_annotations.ARouter;
 import com.jny.common.fragment.FragmentConstants;
 
-@AutoService({ActivityStarter.class})
-public class CoordinateLayoutFragment extends Fragment implements ActivityStarter {
+@ARouter(path = FragmentConstants.COORDINATE_TEST_FRAGMENT_ID,
+        group = FragmentConstants.CUSTOM_VIEW)
+public class CoordinateLayoutFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -76,17 +78,6 @@ public class CoordinateLayoutFragment extends Fragment implements ActivityStarte
                 "打分卡丽娜第三方发打发斯蒂芬大师傅打法萨芬撒到主线程那就看呗请叫我考核人几哈接口或会计证程序" +
                 "打分卡丽娜第三方发打发斯蒂芬大师傅打法萨芬撒到主线程那就看呗请叫我考核人几哈接口或会计证程序" +
                 "打分卡丽娜第三方发打发斯蒂芬大师傅打法萨芬撒到主线程那就看呗请叫我考核人几哈接口或会计证程序" );
-    }
-
-    @NonNull
-    @Override
-    public Fragment getContentFragment() {
-        return new CoordinateLayoutFragment();
-    }
-
-    @Override
-    public String getStarterId() {
-        return FragmentConstants.COORDINATE_TEST_FRAGMENT_ID;
     }
 
     public static class ImageViewBehavior extends Behavior {

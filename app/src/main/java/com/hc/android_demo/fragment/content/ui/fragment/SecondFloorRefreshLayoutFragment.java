@@ -19,13 +19,15 @@ import com.hc.base.fragment.BaseFragment;
 import com.hc.recyclerView.ItemBean;
 import com.hc.recyclerView.listView.RecyclerStaggerView;
 import com.hc.support.mvps.Presenter;
+import com.jny.android.demo.arouter_annotations.ARouter;
 import com.jny.common.fragment.FragmentConstants;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@AutoService({ActivityStarter.class})
-public class SecondFloorRefreshLayoutFragment extends BaseFragment implements ActivityStarter {
+@ARouter(path = FragmentConstants.SECOND_FLOOR_REFRESH_LAYOUT,
+        group = FragmentConstants.CUSTOM_VIEW)
+public class SecondFloorRefreshLayoutFragment extends BaseFragment {
     List<ItemBean> itemBeans = new ArrayList<ItemBean>();
     private Presenter mPresenterGroup;
 
@@ -84,16 +86,5 @@ public class SecondFloorRefreshLayoutFragment extends BaseFragment implements Ac
     protected void addPresenters(Presenter presenterGroup) {
         presenterGroup.add(new SecondFloorPresenter());
         presenterGroup.add(new SecondFloorOnSlideTipPresenter());
-    }
-
-    @Override
-    public String getStarterId() {
-        return FragmentConstants.SECOND_FLOOR_REFRESH_LAYOUT;
-    }
-
-    @NonNull
-    @Override
-    public Fragment getContentFragment() {
-        return new SecondFloorRefreshLayoutFragment();
     }
 }

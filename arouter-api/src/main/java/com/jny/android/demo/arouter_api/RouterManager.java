@@ -35,7 +35,7 @@ public class RouterManager {
         mRouterMap = new LruCache<>(100);
     }
 
-    public void nav(Context context, Bundle bundle, String path) {
+    public void nav(Context context, Bundle bundle, String moduleName, String path) {
         if (path == null || "".equals(path)) {
             throw new IllegalArgumentException();
         }
@@ -50,8 +50,8 @@ public class RouterManager {
         context.startActivity(intent);
     }
 
-    public void nav(Context context, String path, BundleBuilder builder) {
-        nav(context, builder.build(), path);
+    public void nav(Context context, String path, String moduleName, BundleBuilder builder) {
+        nav(context, builder.build(), moduleName, path);
     }
 
     public RouterBean loadRouterBean(String path) {

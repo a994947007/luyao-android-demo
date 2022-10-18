@@ -14,26 +14,17 @@ import com.google.auto.service.AutoService;
 import com.hc.android_demo.R;
 import com.hc.base.activity.ActivityStarter;
 import com.hc.base.fragment.LuFragment;
+import com.jny.android.demo.arouter_annotations.ARouter;
 import com.jny.common.fragment.FragmentConstants;
 
-@AutoService({ActivityStarter.class})
-public class BackgroundMutateTestFragment extends LuFragment implements ActivityStarter {
+@ARouter(path = FragmentConstants.BACKGROUND_TINT_TEST_FRAGMENT,
+        group = FragmentConstants.CUSTOM_VIEW)
+public class BackgroundMutateTestFragment extends LuFragment{
 
     private Button mButton;
     private Button mButton2;
     private View view1;
     private View view2;
-
-    @Override
-    public String getStarterId() {
-        return FragmentConstants.BACKGROUND_TINT_TEST_FRAGMENT;
-    }
-
-    @NonNull
-    @Override
-    public Fragment getContentFragment() {
-        return new BackgroundMutateTestFragment();
-    }
 
     @Nullable
     @Override

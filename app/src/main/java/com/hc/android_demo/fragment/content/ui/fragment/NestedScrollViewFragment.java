@@ -17,10 +17,14 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.hc.android_demo.R;
 import com.hc.nested_recycler_fragment.ViewFragment;
+import com.jny.android.demo.arouter_annotations.ARouter;
+import com.jny.common.fragment.FragmentConstants;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@ARouter(path = FragmentConstants.NESTED_SCROLL_VIEW_TEST_FRAGMENT_ID,
+        group = FragmentConstants.CUSTOM_VIEW)
 public class NestedScrollViewFragment extends Fragment {
 
     private ViewPager2 viewPager2;
