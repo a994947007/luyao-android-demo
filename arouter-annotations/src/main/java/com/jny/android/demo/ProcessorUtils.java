@@ -1,6 +1,4 @@
-package com.jny.android.demo.util;
-
-import com.jny.android.demo.ProcessorConfig;
+package com.jny.android.demo;
 
 public class ProcessorUtils {
 

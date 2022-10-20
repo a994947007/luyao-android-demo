@@ -18,7 +18,6 @@ public class WebViewServiceImpl implements WebViewService {
     public void openWebViewActivity(Context context, String url, boolean isShowActionBar, String title) {
         RouterManager.getInstance().nav(context,
                 "/webview/WebViewActivity",
-                "webview",
                 new BundleBuilder()
                         .withString(Constants.URL, url)
                         .withString(Constants.TITLE, title)

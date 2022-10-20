@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.util.LruCache;
 
 import com.jny.android.demo.ProcessorConfig;
+import com.jny.android.demo.ProcessorUtils;
 import com.jny.android.demo.RouterBean;
+import com.jny.android.demo.RouterGroupModule;
 import com.jny.android.demo.api.ARouterGroup;
 import com.jny.android.demo.api.ARouterPath;
 import com.jny.android.demo.api.IRouterTab;
@@ -14,6 +16,9 @@ import com.jny.android.demo.api.IRouterTab;
 public class RouterManager {
 
     private LruCache<String, RouterBean> mRouterMap;
+    private LruCache<String, IRouterTab> mRouterTabMap;
+    private LruCache<String, ARouterGroup> mRouterGroupMap;
+    private LruCache<String, ARouterPath> mRouterPathMap;
 
     private static volatile RouterManager mInstance = null;
 
@@ -32,10 +37,13 @@ public class RouterManager {
     }
 
     private RouterManager() {
-        mRouterMap = new LruCache<>(100);
+        mRouterMap = new LruCache<>(200);
+        mRouterTabMap = new LruCache<>(20);
+        mRouterGroupMap = new LruCache<>(50);
+        mRouterPathMap = new LruCache<>(100);
     }
 
-    public void nav(Context context, Bundle bundle, String moduleName, String path) {
+    public void nav(Context context, Bundle bundle, String path) {
         if (path == null || "".equals(path)) {
             throw new IllegalArgumentException();
         }
@@ -50,8 +58,8 @@ public class RouterManager {
         context.startActivity(intent);
     }
 
-    public void nav(Context context, String path, String moduleName, BundleBuilder builder) {
-        nav(context, builder.build(), moduleName, path);
+    public void nav(Context context, String path,  BundleBuilder builder) {
+        nav(context, builder.build(), path);
     }
 
     public RouterBean loadRouterBean(String path) {
@@ -77,18 +85,34 @@ public class RouterManager {
                 + ProcessorConfig.ROUTER_TAB_CLASS;
 
         try {
-            Class<?> routerTabClass = Class.forName(routerTabClassName);
-            IRouterTab routerTab = (IRouterTab) routerTabClass.newInstance();
-            String aRouterGroupClassName = routerTab.getRouterTab().get(fullPath);
+            IRouterTab routerTab = mRouterTabMap.get(routerTabClassName);
+            if (routerTab == null) {
+                Class<?> routerTabClass = Class.forName(routerTabClassName);
+                routerTab = (IRouterTab) routerTabClass.newInstance();
+                mRouterTabMap.put(routerTabClassName, routerTab);
+            }
+
+            RouterGroupModule routerGroupModule = routerTab.getRouterTab().get(fullPath);
+            String aRouterGroupClassName = routerGroupModule.modulePath;
             if (aRouterGroupClassName != null) {
                 aRouterGroupClassName += "." + ProcessorConfig.PREFIX_GROUP_CLASS_NAME
-                        + String.valueOf(group.charAt(0)).toUpperCase()
-                        + group.substring(1);
+                        + ProcessorUtils.upperCaseFirstChat(routerGroupModule.moduleName);
             }
-            Class<?> aRouterGroupClass = Class.forName(aRouterGroupClassName);
-            ARouterGroup loadGroup = (ARouterGroup) aRouterGroupClass.newInstance();
-            Class<? extends ARouterPath> aRouterPathClass = loadGroup.getGroupMap().get(group);
-            ARouterPath aRouterPath = aRouterPathClass.newInstance();
+
+            ARouterGroup loadGroup = mRouterGroupMap.get(aRouterGroupClassName);
+            if (loadGroup == null) {
+                Class<?> aRouterGroupClass = Class.forName(aRouterGroupClassName);
+                loadGroup = (ARouterGroup) aRouterGroupClass.newInstance();
+                mRouterGroupMap.put(aRouterGroupClassName, loadGroup);
+            }
+
+            ARouterPath aRouterPath = mRouterPathMap.get(path);
+            if (aRouterPath == null) {
+                Class<? extends ARouterPath> aRouterPathClass = loadGroup.getGroupMap().get(group);
+                aRouterPath = aRouterPathClass.newInstance();
+                mRouterPathMap.put(path, aRouterPath);
+            }
+
             return aRouterPath.getPathMap().get(fullPath);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

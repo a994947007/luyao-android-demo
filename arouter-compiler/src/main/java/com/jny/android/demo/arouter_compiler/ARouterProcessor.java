@@ -3,10 +3,11 @@ package com.jny.android.demo.arouter_compiler;
 import com.google.auto.service.AutoService;
 import com.jny.android.demo.ProcessorConfig;
 import com.jny.android.demo.RouterBean;
+import com.jny.android.demo.RouterGroupModule;
 import com.jny.android.demo.api.ARouterPath;
 import com.jny.android.demo.api.IRouterTab;
 import com.jny.android.demo.arouter_annotations.ARouter;
-import com.jny.android.demo.util.ProcessorUtils;
+import com.jny.android.demo.ProcessorUtils;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
@@ -141,43 +142,50 @@ public class ARouterProcessor extends AbstractProcessor {
         TypeName routerTabMethodReturn = ParameterizedTypeName.get(
                 ClassName.get(Map.class),
                 ClassName.get(String.class),
-                ClassName.get(String.class)
+                ClassName.get(RouterGroupModule.class)
         );
 
-        MethodSpec.Builder routerTabMethodSpecBuilder = MethodSpec.methodBuilder(ProcessorConfig.ROUTER_TAB_METHOD_NAME)
-                .addModifiers(Modifier.PUBLIC)
-                .returns(routerTabMethodReturn)
-                .addAnnotation(Override.class)
-                .addStatement("$T<$T, $T> $N = new $T<>()",
-                        ClassName.get(Map.class),
-                        ClassName.get(String.class),
-                        ClassName.get(String.class),
-                        ProcessorConfig.ROUTER_TAB_MAP_NAME,
-                        ClassName.get(HashMap.class));
 
         for (Map.Entry<String, List<RouterBean>> entry : mAllPathMap.entrySet()) {
             List<RouterBean> routerBeans = entry.getValue();
+            MethodSpec.Builder routerTabMethodSpecBuilder = MethodSpec.methodBuilder(ProcessorConfig.ROUTER_TAB_METHOD_NAME)
+                    .addModifiers(Modifier.PUBLIC)
+                    .returns(routerTabMethodReturn)
+                    .addAnnotation(Override.class)
+                    .addStatement("$T<$T, $T> $N = new $T<>()",
+                            ClassName.get(Map.class),
+                            ClassName.get(String.class),
+                            ClassName.get(RouterGroupModule.class),
+                            ProcessorConfig.ROUTER_TAB_MAP_NAME,
+                            ClassName.get(HashMap.class));
+            String group = "";
             for (RouterBean routerBean : routerBeans) {
-                routerTabMethodSpecBuilder.addStatement("$N.put($S, $S)",
+                routerTabMethodSpecBuilder.addStatement("$N.put($S, $T.create($S, $S))",
                         ProcessorConfig.ROUTER_TAB_MAP_NAME,
                         routerBean.getPath(),
-                        aptPackage);
+                        ClassName.get(RouterGroupModule.class),
+                        aptPackage,
+                        options);
+                if ("".equals(group)) {
+                    group = routerBean.getGroup();
+                }
+            }
+            routerTabMethodSpecBuilder.addStatement("return $N", ProcessorConfig.ROUTER_TAB_MAP_NAME);
+            TypeSpec typeSpec = TypeSpec.classBuilder(ProcessorUtils.upperCaseFirstChat(group) + ProcessorConfig.ROUTER_TAB_CLASS)
+                    .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
+                    .addMethod(routerTabMethodSpecBuilder.build())
+                    .addSuperinterface(IRouterTab.class)
+                    .build();
+
+            try {
+                JavaFile.builder(ProcessorConfig.ROUTER_TAB_CLASS_PACKAGE, typeSpec)
+                        .build()
+                        .writeTo(filer);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
-        routerTabMethodSpecBuilder.addStatement("return $N", ProcessorConfig.ROUTER_TAB_MAP_NAME);
-        TypeSpec typeSpec = TypeSpec.classBuilder(ProcessorUtils.upperCaseFirstChat(options) + ProcessorConfig.ROUTER_TAB_CLASS)
-                .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
-                .addMethod(routerTabMethodSpecBuilder.build())
-                .addSuperinterface(IRouterTab.class)
-                .build();
 
-        try {
-            JavaFile.builder(ProcessorConfig.ROUTER_TAB_CLASS_PACKAGE, typeSpec)
-                    .build()
-                    .writeTo(filer);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void createGroupFile(TypeElement groupType, TypeElement pathType) throws IOException {
