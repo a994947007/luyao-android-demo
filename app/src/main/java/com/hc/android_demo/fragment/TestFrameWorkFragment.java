@@ -92,7 +92,7 @@ public class TestFrameWorkFragment extends SimpleRecyclerFragment {
     @Override
     protected void startContentActivity(String id) {
         Intent intent = new Intent(getActivity(), ContentActivity.class);
-        intent.putExtra(Constants.CONTENT_FRAGMENT_KEY, id);
+        intent.putExtra(Constants.CONTENT_FRAGMENT_KEY, "/" + FragmentConstants.FRAMEWORK + "/" + id);
         startActivity(intent);
     }
 

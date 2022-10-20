@@ -75,7 +75,7 @@ public class DynamicFragment extends SimpleRecyclerFragment {
 
     @Override
     protected void startContentActivity(String id) {
-        ActivityUtils.startContentActivity((LuActivity) getActivity(), id);
+        ActivityUtils.startContentActivity((LuActivity) getActivity(), "/" + FragmentConstants.DYNAMIC + "/" + id);
     }
 
     private void addItem(String key, Runnable runnable) {

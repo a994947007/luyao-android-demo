@@ -25,6 +25,7 @@ import com.hc.support.looper.MyHandler;
 import com.hc.support.looper.MyLooper;
 import com.hc.support.looper.MyMessage;
 import com.hc.util.ToastUtils;
+import com.jny.android.demo.arouter_annotations.ARouter;
 import com.jny.android.demo.base_util.AppEnvironment;
 import com.jny.android.demo.base_util.ThreadUtils;
 import com.jny.common.fragment.FragmentConstants;
@@ -32,8 +33,9 @@ import com.jny.common.fragment.FragmentConstants;
 import java.util.ArrayList;
 import java.util.List;
 
-@AutoService({ActivityStarter.class})
-public class CustomHandlerFragment extends Fragment implements ActivityStarter {
+@ARouter(path = FragmentConstants.CUSTOM_TEST_HANDLER_ID,
+        group = FragmentConstants.FRAMEWORK)
+public class CustomHandlerFragment extends Fragment {
 
     private final List<Pair<String, Runnable>> mItems = new ArrayList<>();
     {
@@ -129,16 +131,5 @@ public class CustomHandlerFragment extends Fragment implements ActivityStarter {
         super.onDestroyView();
         looper.quit();
         getActivity().stopService(myServiceIt);
-    }
-
-    @Override
-    public String getStarterId() {
-        return FragmentConstants.CUSTOM_TEST_HANDLER_ID;
-    }
-
-    @NonNull
-    @Override
-    public Fragment getContentFragment() {
-        return new CustomHandlerFragment();
     }
 }

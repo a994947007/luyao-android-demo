@@ -16,25 +16,17 @@ import com.hc.android_demo.fragment.content.ui.presenter.SecondFloorOnSlideTipPr
 import com.hc.android_demo.fragment.content.ui.presenter.SecondFloorRNContainerPresenter;
 import com.hc.base.activity.ActivityStarter;
 import com.hc.support.mvps.Presenter;
+import com.jny.android.demo.arouter_annotations.ARouter;
 import com.jny.common.fragment.FragmentConstants;
 
-@AutoService({ActivityStarter.class})
-public class ReactNativeSecondFloorFragment extends SecondFloorRefreshLayoutFragment implements ActivityStarter {
-    @Override
-    public String getStarterId() {
-        return FragmentConstants.REACT_NATIVE_SECOND_FLOOR;
-    }
+@ARouter(path = FragmentConstants.REACT_NATIVE_SECOND_FLOOR,
+        group = FragmentConstants.DYNAMIC)
+public class ReactNativeSecondFloorFragment extends SecondFloorRefreshLayoutFragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_rn_second_floor_refresh_layout, container, false);
-    }
-
-    @NonNull
-    @Override
-    public Fragment getContentFragment() {
-        return new ReactNativeSecondFloorFragment();
     }
 
     @Override

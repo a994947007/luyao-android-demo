@@ -19,11 +19,15 @@ import com.hc.android_demo.R;
 import com.hc.android_demo.fragment.content.mvp.model.UserModel;
 import com.hc.android_demo.fragment.content.mvp.presenter.UserPresenter;
 import com.hc.util.ToastUtils;
+import com.jny.android.demo.arouter_annotations.ARouter;
 import com.jny.android.demo.base_util.InflaterUtils;
+import com.jny.common.fragment.FragmentConstants;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@ARouter(path = FragmentConstants.MVP_TEST_FRAGMENT_ID,
+        group = FragmentConstants.FRAMEWORK)
 public class MvpTestFragment extends Fragment implements UserItemView{
 
     private RecyclerView mRecyclerView;

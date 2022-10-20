@@ -20,10 +20,12 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactRootView;
 import com.google.auto.service.AutoService;
 import com.hc.base.activity.ActivityStarter;
+import com.jny.android.demo.arouter_annotations.ARouter;
 import com.jny.common.fragment.FragmentConstants;
 
-@AutoService({ActivityStarter.class})
-public class MyReactFragment extends Fragment implements ActivityStarter {
+@ARouter(path = FragmentConstants.REACT_NATIVE_FRAGMENT_ID,
+        group = FragmentConstants.DYNAMIC)
+public class MyReactFragment extends Fragment {
 
     public static final String COMPONENT_NAME = "myApp";
     private ReactRootView mReactRootView;
@@ -87,16 +89,5 @@ public class MyReactFragment extends Fragment implements ActivityStarter {
 
     public ReactInstanceManager getReactInstanceManager() {
         return getReactNativeHost().getReactInstanceManager();
-    }
-
-    @Override
-    public String getStarterId() {
-        return FragmentConstants.REACT_NATIVE_FRAGMENT_ID;
-    }
-
-    @NonNull
-    @Override
-    public Fragment getContentFragment() {
-        return new MyReactFragment();
     }
 }

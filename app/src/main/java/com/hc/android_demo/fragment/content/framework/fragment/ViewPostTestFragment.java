@@ -13,11 +13,13 @@ import androidx.fragment.app.Fragment;
 import com.google.auto.service.AutoService;
 import com.hc.android_demo.R;
 import com.hc.base.activity.ActivityStarter;
+import com.jny.android.demo.arouter_annotations.ARouter;
 import com.jny.android.demo.base_util.TextUtils;
 import com.jny.common.fragment.FragmentConstants;
 
-@AutoService({ActivityStarter.class})
-public class ViewPostTestFragment extends Fragment implements ActivityStarter {
+@ARouter(path = FragmentConstants.VIEW_POST_TEST_FRAGMENT_ID,
+        group = FragmentConstants.FRAMEWORK)
+public class ViewPostTestFragment extends Fragment {
 
     private TextView mTestPostTv;
     private TextView mTestPostOnAnimationTv;
@@ -42,16 +44,5 @@ public class ViewPostTestFragment extends Fragment implements ActivityStarter {
             return TextUtils.emptyString();
         }
         return "w:" + getView().getWidth() + " h:" + getView().getHeight();
-    }
-
-    @Override
-    public String getStarterId() {
-        return FragmentConstants.VIEW_POST_TEST_FRAGMENT_ID;
-    }
-
-    @NonNull
-    @Override
-    public Fragment getContentFragment() {
-        return new ViewPostTestFragment();
     }
 }

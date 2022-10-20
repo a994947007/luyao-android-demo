@@ -15,7 +15,11 @@ import com.hc.android_demo.R;
 import com.hc.support.mvps.NameParam;
 import com.hc.support.mvps.Presenter;
 import com.hc.util.ToastUtils;
+import com.jny.android.demo.arouter_annotations.ARouter;
+import com.jny.common.fragment.FragmentConstants;
 
+@ARouter(path = FragmentConstants.MVPS_TEST_FRAGMENT_ID,
+        group = FragmentConstants.FRAMEWORK)
 public class MvpsTestFragment extends Fragment {
     private static final String MVPS_CUSTOM_KEY = "MVPS_CUSTOM_KEY";
 

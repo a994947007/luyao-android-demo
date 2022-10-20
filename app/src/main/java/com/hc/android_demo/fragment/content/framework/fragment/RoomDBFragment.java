@@ -15,10 +15,12 @@ import com.hc.android_demo.fragment.content.framework.presenter.RoomDBPresenter;
 import com.hc.base.activity.ActivityStarter;
 import com.hc.base.fragment.LuFragment;
 import com.hc.support.mvps.Presenter;
+import com.jny.android.demo.arouter_annotations.ARouter;
 import com.jny.common.fragment.FragmentConstants;
 
-@AutoService({ActivityStarter.class})
-public class RoomDBFragment extends LuFragment implements ActivityStarter {
+@ARouter(path = FragmentConstants.ROOM_DB_FRAGMENT_ID,
+        group = FragmentConstants.FRAMEWORK)
+public class RoomDBFragment extends LuFragment {
 
     private Presenter mGroupPresenter = new Presenter();
 
@@ -40,16 +42,5 @@ public class RoomDBFragment extends LuFragment implements ActivityStarter {
     public void onDestroyView() {
         super.onDestroyView();
         mGroupPresenter.destroy();
-    }
-
-    @Override
-    public String getStarterId() {
-        return FragmentConstants.ROOM_DB_FRAGMENT_ID;
-    }
-
-    @NonNull
-    @Override
-    public Fragment getContentFragment() {
-        return new RoomDBFragment();
     }
 }

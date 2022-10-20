@@ -15,10 +15,14 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import com.hc.android_demo.R;
 import com.hc.viewPager_fragment.ConcreteFragment;
+import com.jny.android.demo.arouter_annotations.ARouter;
+import com.jny.common.fragment.FragmentConstants;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@ARouter(path = FragmentConstants.LAZY_TEST_FRAGMENT_ID,
+        group = FragmentConstants.FRAMEWORK)
 public class LazyTestFragment extends Fragment {
     private TabLayout mTabLayout;
     private ViewPager mViewPager;

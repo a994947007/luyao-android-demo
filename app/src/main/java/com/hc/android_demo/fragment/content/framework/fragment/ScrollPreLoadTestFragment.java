@@ -22,10 +22,12 @@ import com.hc.android_demo.fragment.content.child.Fragment4;
 import com.hc.android_demo.fragment.content.child.Fragment5;
 import com.hc.base.activity.ActivityStarter;
 import com.hc.base.fragment.BaseFragment;
+import com.jny.android.demo.arouter_annotations.ARouter;
 import com.jny.common.fragment.FragmentConstants;
 
-@AutoService({ActivityStarter.class})
-public class ScrollPreLoadTestFragment extends BaseFragment implements ActivityStarter {
+@ARouter(path = FragmentConstants.SCROLL_PRELOAD_TEXT_FRAGMENT_ID,
+        group = FragmentConstants.FRAMEWORK)
+public class ScrollPreLoadTestFragment extends BaseFragment {
 
     private final Fragment[] fragments = new Fragment[5];
     private final String[] titles = new String[5];
@@ -60,17 +62,6 @@ public class ScrollPreLoadTestFragment extends BaseFragment implements ActivityS
         viewPager.setAdapter(new SimpleFragmentPagerAdapter(getFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, fragments, titles));
         viewPager.setOffscreenPageLimit(1);
         tabLayout.setupWithViewPager(viewPager);
-    }
-
-    @Override
-    public String getStarterId() {
-        return FragmentConstants.SCROLL_PRELOAD_TEXT_FRAGMENT_ID;
-    }
-
-    @NonNull
-    @Override
-    public Fragment getContentFragment() {
-        return new ScrollPreLoadTestFragment();
     }
 
     private static class SimpleFragmentPagerAdapter extends FragmentPagerAdapter {

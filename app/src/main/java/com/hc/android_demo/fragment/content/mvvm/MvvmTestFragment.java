@@ -15,8 +15,12 @@ import com.hc.android_demo.R;
 import com.hc.android_demo.databinding.FragmentMvvmLayoutBinding;
 import com.hc.android_demo.fragment.content.mvvm.network.ApiService;
 import com.hc.android_demo.fragment.content.mvvm.view.RecyclerUserListAdapter;
+import com.jny.android.demo.arouter_annotations.ARouter;
 import com.jny.android.demo.rxandroid.schedule.Schedules;
+import com.jny.common.fragment.FragmentConstants;
 
+@ARouter(path = FragmentConstants.MVVM_TEST_FRAGMENT_ID,
+        group = FragmentConstants.FRAMEWORK)
 public class MvvmTestFragment extends Fragment {
 
     private RecyclerUserListAdapter mAdapter;

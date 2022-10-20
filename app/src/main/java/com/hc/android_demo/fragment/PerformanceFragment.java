@@ -28,6 +28,11 @@ public class PerformanceFragment extends SimpleRecyclerFragment {
     }
 
     @Override
+    protected void startContentActivity(String id) {
+        super.startContentActivity("/" + FragmentConstants.PERFORMANCE + "/" + id);
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ((Activity)getContext()).getWindow().setNavigationBarColor(ViewUtils.getColor(R.color.bottom_nav_color));

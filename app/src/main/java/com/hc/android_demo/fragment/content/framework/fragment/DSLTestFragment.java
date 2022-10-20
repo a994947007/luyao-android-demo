@@ -17,10 +17,12 @@ import com.hc.android_demo.fragment.content.framework.presenter.DSLTestPersonPre
 import com.hc.base.activity.ActivityStarter;
 import com.hc.base.fragment.BaseFragment;
 import com.hc.support.mvps.Presenter;
+import com.jny.android.demo.arouter_annotations.ARouter;
 import com.jny.common.fragment.FragmentConstants;
 
-@AutoService({ActivityStarter.class})
-public class DSLTestFragment extends BaseFragment implements ActivityStarter {
+@ARouter(path = FragmentConstants.KT_DSL_TEST_FRAGMENT_ID,
+        group = FragmentConstants.FRAMEWORK)
+public class DSLTestFragment extends BaseFragment {
 
     private final Presenter presenterGroup = new Presenter();
 
@@ -48,17 +50,6 @@ public class DSLTestFragment extends BaseFragment implements ActivityStarter {
     public void onDestroyView() {
         super.onDestroyView();
         presenterGroup.destroy();
-    }
-
-    @Override
-    public String getStarterId() {
-        return FragmentConstants.KT_DSL_TEST_FRAGMENT_ID;
-    }
-
-    @NonNull
-    @Override
-    public Fragment getContentFragment() {
-        return new DSLTestFragment();
     }
 }
 

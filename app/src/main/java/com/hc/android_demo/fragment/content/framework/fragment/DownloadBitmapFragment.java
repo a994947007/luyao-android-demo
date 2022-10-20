@@ -15,6 +15,7 @@ import com.google.auto.service.AutoService;
 import com.hc.android_demo.R;
 import com.hc.base.activity.ActivityStarter;
 import com.hc.base.autoservice.AutoServiceManager;
+import com.jny.android.demo.arouter_annotations.ARouter;
 import com.jny.android.demo.rxandroid.observable.Observable;
 import com.jny.android.demo.rxandroid.schedule.Schedules;
 import com.jny.download.DownloadService;
@@ -23,8 +24,9 @@ import com.jny.common.fragment.FragmentConstants;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-@AutoService({ActivityStarter.class})
-public class DownloadBitmapFragment extends Fragment implements ActivityStarter {
+@ARouter(path = FragmentConstants.DOWNLOAD_BITMAP_TEST_FRAGMENT_ID,
+        group = FragmentConstants.FRAMEWORK)
+public class DownloadBitmapFragment extends Fragment {
 
     private static final String IMAGE_URL1 = "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.jj20.com%2Fup%2Fallimg%2F1114%2F113020142315%2F201130142315-1-1200.jpg&refer=http%3A%2F%2Fimg.jj20.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1656329678&t=bab46c96599ea92d8cd98749427b211a";
     private static final String IMAGE_URL2 = "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.jj20.com%2Fup%2Fallimg%2Ftp09%2F210F2130512J47-0-lp.jpg&refer=http%3A%2F%2Fimg.jj20.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1656329729&t=26094907d8d51720e002fcff675cb817";
@@ -92,16 +94,5 @@ public class DownloadBitmapFragment extends Fragment implements ActivityStarter 
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public String getStarterId() {
-        return FragmentConstants.DOWNLOAD_BITMAP_TEST_FRAGMENT_ID;
-    }
-
-    @NonNull
-    @Override
-    public Fragment getContentFragment() {
-        return new DownloadBitmapFragment();
     }
 }
