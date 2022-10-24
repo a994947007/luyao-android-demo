@@ -1,5 +1,11 @@
 # luyao-android-demo
 安卓UI、架构、系统等内容
 
-# 动态化相关
+当前库为主库，依赖的其他库地址如下：
+# RN库
 https://github.com/a994947007/android-demo-react-native
+
+# 自定义RxAndroid库
+https://github.com/a994947007/android-demo-rxJava
+
+
