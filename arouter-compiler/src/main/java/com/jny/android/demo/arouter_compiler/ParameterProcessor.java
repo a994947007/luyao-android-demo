@@ -1,8 +1,11 @@
 package com.jny.android.demo.arouter_compiler;
 
 import com.google.auto.service.AutoService;
+import com.jny.android.demo.ClassUtils;
 import com.jny.android.demo.ProcessorConfig;
+import com.jny.android.demo.RouterBeanLoader;
 import com.jny.android.demo.api.ParameterLoad;
+import com.jny.android.demo.api.Res;
 import com.jny.android.demo.arouter_annotations.Parameter;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
@@ -83,6 +86,9 @@ public class ParameterProcessor extends AbstractProcessor {
             return false;
         }
 
+        TypeElement resType = elementUtils.getTypeElement(ProcessorConfig.RES_PACKAGE);
+        TypeMirror resMirror = resType.asType();
+
         ParameterSpec parameterSpec = ParameterSpec.builder(TypeName.OBJECT, ProcessorConfig.LOAD_PARAM_METHOD_PARAM_NAME)
                 .build();
         for (Map.Entry<TypeElement, List<Element>> entry : mParams.entrySet()) {
@@ -106,19 +112,29 @@ public class ParameterProcessor extends AbstractProcessor {
                 }
                 String arg = "t." + fieldName;
                 String reg = arg;
-                reg += " = t.getIntent().";
                 TypeMirror typeMirror = elementParam.asType();
-                int type = typeMirror.getKind().ordinal();
-                if (type == TypeKind.INT.ordinal()) {
-                    reg += "getIntExtra($S, " + arg + ")";
-                } else if (type == TypeKind.BOOLEAN.ordinal()) {
-                    reg += "getBooleanExtra($S, " + arg + ")";
+                if (typeUtils.isSubtype(typeMirror, resMirror)) {
+                    reg += " = ($T)$T.newInstance($T.getInstance().loadRouterBean($S))";
+                    builder.addStatement(reg,
+                            ClassName.get(Res.class),
+                            ClassName.get(ClassUtils.class),
+                            ClassName.get(RouterBeanLoader.class),
+                            keyName);
                 } else {
-                    if (typeMirror.toString().equalsIgnoreCase(ProcessorConfig.STRING)) {
-                        reg += "getStringExtra($S)";
+                    reg += " = t.getIntent().";
+                    int type = typeMirror.getKind().ordinal();
+                    if (type == TypeKind.INT.ordinal()) {
+                        reg += "getIntExtra($S, " + arg + ")";
+                    } else if (type == TypeKind.BOOLEAN.ordinal()) {
+                        reg += "getBooleanExtra($S, " + arg + ")";
+                    } else {
+                        if (typeMirror.toString().equalsIgnoreCase(ProcessorConfig.STRING)) {
+                            reg += "getStringExtra($S)";
+                        }
                     }
+                    builder.addStatement(reg, keyName);
                 }
-                builder.addStatement(reg, keyName);
+
             }
 
             TypeSpec typeSpec = TypeSpec.classBuilder(typeElement.getSimpleName().toString() + ProcessorConfig.PARAMETER_LOADER_CLASS_NAME)

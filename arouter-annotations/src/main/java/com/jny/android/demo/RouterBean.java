@@ -6,7 +6,8 @@ public class RouterBean {
 
     public enum TypeEnum {
         ACTIVITY,
-        FRAGMENT
+        FRAGMENT,
+        RES
     }
 
     private TypeEnum typeEnum;

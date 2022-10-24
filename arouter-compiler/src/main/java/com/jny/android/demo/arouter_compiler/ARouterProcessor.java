@@ -91,6 +91,9 @@ public class ARouterProcessor extends AbstractProcessor {
 
         TypeElement fragmentType = elementUtils.getTypeElement(ProcessorConfig.FRAGMENT_PACKAGE);
         TypeMirror fragmentMirror = fragmentType.asType();
+
+        TypeElement resType = elementUtils.getTypeElement(ProcessorConfig.RES_PACKAGE);
+        TypeMirror resMirror = resType.asType();
         
         for (Element element : elements) {
             TypeMirror elementMirror = element.asType();
@@ -105,8 +108,10 @@ public class ARouterProcessor extends AbstractProcessor {
                 builder.addType(RouterBean.TypeEnum.ACTIVITY);
             } else if (typeUtils.isSubtype(elementMirror, fragmentMirror)){
                 builder.addType(RouterBean.TypeEnum.FRAGMENT);
+            } else if (typeUtils.isSubtype(elementMirror, resMirror)) {
+                builder.addType(RouterBean.TypeEnum.RES);
             } else {
-                throw new RuntimeException("@ARouter注解仅能使用在Activity或Fragment上了");
+                throw new RuntimeException("@ARouter注解不支持该类型");
             }
 
             RouterBean routerBean = builder.build();

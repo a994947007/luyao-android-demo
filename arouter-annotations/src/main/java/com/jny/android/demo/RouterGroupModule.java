@@ -11,7 +11,7 @@ public class RouterGroupModule {
         this.moduleName = moduleName;
     }
 
-    public static RouterGroupModule create(String modulePath, String groupName) {
-        return new RouterGroupModule(modulePath, groupName);
+    public static RouterGroupModule create(String modulePath, String moduleName) {
+        return new RouterGroupModule(modulePath, moduleName);
     }
 }

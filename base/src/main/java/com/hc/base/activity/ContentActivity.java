@@ -8,7 +8,7 @@ import android.os.Bundle;
 
 import com.hc.base.R;
 import com.jny.android.demo.RouterBean;
-import com.jny.android.demo.arouter_api.RouterManager;
+import com.jny.android.demo.RouterBeanLoader;
 
 public class ContentActivity extends LuActivity {
 
@@ -24,7 +24,7 @@ public class ContentActivity extends LuActivity {
     private void bindFragment() {
         Intent intent = getIntent();
         String fragmentId = intent.getStringExtra(Constants.CONTENT_FRAGMENT_KEY);
-        RouterBean routerBean = RouterManager.getInstance().loadRouterBean(fragmentId);
+        RouterBean routerBean = RouterBeanLoader.getInstance().loadRouterBean(fragmentId);
         Fragment fragment = null;
         if (routerBean != null) {
             try {

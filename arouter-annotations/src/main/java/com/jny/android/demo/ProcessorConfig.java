@@ -9,6 +9,8 @@ public interface ProcessorConfig {
 
     String FRAGMENT_PACKAGE = "androidx.fragment.app.Fragment";
 
+    String RES_PACKAGE = "com.jny.android.demo.api.Res";
+
     String ROUTER_TAB_CLASS_PACKAGE = "com.jny.android.demo.router";
 
     String ROUTER_TAB_CLASS = "$RouterTab";

@@ -126,5 +126,15 @@
       <option name="name" value="maven4" />
       <option name="url" value="file:/$PROJECT_DIR$/../../IDEA%20CODE/androiddemo/app/'E:/React/react-app/myApp/node_modules/react-native/android'" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven7" />
+      <option name="name" value="maven7" />
+      <option name="url" value="https://packages.aliyun.com/maven/repository/2286124-release-1d6Qi3/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven8" />
+      <option name="name" value="maven8" />
+      <option name="url" value="https://packages.aliyun.com/maven/repository/2286124-snapshot-J8DIRD/" />
+    </remote-repository>
   </component>
 </project>

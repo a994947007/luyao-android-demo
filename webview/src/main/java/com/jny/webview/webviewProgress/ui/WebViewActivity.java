@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.ViewGroup;
 
+import com.jny.android.demo.api.Res;
 import com.jny.android.demo.arouter_annotations.ARouter;
 import com.jny.android.demo.arouter_annotations.Parameter;
 import com.jny.android.demo.arouter_api.BundleManager;
@@ -15,6 +16,9 @@ import com.jny.webview.webviewProgress.constants.Constants;
 @ARouter(path = "WebViewActivity", group = "webview")
 public class WebViewActivity extends AppCompatActivity {
     private ViewGroup mFragmentContainer;
+
+    @Parameter("/res/activity_main")
+    Res layoutRes;
 
     @Parameter(Constants.ACTION_BAR_ENABLE)
     boolean mIsShowActionBar;
