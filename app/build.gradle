@@ -65,7 +65,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation project(path: ':react-native')
     implementation project(path: ':download')
-    implementation project(path: ':rxAndroid')
+    implementation 'com.android.demo:rxAndroid:1.1@aar'
     implementation project(path: ':base-util')
 
     // ARouter注解处理器

@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 
 import androidx.lifecycle.Lifecycle;
 
-import com.jny.android.demo.rxandroid.observable.Observable;
+import com.android.demo.rxandroid.observable.Observable;
 
 import java.net.URL;
 

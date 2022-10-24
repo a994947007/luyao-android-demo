@@ -28,7 +28,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$rootProject.androidxVersion"
     api 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
-    implementation project(path: ':rxAndroid')
+    implementation 'com.android.demo:rxAndroid:1.1@aar'
     implementation project(path: ':base-util')
     annotationProcessor rootProject.autoServiceDependency
     implementation rootProject.autoServiceDependency

@@ -30,7 +30,7 @@ import com.hc.android_demo.fragment.content.mvp.model.UserModel;
 import com.hc.android_demo.fragment.content.mvp.network.ApiService;
 import com.hc.support.mvps.Presenter;
 import com.jny.android.demo.base_util.AppEnvironment;
-import com.jny.android.demo.rxandroid.schedule.Schedules;
+import com.android.demo.rxandroid.schedule.Schedules;
 import com.hc.util.ToastUtils;
 import com.hc.util.ViewUtils;
 

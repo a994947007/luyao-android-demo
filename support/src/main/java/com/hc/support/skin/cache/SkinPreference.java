@@ -2,9 +2,9 @@ package com.hc.support.skin.cache;
 
 import android.app.Application;
 
-import com.jny.android.demo.rxandroid.function.Function;
-import com.jny.android.demo.rxandroid.observable.Observable;
-import com.jny.android.demo.rxandroid.schedule.Schedules;
+import com.android.demo.rxandroid.function.Function;
+import com.android.demo.rxandroid.observable.Observable;
+import com.android.demo.rxandroid.schedule.Schedules;
 
 import java.io.IOException;
 

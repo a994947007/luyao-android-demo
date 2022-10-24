@@ -5,9 +5,10 @@ import android.graphics.BitmapFactory;
 
 import androidx.lifecycle.Lifecycle;
 
+import com.android.demo.rxandroid.observable.Observable;
+import com.android.demo.rxandroid.schedule.Schedules;
 import com.google.auto.service.AutoService;
-import com.jny.android.demo.rxandroid.observable.Observable;
-import com.jny.android.demo.rxandroid.schedule.Schedules;
+
 import com.jny.process.DownloadCenter;
 
 import java.io.IOException;

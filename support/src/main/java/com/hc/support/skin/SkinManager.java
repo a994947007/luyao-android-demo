@@ -8,7 +8,7 @@ import android.content.res.Resources;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.jny.android.demo.rxandroid.observer.Consumer;
+import com.android.demo.rxandroid.observer.Consumer;
 import com.hc.support.skin.cache.SkinConfig;
 import com.hc.support.skin.cache.SkinPreference;
 import com.hc.support.skin.util.SkinResources;

@@ -35,7 +35,7 @@ dependencies {
     implementation project(":arouter-annotations")
     annotationProcessor rootProject.autoServiceDependency
     implementation rootProject.autoServiceDependency
-    api project(path: ':rxAndroid')
+    implementation 'com.android.demo:rxAndroid:1.1@aar'
     api project(path: ':support')
     api 'com.android.demo:rxAndroid:1.1@aar'
     api 'com.google.code.gson:gson:2.8.8'

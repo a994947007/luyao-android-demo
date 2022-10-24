@@ -16,8 +16,8 @@ import com.hc.android_demo.R;
 import com.hc.base.activity.ActivityStarter;
 import com.hc.base.autoservice.AutoServiceManager;
 import com.jny.android.demo.arouter_annotations.ARouter;
-import com.jny.android.demo.rxandroid.observable.Observable;
-import com.jny.android.demo.rxandroid.schedule.Schedules;
+import com.android.demo.rxandroid.observable.Observable;
+import com.android.demo.rxandroid.schedule.Schedules;
 import com.jny.download.DownloadService;
 import com.jny.common.fragment.FragmentConstants;
 

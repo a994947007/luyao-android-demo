@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 
-import com.jny.android.demo.rxandroid.disposable.Disposable;
+import com.android.demo.rxandroid.disposable.Disposable;
 
 import java.util.ArrayList;
 import java.util.List;
