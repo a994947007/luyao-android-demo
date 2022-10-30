@@ -32,4 +32,6 @@ dependencies {
     api 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     api project(path: ':base')
     implementation 'com.android.demo:rxAndroid:1.1@aar'
+
+    implementation project(":plugin-annotations")
 }

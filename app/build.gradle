@@ -68,11 +68,18 @@ dependencies {
     implementation 'com.android.demo:rxAndroid:1.1@aar'
     implementation project(path: ':base-util')
 
+    // Plugin注解处理器
+    implementation project(":plugin-annotations")
+    implementation project(":plugin-compiler")
+    annotationProcessor project(":plugin-compiler")
+
     // ARouter注解处理器
     implementation project(":arouter-annotations")
     implementation project(":arouter-compiler")
     implementation project(":arouter-api")
     annotationProcessor project(":arouter-compiler")
+
+
 
     annotationProcessor rootProject.autoServiceDependency
     implementation rootProject.autoServiceDependency

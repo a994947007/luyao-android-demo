@@ -18,6 +18,7 @@
           <entry name="D:/soft/gradle-6.9.1/caches/modules-2/files-2.1/org.codehaus.mojo/animal-sniffer-annotations/1.17/f97ce6decaea32b36101e37979f8b647f00681fb/animal-sniffer-annotations-1.17.jar" />
         </processorPath>
         <module name="android-demo.arouter-compiler.main" />
+        <module name="android-demo.plugin-compiler.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.7">
