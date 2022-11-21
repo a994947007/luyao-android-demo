@@ -21,25 +21,11 @@
         <module name="android-demo.plugin-compiler.main" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="1.7">
-      <module name="android-demo.android-view" target="1.8" />
+    <bytecodeTargetLevel target="1.8">
       <module name="android-demo.annotations" target="1.8" />
       <module name="android-demo.annotations.arouter" target="1.8" />
-      <module name="android-demo.app" target="1.8" />
-      <module name="android-demo.arouter-api" target="1.8" />
-      <module name="android-demo.base" target="1.8" />
-      <module name="android-demo.base-util" target="1.8" />
-      <module name="android-demo.common" target="1.8" />
       <module name="android-demo.compiler" target="1.8" />
-      <module name="android-demo.design" target="1.8" />
-      <module name="android-demo.dialog" target="1.8" />
-      <module name="android-demo.download" target="1.8" />
-      <module name="android-demo.my-views" target="1.8" />
-      <module name="android-demo.react-native" target="1.8" />
       <module name="android-demo.rxAndroid" target="1.8" />
-      <module name="android-demo.support" target="1.8" />
-      <module name="android-demo.util" target="1.8" />
-      <module name="android-demo.webview" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

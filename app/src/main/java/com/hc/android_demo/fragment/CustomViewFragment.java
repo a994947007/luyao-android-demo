@@ -70,6 +70,7 @@ public class CustomViewFragment extends SimpleRecyclerFragment {
         items.add(new Pair<>("渐变色蒙层+侧滑引导动画", this::onClickSwipeGuideFragment));
         items.add(new Pair<>("圆角BottomSheet，支持图片", this::onClickCircleBottomSheetFragment));
         items.add(new Pair<>("background mutate使用测试", this::onClickBackgroundMutateFragment));
+        items.add(new Pair<>("悬浮小窗", this::onClickFloatWindow));
     }
 
     @Override
@@ -90,6 +91,10 @@ public class CustomViewFragment extends SimpleRecyclerFragment {
             ((Activity)getContext()).getWindow().setStatusBarColor(ViewUtils.getColor(R.color.bottom_nav_color));
             ((Activity)getContext()).getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
+    }
+
+    private void onClickFloatWindow() {
+        startContentActivity(FragmentConstants.FLOAT_WINDOW_FRAGMENT);
     }
 
     private void onClickBackgroundMutateFragment() {
