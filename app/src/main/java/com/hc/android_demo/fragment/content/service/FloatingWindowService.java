@@ -1,7 +1,14 @@
 package com.hc.android_demo.fragment.content.service;
 
+import static android.view.WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
+import static android.view.WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS;
+
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.app.Service;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.IBinder;
@@ -12,8 +19,10 @@ import android.view.MotionEvent;
 import android.view.TextureView;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.hc.android_demo.R;
 import com.hc.android_demo.fragment.content.player.LuSurfaceTexturePlayer;
@@ -32,6 +41,7 @@ public class FloatingWindowService extends Service {
     private LuSurfaceTexturePlayer mPlayer;
     private WindowManager.LayoutParams layoutParams;
     private View closeView;
+    private View changeView;
 
     private boolean isShow;
 
@@ -73,6 +83,57 @@ public class FloatingWindowService extends Service {
         super.onDestroy();
     }
 
+    private void updateXY(int x, int y) {
+        layoutParams.x = x;
+        layoutParams.y = y;
+    }
+
+    private void updateSize(int width, int height) {
+        layoutParams.width = width;
+        layoutParams.height = height;
+    }
+
+    private void updateGravity(int gravity) {
+        layoutParams.gravity = gravity;
+    }
+
+    private void requestLayout() {
+        windowManager.updateViewLayout(contentView, layoutParams);
+    }
+
+    private static final int ADD_WIDTH = 200;
+    private static final int ADD_HEIGHT = 300;
+
+    int mInitX;
+    int mInitY;
+    float mInitScaleX;
+    float mInitScaleY;
+
+    private ValueAnimator createAmplifyAnimator() {
+        ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f);
+        animator.setDuration(500);
+        final int initWidth = contentView.getWidth();
+        final int initHeight = contentView.getHeight();
+        animator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                mInitX = layoutParams.x;
+                mInitY = layoutParams.y;
+            }
+        });
+        animator.addUpdateListener(animation -> {
+            float ratio = (float) animation.getAnimatedValue();
+            int addWidth = (int) (ratio * ADD_WIDTH);
+            int addHeight = (int) (ratio * ADD_HEIGHT);
+            int targetWidth = initWidth + addWidth;
+            int targetHeight = initHeight + addHeight;
+            updateSize(targetWidth, targetHeight);
+            updateXY(mInitX - addWidth, mInitY);
+            requestLayout();
+        });
+        return animator;
+    }
+
     private void showFloatingWindow() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (Settings.canDrawOverlays(FloatingWindowService.this)) {
@@ -80,12 +141,17 @@ public class FloatingWindowService extends Service {
                 contentView = inflater.inflate(R.layout.floating_window_texture_view, null);
                 textureView = contentView.findViewById(R.id.video_content);
                 closeView = contentView.findViewById(R.id.close_btn);
+                changeView = contentView.findViewById(R.id.change_btn);
                 mPlayer = new LuSurfaceTexturePlayer(textureView, videoPath, 0);
                 textureView.setSurfaceTextureListener(mPlayer);
                 layoutParams = generateLayoutParams();
                 windowManager.addView(contentView, layoutParams);
+                layoutParams.screenOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_USER;
                 contentView.setOnTouchListener(new FloatingOnTouchListener());
                 closeView.setOnClickListener(v -> stopSelf());
+                changeView.setOnClickListener(v -> {
+                    createAmplifyAnimator().start();
+                });
                 mPlayer.play();
             }
         }
@@ -93,7 +159,7 @@ public class FloatingWindowService extends Service {
 
     private WindowManager.LayoutParams generateLayoutParams() {
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-        layoutParams.format = PixelFormat.RGB_565;
+        layoutParams.format = PixelFormat.RGBA_8888;
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O) {
             // android 8.0及以后使用
             layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
@@ -101,14 +167,15 @@ public class FloatingWindowService extends Service {
             // android 8.0以前使用
             layoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
         }
-        layoutParams.gravity = Gravity.START | Gravity.CENTER;
+        layoutParams.gravity = Gravity.LEFT | Gravity.TOP;
         //该flags描述的是窗口的模式，是否可以触摸，可以聚焦等
         layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
         // 设置视频的播放窗口大小
         layoutParams.width = ViewUtils.getDisplayWidth(FloatingWindowService.this)/2;
         layoutParams.height = ViewUtils.getDisplayHeight(FloatingWindowService.this)/6;
-        layoutParams.x = 700;
+        layoutParams.x = 100;
         layoutParams.y = 0;
+        FloatUtils.disableMoveAnim(layoutParams);
         return layoutParams;
     }
 
