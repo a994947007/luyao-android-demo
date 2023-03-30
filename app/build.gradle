@@ -86,4 +86,7 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.1'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.5'
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
+
+    implementation 'io.reactivex.rxjava2:rxjava:2.0.1'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
 }

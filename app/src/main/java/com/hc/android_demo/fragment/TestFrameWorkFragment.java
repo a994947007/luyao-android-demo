@@ -35,7 +35,9 @@ public class TestFrameWorkFragment extends SimpleRecyclerFragment {
         addItem("KT DSL、高阶函数", this::onClickDSLTestFragment);
         addItem("Room数据库使用测试", this::onClickRoomDBFragment);
         addItem("动态主题", this::onClickDynamicThemeFragment);
+        addItem("自定义Mvps+MVI架构", this::onClickMVITestFragment);
     }
+
     private TestFrameWorkFragment() { }
 
     public static Fragment newInstance() {
@@ -87,6 +89,10 @@ public class TestFrameWorkFragment extends SimpleRecyclerFragment {
 
     private void onClickMvvmDataBindingActivity() {
         startContentActivity(FragmentConstants.MVVM_TEST_FRAGMENT_ID);
+    }
+
+    private void onClickMVITestFragment() {
+        startContentActivity(FragmentConstants.MVI_TEST_FRAGMENT_ID);
     }
 
     @Override
