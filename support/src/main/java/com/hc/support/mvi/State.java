@@ -44,11 +44,11 @@ public class State<T> {
         return new State<>(rObservable);
     }
 
-    public void observe(@NonNull final Observer<? super T> observer) {
+    public void observe(@NonNull final Consumer<? super T> observer) {
         observable.subscribe(new Consumer<T>() {
             @Override
             public void accept(T t) throws Exception {
-                observer.onChanged(t);
+                observer.accept(t);
             }
         });
     }
