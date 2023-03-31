@@ -8,7 +8,7 @@ import com.hc.support.mvps.Presenter;
 
 public abstract class MVIPresenter<T, VM extends BaseViewModel<T>, V extends IView<VM>> extends Presenter implements IModel<T, VM, V> {
 
-    private final LifecycleOwner lifecycleOwner;
+    protected final LifecycleOwner lifecycleOwner;
     protected VM vm;
     protected V v;
     protected ActionBus actionBus;
