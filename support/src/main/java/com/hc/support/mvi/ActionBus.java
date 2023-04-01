@@ -1,13 +1,12 @@
 package com.hc.support.mvi;
 
-import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 
 import androidx.lifecycle.Observer;
 
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Predicate;
-import io.reactivex.subjects.BehaviorSubject;
+import com.android.demo.rxandroid.filter.Predicate;
+import com.android.demo.rxandroid.observer.Consumer;
+import com.android.demo.rxandroid.subjects.BehaviorSubject;
 
 public class ActionBus {
     public BehaviorSubject<Action> subject = BehaviorSubject.create();
@@ -19,18 +18,16 @@ public class ActionBus {
     }
 
     public void observe(final Class<? extends Action> actionClass, final Observer<Action> observer) {
-        BehaviorSubject<Lifecycle.Event> lifecycleSubject = BehaviorSubject.create();
-        owner.getLifecycle().addObserver(new RxJavaLifecycle(lifecycleSubject));
-        subject.compose(new LifecycleTransformer<Action>(lifecycleSubject.hide()))
+        subject.compose(RxJavaLifecycle.<Action>bindUntilDestroy(owner))
                 .filter(new Predicate<Action>() {
                     @Override
-                    public boolean test(Action action) throws Exception {
+                    public boolean test(Action action) {
                         return action.getClass() == actionClass;
                     }
                 })
                 .subscribe(new Consumer<Action>() {
                     @Override
-                    public void accept(Action action) throws Exception {
+                    public void accept(Action action) {
                         observer.onChanged(action);
                     }
                 });

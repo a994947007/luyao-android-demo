@@ -35,9 +35,9 @@ dependencies {
     implementation project(":arouter-annotations")
     annotationProcessor rootProject.autoServiceDependency
     implementation rootProject.autoServiceDependency
-    implementation 'com.android.demo:rxAndroid:1.1@aar'
+    implementation rootProject.rxAndroid
     api project(path: ':support')
-    api 'com.android.demo:rxAndroid:1.1@aar'
+    api rootProject.rxAndroid
     api 'com.google.code.gson:gson:2.8.8'
     api 'com.facebook.fresco:fresco:2.6.0'
     api "com.facebook.react:react-native:$rootProject.reactVersion"

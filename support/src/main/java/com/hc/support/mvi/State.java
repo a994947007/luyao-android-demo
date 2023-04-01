@@ -1,13 +1,12 @@
 package com.hc.support.mvi;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 
-import io.reactivex.Observable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
-import io.reactivex.subjects.BehaviorSubject;
+import com.android.demo.rxandroid.function.Function;
+import com.android.demo.rxandroid.observable.Observable;
+import com.android.demo.rxandroid.observer.Consumer;
+import com.android.demo.rxandroid.subjects.BehaviorSubject;
 
 public class State<T> {
 
@@ -26,9 +25,7 @@ public class State<T> {
     }
 
     public State<T> onLifeCycle(@NonNull LifecycleOwner owner) {
-        BehaviorSubject<Lifecycle.Event> lifecycleSubject = BehaviorSubject.create();
-        owner.getLifecycle().addObserver(new RxJavaLifecycle(lifecycleSubject));
-        observable = subject.compose(new LifecycleTransformer<T>(lifecycleSubject.hide()));
+        observable = subject.compose(RxJavaLifecycle.<T>bindUntilDestroy(owner));
         return this;
     }
 
@@ -45,7 +42,7 @@ public class State<T> {
     public void observe(@NonNull final Consumer<? super T> observer) {
         observable.subscribe(new Consumer<T>() {
             @Override
-            public void accept(T t) throws Exception {
+            public void accept(T t) {
                 observer.accept(t);
             }
         });

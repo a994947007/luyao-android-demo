@@ -65,7 +65,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation project(path: ':react-native')
     implementation project(path: ':download')
-    implementation 'com.android.demo:rxAndroid:1.1@aar'
+    implementation rootProject.rxAndroid
     implementation project(path: ':base-util')
 
     // Plugin注解处理器
@@ -86,7 +86,4 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.1'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.5'
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
-
-    implementation 'io.reactivex.rxjava2:rxjava:2.0.1'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
 }
