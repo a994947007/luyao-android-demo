@@ -30,15 +30,18 @@ dependencies {
     rootProject.commonDependencies.each { k, v ->
         implementation v
     }
-    implementation project(path: ':base-util')
-    implementation project(path: ':arouter-api')
-    implementation project(":arouter-annotations")
-    annotationProcessor rootProject.autoServiceDependency
+
+    api rootProject.rxAndroid
+    api rootProject.gson
+    api rootProject.fresco
+    api rootProject.reactNative
+
+    api project(path: ':support')
     implementation rootProject.autoServiceDependency
     implementation rootProject.rxAndroid
-    api project(path: ':support')
-    api rootProject.rxAndroid
-    api 'com.google.code.gson:gson:2.8.8'
-    api 'com.facebook.fresco:fresco:2.6.0'
-    api "com.facebook.react:react-native:$rootProject.reactVersion"
+    implementation project(path: ':base-util')
+
+    implementation project(rootProject.routerApi)
+    implementation project(rootProject.routerAnnotation)
+    annotationProcessor rootProject.autoServiceDependency
 }

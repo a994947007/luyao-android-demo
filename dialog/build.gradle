@@ -25,11 +25,11 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation "androidx.appcompat:appcompat:$rootProject.androidxVersion"
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    rootProject.commonDependencies.each { k, v ->
+        implementation v
+    }
+    implementation rootProject.androidLifecycle
     implementation project(path: ':util')
-    implementation 'com.google.android.material:material:1.0.0'
-    implementation "android.arch.lifecycle:common-java8:1.1.1"
     implementation project(path: ':my-views')
     implementation project(path: ':base-util')
 }

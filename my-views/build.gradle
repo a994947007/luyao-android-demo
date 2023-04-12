@@ -24,12 +24,12 @@ android {
 }
 
 dependencies {
-    implementation "androidx.appcompat:appcompat:$rootProject.androidxVersion"
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
+    rootProject.commonDependencies.each { k, v ->
+        implementation v
+    }
+    implementation rootProject.recyclerView
+    implementation rootProject.coordinatorlayout
     implementation project(path: ':base-util')
-    testImplementation 'junit:junit:4.12'
     implementation project(path: ':util')
     implementation project(path: ':common')
 

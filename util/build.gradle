@@ -20,7 +20,7 @@ android {
 }
 
 dependencies {
-    implementation "androidx.appcompat:appcompat:$rootProject.androidxVersion"
+    implementation rootProject.commonDependencies.appcompat
     implementation project(path: ':base')
     implementation project(path: ':base-util')
 }

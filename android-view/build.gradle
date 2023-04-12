@@ -24,13 +24,14 @@ android {
 }
 
 dependencies {
-    implementation "androidx.appcompat:appcompat:$rootProject.androidxVersion"
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    rootProject.commonDependencies.each { k, v ->
+        implementation v
+    }
+
+    implementation rootProject.legacy
+    implementation rootProject.recyclerView
+    implementation rootProject.viewPager2
     implementation project(path: ':util')
-    implementation project(path: ':design')
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
-    implementation 'com.google.android.material:material:1.2.0-alpha02'
-    implementation 'androidx.viewpager2:viewpager2:1.0.0-alpha01'
+    implementation project(path: ':design')77
     implementation project(path: ':base-util')
 }

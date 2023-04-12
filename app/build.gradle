@@ -51,7 +51,10 @@ dependencies {
     rootProject.commonDependencies.each { k, v ->
         implementation v
     }
-    implementation "com.facebook.react:react-native:$rootProject.reactVersion"
+    implementation rootProject.reactNative
+    implementation rootProject.legacy
+    implementation rootProject.rxAndroid
+    implementation rootProject.multidex
     implementation project(path: ':dialog')
     implementation project(path: ':base')
     implementation project(path: ':my-views')
@@ -62,28 +65,24 @@ dependencies {
     implementation project(path: ':webview')
     implementation project(path: ':common')
     implementation project(path: ':download')
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation project(path: ':react-native')
     implementation project(path: ':download')
-    implementation rootProject.rxAndroid
     implementation project(path: ':base-util')
 
     // Plugin注解处理器
-    implementation project(":plugin-annotations")
-    implementation project(":plugin-compiler")
-    annotationProcessor project(":plugin-compiler")
+    implementation project(rootProject.pluginAnnotation)
+    implementation project(rootProject.pluginCompiler)
+    annotationProcessor project(rootProject.pluginCompiler)
 
     // ARouter注解处理器
-    implementation project(":arouter-annotations")
-    implementation project(":arouter-compiler")
-    implementation project(":arouter-api")
-    annotationProcessor project(":arouter-compiler")
+    implementation project(rootProject.routerAnnotation)
+    implementation project(rootProject.routerApi)
+    implementation project(rootProject.routerCompiler)
+    annotationProcessor project(rootProject.routerCompiler)
 
-
-
-    annotationProcessor rootProject.autoServiceDependency
     implementation rootProject.autoServiceDependency
-    implementation 'com.android.support:multidex:1.0.1'
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.5'
-    kapt "androidx.room:room-compiler:$rootProject.roomVersion"
+    annotationProcessor rootProject.autoServiceDependency
+
+    debugImplementation rootProject.leakcanary
+    kapt rootProject.androidRoomAnnationProcessor
 }
