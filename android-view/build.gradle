@@ -32,6 +32,6 @@ dependencies {
     implementation rootProject.recyclerView
     implementation rootProject.viewPager2
     implementation project(path: ':util')
-    implementation project(path: ':design')77
+    implementation project(path: ':design')
     implementation project(path: ':base-util')
 }
