@@ -20,7 +20,7 @@ import com.jny.android.demo.arouter_annotations.ARouter;
 import com.jny.common.fragment.FragmentConstants;
 
 @ARouter(path = FragmentConstants.REACT_NATIVE_SECOND_FLOOR,
-        group = FragmentConstants.DYNAMIC)
+        group = FragmentConstants.APP_DYNAMIC)
 public class ReactNativeSecondFloorFragment extends SecondFloorRefreshLayoutFragment {
 
     @Nullable

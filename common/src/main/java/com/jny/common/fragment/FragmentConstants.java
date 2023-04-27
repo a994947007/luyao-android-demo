@@ -6,6 +6,7 @@ public interface FragmentConstants {
     String CUSTOM_VIEW = "customView";
     String FRAMEWORK = "framework";
     String DYNAMIC = "dynamic";
+    String APP_DYNAMIC = "appDynamic";
     String PERFORMANCE = "performance";
     String FISH_TEST_FRAGMENT_ID = "FISH_TEST_FRAGMENT_ID";
     String VERTICAL_DRAWER_RECYCLERVIEW_TEST_FRAGMENT_ID = "VERTICAL_DRAWER_RECYCLERVIEW_TEST_FRAGMENT_ID";

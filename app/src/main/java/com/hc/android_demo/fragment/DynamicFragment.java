@@ -64,7 +64,7 @@ public class DynamicFragment extends SimpleRecyclerFragment {
     }
 
     private void onClickSecondFloorRNFragment() {
-        startContentActivity(FragmentConstants.REACT_NATIVE_SECOND_FLOOR);
+        ActivityUtils.startContentActivity((LuActivity) getActivity(), "/" + FragmentConstants.APP_DYNAMIC + "/" + FragmentConstants.REACT_NATIVE_SECOND_FLOOR);
     }
 
     private void onClickDynamicWebViewActivity() {
