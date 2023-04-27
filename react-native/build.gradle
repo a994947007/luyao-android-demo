@@ -53,6 +53,8 @@ dependencies {
     implementation project(rootProject.routerAnnotation)
     implementation project(rootProject.routerCompiler)
     implementation project(rootProject.routerApi)
+    testImplementation project(path: ':react-native')
+    androidTestImplementation project(path: ':react-native')
     annotationProcessor project(rootProject.routerCompiler)
 
     annotationProcessor rootProject.autoServiceDependency

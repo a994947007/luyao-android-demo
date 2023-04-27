@@ -32,6 +32,7 @@ public class DynamicFragment extends SimpleRecyclerFragment {
         addItem("二楼+RN", this::onClickSecondFloorRNFragment);
         addItem("纯RN双列瀑布流", this::onClickListRNView);
         addItem("Native导出卡片+双列瀑布流", this::onClickNativeCardListRNView);
+        addItem("toWritableMap", this::onClickToWritableMap);
     }
 
     private DynamicFragment() { }
@@ -56,6 +57,10 @@ public class DynamicFragment extends SimpleRecyclerFragment {
 
     private void onClickListRNView() {
 
+    }
+
+    private void onClickToWritableMap() {
+        startContentActivity(FragmentConstants.REACT_NATIVE_TO_WRITABLE_MAP);
     }
 
     private void onClickSecondFloorRNFragment() {
