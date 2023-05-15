@@ -33,6 +33,7 @@ public class DynamicFragment extends SimpleRecyclerFragment {
         addItem("纯RN双列瀑布流", this::onClickListRNView);
         addItem("Native导出卡片+双列瀑布流", this::onClickNativeCardListRNView);
         addItem("toWritableMap", this::onClickToWritableMap);
+        addItem("NestedScrollView wrap Fragment View不能撑满布局的问题", this::onClickWrapFragmentViewFragment);
     }
 
     private DynamicFragment() { }
@@ -57,6 +58,10 @@ public class DynamicFragment extends SimpleRecyclerFragment {
 
     private void onClickListRNView() {
 
+    }
+
+    private void onClickWrapFragmentViewFragment() {
+        ActivityUtils.startContentActivity((LuActivity) getActivity(), "/" + FragmentConstants.APP_DYNAMIC + "/" + FragmentConstants.DYNAMIC_WRAP_FRAGMENT_VIEW_ID);
     }
 
     private void onClickToWritableMap() {
