@@ -59,6 +59,7 @@
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/fragment_mvps.xml" value="0.5181159420289855" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/fragment_mvvm_layout.xml" value="0.5536458333333333" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/fragment_progress.xml" value="0.21603260869565216" />
+        <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/fragment_refresh_recycler_view_item_layout.xml" value="0.416213768115942" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/fragment_rn_second_floor_content_layout.xml" value="0.32864583333333336" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/fragment_rn_second_floor_refresh_layout.xml" value="0.32864583333333336" />
         <entry key="..\:/IDEA CODE/androiddemo/app/src/main/res/layout/fragment_room_db_text_layout.xml" value="0.1661600810536981" />
@@ -168,7 +169,7 @@
       </value>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

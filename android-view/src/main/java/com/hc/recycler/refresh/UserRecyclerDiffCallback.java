@@ -31,7 +31,7 @@ public class UserRecyclerDiffCallback extends DiffUtil.Callback {
     public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
         UserModel oldItem = oldItems.get(oldItemPosition);
         UserModel newItem = newItems.get(newItemPosition);
-        return oldItem == newItem || oldItem.id == newItem.id;
+        return oldItem == newItem || TextUtils.equals(oldItem.id, newItem.id);
     }
 
     @Override

@@ -5,15 +5,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hc.android_view.R;
+import com.hc.recycler.RecyclerAdapter;
 import com.hc.recycler.UserModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserRecyclerAdapter extends RecyclerView.Adapter<UserViewHold> {
+public class UserRecyclerAdapter extends RecyclerView.Adapter<UserViewHold> implements RecyclerAdapter<UserModel> {
 
     private final List<UserModel> userModelList = new ArrayList<>();
 
@@ -34,8 +36,14 @@ public class UserRecyclerAdapter extends RecyclerView.Adapter<UserViewHold> {
         return this.userModelList.size();
     }
 
+    @Override
     public void setData(List<UserModel> userModelList) {
         this.userModelList.clear();
         this.userModelList.addAll(userModelList);
+    }
+
+    @Override
+    public List<UserModel> getData() {
+        return userModelList;
     }
 }
