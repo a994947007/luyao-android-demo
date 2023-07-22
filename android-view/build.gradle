@@ -31,6 +31,7 @@ dependencies {
     implementation rootProject.legacy
     implementation rootProject.recyclerView
     implementation rootProject.viewPager2
+    implementation rootProject.fresco
     implementation project(path: ':util')
     implementation project(path: ':design')
     implementation project(path: ':base-util')
