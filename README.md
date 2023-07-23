@@ -10,3 +10,6 @@ https://github.com/a994947007/android-demo-rxJava
 
 # 支持跨进程的下载库
 https://github.com/a994947007/android-demo-download
+
+# 私有maven仓库
+https://packages.aliyun.com/maven
