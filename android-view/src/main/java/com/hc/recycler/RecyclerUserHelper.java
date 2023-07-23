@@ -41,4 +41,16 @@ public final class RecyclerUserHelper {
             diffResult.dispatchUpdatesTo(adapter);
         }
     }
+
+    public static void updateAndDiffItemCallback(RecyclerView recyclerView, List<UserModel> list) {
+        RecyclerView.Adapter adapter = recyclerView.getAdapter();
+        if (adapter == null) {
+            adapter = new UserRecyclerAdapterForItemDiff();
+            recyclerView.setAdapter(adapter);
+        }
+        if (adapter instanceof RecyclerAdapter) {
+            RecyclerAdapter<UserModel> recyclerAdapter = (RecyclerAdapter<UserModel>) adapter;
+            recyclerAdapter.setData(list);
+        }
+    }
 }
