@@ -21,15 +21,20 @@ public class PerformanceFragment extends SimpleRecyclerFragment {
 
     {
         addItem("包大小优化-颜色选择器", this::onClickAutoChangeColorStyle);
-        addItem("RecyclerView局部刷新-item级别", this::onClickRefreshRecyclerView);
+        addItem("RecyclerView局部刷新-item级别", this::onClickRefreshRecyclerItem);
+        addItem("RecyclerView局部刷新-element级别", this::onClickRefreshRecyclerElement);
     }
 
     private void onClickAutoChangeColorStyle() {
         startContentActivity(FragmentConstants.PERFORMANCE_AUTO_CHANGE_STYLE_ID);
     }
 
-    private void onClickRefreshRecyclerView() {
+    private void onClickRefreshRecyclerItem() {
         startContentActivity(FragmentConstants.PERFORMANCE_REFRESH_RECYCLER_VIEW_ITEM);
+    }
+
+    private void onClickRefreshRecyclerElement() {
+        startContentActivity(FragmentConstants.PERFORMANCE_REFRESH_RECYCLER_VIEW_ELEMENT);
     }
 
     @Override

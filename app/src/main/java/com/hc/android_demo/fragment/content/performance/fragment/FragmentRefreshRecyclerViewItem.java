@@ -56,7 +56,7 @@ public class FragmentRefreshRecyclerViewItem extends LuFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        RecyclerUserHelper.updateAndDiffItem(recyclerView, list);
+        updateAndDiff(recyclerView, list);
         refreshBtn = view.findViewById(R.id.refresh_btn);
         refreshBtn.setOnClickListener(v -> {
             List<UserModel> newList = new ArrayList<>();
@@ -81,7 +81,11 @@ public class FragmentRefreshRecyclerViewItem extends LuFragment {
                     newList.add(new UserModel(list.get(i)));
                 }
             }
-            RecyclerUserHelper.updateAndDiffItem(recyclerView, newList);
+            updateAndDiff(recyclerView, newList);
         });
+    }
+
+    protected void updateAndDiff(RecyclerView recyclerView, List<UserModel> list) {
+        RecyclerUserHelper.updateAndDiffItem(recyclerView, list);
     }
 }

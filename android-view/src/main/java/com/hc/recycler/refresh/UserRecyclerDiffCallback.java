@@ -9,8 +9,8 @@ import java.util.List;
 
 public class UserRecyclerDiffCallback extends DiffUtil.Callback {
 
-    private final List<UserModel> oldItems;
-    private final List<UserModel> newItems;
+    protected final List<UserModel> oldItems;
+    protected final List<UserModel> newItems;
 
     public UserRecyclerDiffCallback(List<UserModel> oldItems, List<UserModel> newItems) {
         this.oldItems = oldItems;
