@@ -14,7 +14,7 @@ import com.hc.android_demo.R;
 import com.hc.base.autoservice.AutoServiceManager;
 import com.hc.design.drawable.CircleBitmapDrawable;
 import com.android.demo.rxandroid.schedule.Schedules;
-import com.jny.download.DownloadService;
+import com.luyao.android.demo.download.download.DownloadService;
 
 import java.net.MalformedURLException;
 import java.net.URL;

@@ -12,6 +12,7 @@ ext {
     versionCode = 1
     versionName = "1.0"
     rxAndroid = 'com.android.demo:rxAndroid:2.4@aar'
+    download = 'com.android.demo:download:1.4@aar'
 
     routerAnnotation = ':arouter-annotations'
     routerCompiler = ':arouter-compiler'

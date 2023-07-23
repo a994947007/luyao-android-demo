@@ -12,9 +12,9 @@ import com.android.demo.rxandroid.observer.Consumer;
 import com.hc.support.skin.cache.SkinConfig;
 import com.hc.support.skin.cache.SkinPreference;
 import com.hc.support.skin.util.SkinResources;
-import com.jny.core.DownloadCallback;
-import com.jny.process.DownloadCenter;
-import com.jny.process.DownloadDisposable;
+import com.luyao.android.demo.download.core.DownloadCallback;
+import com.luyao.android.demo.download.process.DownloadCenter;
+import com.luyao.android.demo.download.process.DownloadDisposable;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

@@ -55,6 +55,7 @@ dependencies {
     implementation rootProject.legacy
     implementation rootProject.rxAndroid
     implementation rootProject.multidex
+    implementation rootProject.download
     implementation project(path: ':dialog')
     implementation project(path: ':base')
     implementation project(path: ':my-views')
@@ -64,9 +65,7 @@ dependencies {
     implementation project(path: ':util')
     implementation project(path: ':webview')
     implementation project(path: ':common')
-    implementation project(path: ':download')
     implementation project(path: ':react-native')
-    implementation project(path: ':download')
     implementation project(path: ':base-util')
 
     // Plugin注解处理器

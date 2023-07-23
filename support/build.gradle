@@ -31,8 +31,8 @@ dependencies {
     implementation rootProject.commonDependencies.appcompat
     implementation rootProject.viewPager2
     implementation rootProject.rxAndroid
+    implementation rootProject.download
     implementation project(path: ':base-util')
-    implementation project(path: ':download')
 
     implementation "org.ow2.asm:asm:$rootProject.asmVersion"
     implementation "org.ow2.asm:asm-commons:$rootProject.asmVersion"

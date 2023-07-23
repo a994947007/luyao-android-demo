@@ -12,6 +12,8 @@ import com.hc.support.loadSir.LoadSir;
 import com.jny.common.load.LoadingCallback;
 import com.jny.common.load.PageErrorCallback;
 import com.jny.react_native.MyReactApplication;
+import com.luyao.android.demo.download.download.DownloadServiceImpl;
+import com.luyao.android.demo.download.download.LuDownload;
 
 public class MyApplication extends MyReactApplication {
     @Override
@@ -19,6 +21,7 @@ public class MyApplication extends MyReactApplication {
         super.onCreate();
         MultiDex.install(this);
         Fresco.initialize(this);
+        LuDownload.getInstance().init(this, new DownloadServiceImpl());
         LoadSir.buildLoadSir()
                 .addCallback(new LoadingCallback())
                 .addCallback(new PageErrorCallback());

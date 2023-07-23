@@ -10,7 +10,6 @@ rootProject.name = "android-demo"
 include ':webview'
 include ':common'
 include ':react-native'
-include ':download'
 include ':base-util'
 include ':arouter-compiler'
 include ':arouter-annotations'
