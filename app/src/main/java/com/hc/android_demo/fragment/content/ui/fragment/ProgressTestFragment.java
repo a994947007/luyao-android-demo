@@ -12,9 +12,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.hc.android_demo.R;
-import com.hc.my_views.ProgressView;
-import com.hc.my_views.ProgressView2;
-import com.hc.my_views.ProgressView3;
+import com.hc.my_views.progress.ProgressView;
+import com.hc.my_views.progress.ProgressView2;
+import com.hc.my_views.progress.ProgressView3;
 import com.jny.android.demo.arouter_annotations.ARouter;
 import com.jny.common.fragment.FragmentConstants;
 

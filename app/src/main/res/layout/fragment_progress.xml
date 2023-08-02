@@ -3,26 +3,30 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     
-    <com.hc.my_views.ProgressView
+    <com.hc.my_views.progress.ProgressView
             android:id="@+id/progressView"
             android:layout_width="100dp"
             android:layout_height="100dp"
             app:edgeWidth="2dp"/>
     
-    <com.hc.my_views.ProgressView2
+    <com.hc.my_views.progress.ProgressView2
             android:id="@+id/progressView2"
             app:progressColor="@color/material_on_primary_disabled"
             app:sideWidth="1dp"
             app:cirClePadding="1dp"
             android:layout_width="100dp"
             android:layout_height="100dp"/>
-    <com.hc.my_views.ProgressView3
+    <com.hc.my_views.progress.ProgressView3
             android:id="@+id/progressView3"
             android:layout_width="100dp"
             android:layout_height="100dp"
             app:drawInterval="1000"/>
-
+    <com.hc.my_views.progress.ProgressView4
+        android:id="@+id/progressView4"
+        android:layout_width="100dp"
+        android:layout_height="100dp"/>
 </LinearLayout>
