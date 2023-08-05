@@ -17,6 +17,10 @@ buildscript {
 Properties properties = new Properties()
 InputStream inputStream = project.rootProject.file('local.properties').newDataInputStream();
 properties.load(inputStream)
+String reactNodeModule = project.projectDir.path + properties.getProperty('reactnodemodule.dir')
+String reactNativeDist = project.projectDir.path + properties.getProperty('reactnativedist.dir')
+println(reactNodeModule)
+println(reactNativeDist)
 
 allprojects {
     repositories {
@@ -29,11 +33,11 @@ allprojects {
         maven {
             // All of React Native (JS, Android binaries) is installed from npm
             // url properties.getProperty('reactnative.dir')
-            url(properties.getProperty('reactnodemodule.dir'))
+            url(reactNodeModule)
         }
         maven {
             // Android JSC is installed from npm
-            url(properties.getProperty('reactnativedist.dir'))
+            url(reactNativeDist)
         }
 
         maven {
