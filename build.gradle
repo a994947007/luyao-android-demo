@@ -5,6 +5,23 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven {
+            url 'https://maven.aliyun.com/repository/public'
+        }
+        maven {
+            credentials {
+                username '633402a80bdb33a273af19d9'
+                password 'Td2ccL9NNLm-'
+            }
+            url 'https://packages.aliyun.com/maven/repository/2286124-release-1d6Qi3/'
+        }
+        maven {
+            credentials {
+                username '633402a80bdb33a273af19d9'
+                password 'Td2ccL9NNLm-'
+            }
+            url 'https://packages.aliyun.com/maven/repository/2286124-snapshot-J8DIRD/'
+        }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.0.0"

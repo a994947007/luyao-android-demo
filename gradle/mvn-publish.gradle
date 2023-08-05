@@ -1,0 +1,74 @@
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
+repositories {
+    mavenCentral()
+}
+
+def moduleName = "${project.name}"
+def version = "$rootProject.ext.PUBLISH_VERSION"
+
+task uploadLocal(type: Upload) {
+    // 需要把config设置成project的，要不然会报错
+    configuration = project.configurations.findByName('archives')
+    repositories {
+        mavenDeployer {
+            def localDir = uri("${rootProject.buildFile.parentFile.absolutePath}/repos")
+            snapshotRepository(url: localDir)
+            repository(url: localDir)
+        }
+    }
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            snapshotRepository(url: 'https://packages.aliyun.com/maven/repository/2286124-snapshot-J8DIRD/') {
+                authentication(userName: '633402a80bdb33a273af19d9', password: 'Td2ccL9NNLm-')
+            }
+            repository(url: 'https://packages.aliyun.com/maven/repository/2286124-release-1d6Qi3/') {
+                authentication(userName: '633402a80bdb33a273af19d9', password: 'Td2ccL9NNLm-')
+            }
+            pom.project {
+                groupId = "$rootProject.ext.PUBLISH_GROUP_ID"
+                artifactId "$rootProject.ext.PUBLISH_ARTIFACT_ID"
+            }
+            pom.version = "$version"
+        }
+    }
+}
+
+uploadArchives.dependsOn uploadLocal
+
+
+ext.mavenUrl = 'https://packages.aliyun.com/maven/repository/2286124-release-1d6Qi3/'
+ext.pomFile = "${project.buildDir.getPath()}/publications/maven/pom-default.xml"
+if (!ext.has("packaging")) {
+    ext.packaging = 'aar'
+}
+if (ext.packaging == 'aar') {
+    ext.uploadFile = "${project.buildDir.getPath()}/outputs/aar/${project.name}-release.aar"
+} else {
+    ext.uploadFile = "${project.buildDir.getPath()}/libs/${project.name}-${version}.jar"
+}
+ext.sourcesFile = "${project.buildDir.getPath()}/libs/${project.name}-${version}-sources.jar"
+ext.javadocFile = "${project.buildDir.getPath()}/libs/${project.name}-${version}-javadoc.jar"
+
+task mavenUpload {
+    doLast {
+        exec {
+            commandLine "mvn", "deploy:deploy-file",
+                "-DpomFile=" + pomFile,
+                "-Dpackaging=" + packaging,
+                "-Durl=" + mavenUrl,
+                "-Dfile=" + uploadFile,
+                "-Dsources=" + sourcesFile,
+                "-Djavadoc=" + javadocFile,
+                "-DrepositoryId=asmPlugin.releases"
+        }
+    }
+}
+
+mavenUpload.dependsOn clean
+mavenUpload.dependsOn publishToMavenLocal
+publishToMavenLocal.mustRunAfter clean

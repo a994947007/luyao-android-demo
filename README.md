@@ -13,3 +13,6 @@ https://github.com/a994947007/android-demo-download
 
 # 私有maven仓库
 https://packages.aliyun.com/maven
+
+# 私有plugin仓库
+https://plugins.gradle.org/
