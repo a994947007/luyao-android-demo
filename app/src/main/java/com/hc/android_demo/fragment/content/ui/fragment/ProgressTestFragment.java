@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.android.demo.asm.ASMLog;
 import com.hc.android_demo.R;
 import com.hc.my_views.progress.ProgressView;
 import com.hc.my_views.progress.ProgressView2;
@@ -21,6 +22,8 @@ import com.jny.common.fragment.FragmentConstants;
 @ARouter(path = FragmentConstants.PROGRESS_TEST_FRAGMENT_ID,
         group = FragmentConstants.CUSTOM_VIEW)
 public class ProgressTestFragment extends Fragment {
+
+    @ASMLog
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

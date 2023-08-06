@@ -42,8 +42,8 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    dataBinding {
-        enabled = true
+    buildFeatures{
+        dataBinding = true
     }
 }
 
@@ -67,6 +67,8 @@ dependencies {
     implementation project(path: ':common')
     implementation project(path: ':react-native')
     implementation project(path: ':base-util')
+
+    implementation 'com.android.demo:asm-log-annotations:1.0'
 
     // Plugin注解处理器
     implementation project(rootProject.pluginAnnotation)

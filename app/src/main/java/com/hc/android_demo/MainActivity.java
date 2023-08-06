@@ -13,10 +13,7 @@ import com.hc.android_demo.fragment.PerformanceFragment;
 import com.hc.android_demo.fragment.TestFrameWorkFragment;
 import com.hc.base.activity.ContentActivityManager;
 import com.hc.base.activity.LuActivity;
-import com.hc.util.ToastUtils;
 import com.jny.android.demo.arouter_annotations.ARouter;
-import com.jny.android.demo.plugin.PluginManager;
-import com.jny.common.AppPlugin;
 
 import java.util.HashMap;
 import java.util.Map;
