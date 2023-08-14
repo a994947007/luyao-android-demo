@@ -28,7 +28,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.72"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-        // classpath 'com.android.demo:asm-log:1.1.17'
+        classpath 'com.android.demo:asm-log:1.1.23'
     }
 }
 
