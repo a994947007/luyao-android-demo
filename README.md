@@ -13,3 +13,6 @@ https://github.com/a994947007/android-demo-download
 
 # 私有maven仓库
 https://packages.aliyun.com/maven
+
+# ASM字节码插桩库
+https://github.com/a994947007/android-demo-asm-log
