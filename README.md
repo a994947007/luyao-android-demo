@@ -16,3 +16,7 @@ https://packages.aliyun.com/maven
 
 # ASM字节码插桩库
 https://github.com/a994947007/android-demo-asm-log
+
+插件化：
+使用./gradlew :<ModuleName>:assembleRelease打包某个模块，例如：./gradlew :sampleApp:assembleRelease
+之后使用PluginModuleLoader.load()加载模块
