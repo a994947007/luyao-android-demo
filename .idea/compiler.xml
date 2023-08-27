@@ -36,6 +36,7 @@
       <module name="android-demo.download" target="11" />
       <module name="android-demo.my-views" target="11" />
       <module name="android-demo.plugin-module" target="11" />
+      <module name="android-demo.plugin-module-loader" target="11" />
       <module name="android-demo.react-native" target="11" />
       <module name="android-demo.rxAndroid" target="1.8" />
       <module name="android-demo.support" target="11" />
