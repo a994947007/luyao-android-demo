@@ -44,4 +44,6 @@ dependencies {
     implementation project(rootProject.routerApi)
     implementation project(rootProject.routerAnnotation)
     annotationProcessor rootProject.autoServiceDependency
+
+    implementation project(rootProject.pluginAnnotation)
 }

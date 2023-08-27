@@ -36,6 +36,7 @@ public class TestFrameWorkFragment extends SimpleRecyclerFragment {
         addItem("Room数据库使用测试", this::onClickRoomDBFragment);
         addItem("动态主题", this::onClickDynamicThemeFragment);
         addItem("自定义Mvps+MVI架构", this::onClickMVITestFragment);
+        addItem("组件化-plugin的使用", this::onClickPluginTestFragment);
     }
 
     private TestFrameWorkFragment() { }
@@ -47,16 +48,18 @@ public class TestFrameWorkFragment extends SimpleRecyclerFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ((Activity)getContext()).getWindow().setNavigationBarColor(ViewUtils.getColor(R.color.bottom_nav_color));
-            ((Activity)getContext()).getWindow().setStatusBarColor(ViewUtils.getColor(R.color.bottom_nav_color));
-            ((Activity)getContext()).getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        }
+        ((Activity)getContext()).getWindow().setNavigationBarColor(ViewUtils.getColor(R.color.bottom_nav_color));
+        ((Activity)getContext()).getWindow().setStatusBarColor(ViewUtils.getColor(R.color.bottom_nav_color));
+        ((Activity)getContext()).getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
     }
 
     @Override
     protected List<Pair<String, Runnable>> bind() {
         return items;
+    }
+
+    private void onClickPluginTestFragment() {
+        startContentActivity(FragmentConstants.PLUGIN_TEST_FRAGMENT_ID);
     }
 
     private void onClickDynamicThemeFragment() {

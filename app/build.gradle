@@ -6,10 +6,6 @@ plugins {
     id 'com.android.demo.plugin'
 }
 
-asmPlugin {
-    asmPackage = 'com/hc'
-}
-
 android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion rootProject.buildToolsVersion

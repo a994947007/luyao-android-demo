@@ -1,3 +1,4 @@
+/*
 package com.jny.android.demo.plugin.compiler;
 
 import com.google.auto.service.AutoService;
@@ -38,6 +39,7 @@ import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
 
+@Deprecated
 @AutoService(Processor.class)
 @SupportedAnnotationTypes({"com.jny.android.demo.plugin.annotations.InjectModule"})
 @SupportedSourceVersion(SourceVersion.RELEASE_7)
@@ -127,3 +129,4 @@ public class InjectModuleProcessor extends AbstractProcessor {
         return true;
     }
 }
+*/

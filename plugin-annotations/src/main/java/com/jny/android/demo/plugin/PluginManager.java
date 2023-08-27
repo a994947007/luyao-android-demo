@@ -6,6 +6,7 @@ import com.jny.android.demo.plugin.annotations.ProcessorConfig;
 
 import java.util.Map;
 
+@Deprecated
 public class PluginManager {
 
     private static Map<Class<? extends Plugin>, Class<? extends Plugin>> mPluginClassMap;

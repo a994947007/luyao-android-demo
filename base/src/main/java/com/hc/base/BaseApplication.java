@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.hc.base.init.InitModuleTask;
 import com.jny.android.demo.base_util.AppEnvironment;
+import com.jny.android.demo.plugin.PluginInit;
 
 import java.util.ServiceLoader;
 
@@ -15,6 +16,9 @@ public class BaseApplication extends Application {
         AppEnvironment.setApplication(this);
         for (InitModuleTask initModuleTask : ServiceLoader.load(InitModuleTask.class)) {
             initModuleTask.execute();
+        }
+        for (PluginInit pluginInit : ServiceLoader.load(PluginInit.class)) {
+            pluginInit.execute();
         }
     }
 }

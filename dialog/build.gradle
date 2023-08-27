@@ -9,6 +9,12 @@ android {
         targetSdkVersion rootProject.targetSdkVersion
         versionCode 1
         versionName "1.0"
+
+        javaCompileOptions{
+            annotationProcessorOptions {
+                arguments += [moduleName: 'dialog']
+            }
+        }
     }
 
     buildTypes {
@@ -32,4 +38,13 @@ dependencies {
     implementation project(path: ':util')
     implementation project(path: ':my-views')
     implementation project(path: ':base-util')
+    implementation project(path: ':common')
+
+    implementation rootProject.autoServiceDependency
+    annotationProcessor rootProject.autoServiceDependency
+
+    // Plugin注解处理器
+    implementation project(rootProject.pluginAnnotation)
+    implementation project(rootProject.pluginCompiler)
+    annotationProcessor project(rootProject.pluginCompiler)
 }
