@@ -1,25 +1,23 @@
-/*
 package com.jny.android.demo.plugin.compiler;
 
 import com.google.auto.service.AutoService;
+import com.jny.android.demo.plugin.PluginCenter;
+import com.jny.android.demo.plugin.PluginInit;
+import com.jny.android.demo.plugin.PluginUtils;
 import com.jny.android.demo.plugin.annotations.InjectModule;
-import com.jny.android.demo.plugin.annotations.Plugin;
 import com.jny.android.demo.plugin.annotations.PluginClassGetter;
 import com.jny.android.demo.plugin.annotations.ProcessorConfig;
+import com.jny.android.demo.plugin.annotations.ProcessorConfigV2;
+import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterizedTypeName;
-import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
-import com.squareup.javapoet.WildcardTypeName;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Filer;
@@ -39,19 +37,18 @@ import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
 
-@Deprecated
 @AutoService(Processor.class)
 @SupportedAnnotationTypes({"com.jny.android.demo.plugin.annotations.InjectModule"})
 @SupportedSourceVersion(SourceVersion.RELEASE_7)
-@SupportedOptions({ProcessorConfig.APT_PACKAGE})
-public class InjectModuleProcessor extends AbstractProcessor {
-
+@SupportedOptions({ProcessorConfigV2.APT_PACKAGE, ProcessorConfigV2.MODULE_NAME})
+public class InjectModuleProcessor extends AbstractProcessor{
     private Elements elementUtils;
     private Messager messager;
     private Types typeUtils;
     private Filer filer;
 
-    private String aptPackage; // 各个模块传递过来的目录 用于存放 apt生成的文件
+    private String aptPackage;
+    private String moduleName;
 
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
@@ -60,9 +57,10 @@ public class InjectModuleProcessor extends AbstractProcessor {
         messager = processingEnv.getMessager();
         typeUtils = processingEnv.getTypeUtils();
         filer = processingEnv.getFiler();
-        aptPackage = processingEnv.getOptions().get(ProcessorConfig.APT_PACKAGE);
+        aptPackage = processingEnv.getOptions().get(ProcessorConfigV2.APT_PACKAGE);
+        moduleName = processingEnv.getOptions().get(ProcessorConfigV2.MODULE_NAME);
         if (aptPackage == null || "".equals(aptPackage)) {
-            aptPackage = ProcessorConfig.DEFAULT_PLUGIN_RESULT_PATH;
+            aptPackage = ProcessorConfigV2.DEFAULT_PLUGIN_RESULT_PATH;
         }
         messager.printMessage(Diagnostic.Kind.NOTE, ">>>>>>>>> InjectModuleProcessor init successful");
     }
@@ -73,28 +71,12 @@ public class InjectModuleProcessor extends AbstractProcessor {
             return false;
         }
         Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(InjectModule.class);
-
-        TypeElement pluginType = elementUtils.getTypeElement(ProcessorConfig.PLUGIN_PATH);
+        TypeElement pluginType = elementUtils.getTypeElement(ProcessorConfigV2.PLUGIN_PATH);
         TypeMirror pluginMirror = pluginType.asType();
-        TypeName returnType = ParameterizedTypeName.get(
-                ClassName.get(Map.class),
-                ParameterizedTypeName.get(ClassName.get(Class.class),
-                        WildcardTypeName.subtypeOf(ClassName.get(Plugin.class))),
-                ParameterizedTypeName.get(ClassName.get(Class.class),
-                        WildcardTypeName.subtypeOf(ClassName.get(Plugin.class)))
-        );
-        MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(ProcessorConfig.GET_PLUGIN_MAP_METHOD_NAME)
+
+        MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(ProcessorConfigV2.GET_PLUGIN_MAP_METHOD_NAME)
                 .addAnnotation(Override.class)
-                .addModifiers(Modifier.PUBLIC)
-                .returns(returnType);
-        methodBuilder.addStatement("$T<$T, $T> $N = new $T<>()",
-                ClassName.get(Map.class),
-                ParameterizedTypeName.get(ClassName.get(Class.class),
-                        WildcardTypeName.subtypeOf(ClassName.get(Plugin.class))),
-                ParameterizedTypeName.get(ClassName.get(Class.class),
-                        WildcardTypeName.subtypeOf(ClassName.get(Plugin.class))),
-                ProcessorConfig.RESULT_NAME,
-                ClassName.get(HashMap.class));
+                .addModifiers(Modifier.PUBLIC);
         for (Element element : elements) {
             TypeMirror elementMirror = element.asType();
             if (!typeUtils.isSubtype(elementMirror, pluginMirror)) {
@@ -105,16 +87,16 @@ public class InjectModuleProcessor extends AbstractProcessor {
             if (interfaces == null || interfaces.size() == 0) {
                 continue;
             }
-            methodBuilder.addStatement("$N.put($T.class, $T.class)",
-                    ProcessorConfig.RESULT_NAME,
-                    ClassName.get(interfaces.get(0)),
-                    ClassName.get(typeElement));
+            methodBuilder.addStatement("$T.register($T.class, $T.class)",
+                    ClassName.get(PluginCenter.class),
+                    interfaces.get(0),
+                    typeElement);
         }
-        methodBuilder.addStatement("return $N",
-                ProcessorConfig.RESULT_NAME);
-
-        TypeSpec typeSpec = TypeSpec.classBuilder(ProcessorConfig.GET_PLUGIN_CLASS_NAME)
-                .addSuperinterface(PluginClassGetter.class)
+        TypeSpec typeSpec = TypeSpec.classBuilder(className())
+                .addSuperinterface(PluginInit.class)
+                .addAnnotation(AnnotationSpec.builder(AutoService.class)
+                        .addMember("value", "{$T.class}", PluginInit.class)
+                        .build())
                 .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
                 .addMethod(methodBuilder.build())
                 .build();
@@ -127,6 +109,10 @@ public class InjectModuleProcessor extends AbstractProcessor {
             e.printStackTrace();
         }
         return true;
+
+    }
+
+    private String className() {
+        return PluginUtils.makeModuleClassName(moduleName);
     }
 }
-*/

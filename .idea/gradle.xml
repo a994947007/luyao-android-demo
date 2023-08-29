@@ -25,7 +25,6 @@
             <option value="$PROJECT_DIR$/my-views" />
             <option value="$PROJECT_DIR$/plugin-annotations" />
             <option value="$PROJECT_DIR$/plugin-compiler" />
-            <option value="$PROJECT_DIR$/plugin-module" />
             <option value="$PROJECT_DIR$/plugin-module-loader" />
             <option value="$PROJECT_DIR$/react-native" />
             <option value="$PROJECT_DIR$/support" />

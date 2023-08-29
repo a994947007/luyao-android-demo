@@ -68,6 +68,7 @@ dependencies {
     implementation project(path: ':common')
     implementation project(path: ':react-native')
     implementation project(path: ':base-util')
+    implementation project(path: ':plugin-module-loader')
 
     implementation 'com.android.demo:asm-log-annotations:1.0'
 

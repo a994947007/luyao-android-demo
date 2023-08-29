@@ -9,12 +9,16 @@ import androidx.annotation.Nullable;
 
 import com.hc.android_demo.R;
 import com.hc.android_demo.fragment.base.SimpleRecyclerFragment;
+import com.hc.util.ToastUtils;
 import com.hc.util.ViewUtils;
 import com.jny.android.demo.arouter_annotations.ARouter;
 import com.jny.android.demo.plugin.PluginCenter;
 import com.jny.common.AppPlugin;
 import com.jny.common.DialogPlugin;
+import com.jny.common.PluginModulePlugin;
 import com.jny.common.fragment.FragmentConstants;
+import com.luyao.android.demo.plugin_module_loader.Callback;
+import com.luyao.android.demo.plugin_module_loader.PluginLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +32,7 @@ public class PluginTestFragment extends SimpleRecyclerFragment {
     {
         addItem("appPlugin", this::onClickAppPlugin);
         addItem("dialogPlugin", this::onClickDialogPlugin);
+        addItem("pluginModulePlugin", this::onClickPluginModulePlugin);
     }
 
     @Override
@@ -44,6 +49,20 @@ public class PluginTestFragment extends SimpleRecyclerFragment {
 
     private void onClickAppPlugin() {
         PluginCenter.get(AppPlugin.class).testPlugin();
+    }
+
+    private void onClickPluginModulePlugin() {
+        PluginLoader.loadPlugin(getContext(), "plugin-module", new Callback() {
+            @Override
+            public void onSuccess() {
+                PluginCenter.get(PluginModulePlugin.class).testPlugin();
+            }
+
+            @Override
+            public void onError() {
+                ToastUtils.show("show plugin-module plugin error");
+            }
+        });
     }
 
     private void addItem(String key, Runnable runnable) {

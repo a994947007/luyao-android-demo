@@ -4,16 +4,20 @@ plugins {
 }
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion rootProject.compileSdkVersion
 
     defaultConfig {
-        applicationId "com.luyao.android.demo.plugin_module"
-        minSdkVersion 21
-        targetSdkVersion 32
-        versionCode 1
-        versionName "1.0"
+        applicationId rootProject.applicationId
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        javaCompileOptions{
+            annotationProcessorOptions {
+                arguments += [moduleName: 'plugin-module']
+            }
+        }
     }
 
     buildTypes {
@@ -32,12 +36,17 @@ android {
 }
 
 dependencies {
+    rootProject.commonDependencies.each { k, v ->
+        implementation v
+    }
+    implementation project(path: ':util')
+    implementation project(path: ':common')
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.3.0'
-    implementation 'com.google.android.material:material:1.4.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation rootProject.autoServiceDependency
+    annotationProcessor rootProject.autoServiceDependency
+
+    // Plugin注解处理器
+    implementation project(rootProject.pluginAnnotation)
+    implementation project(rootProject.pluginCompiler)
+    annotationProcessor project(rootProject.pluginCompiler)
 }
