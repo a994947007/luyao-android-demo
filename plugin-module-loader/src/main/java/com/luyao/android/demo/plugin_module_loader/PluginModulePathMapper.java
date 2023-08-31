@@ -7,7 +7,8 @@ public class PluginModulePathMapper {
     private static final Map<String, String> modulePathMap = new HashMap<>();
 
     static {
-        modulePathMap.put("plugin-module", "\\sdcard\\plugin-module-debug.apk");
+        // 插件apk存放在当前目录
+        modulePathMap.put("plugin-module", "/storage/emulated/0/plugin-module-debug.apk");
     }
 
     public static String getModulePath(String moduleName) {
