@@ -6,10 +6,21 @@ import android.util.Log;
 import com.jny.android.demo.plugin.PluginInit;
 import com.jny.android.demo.plugin.PluginUtils;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 public class PluginLoader {
     private static final String TAG = "PluginLoader";
 
+    private static final Set<String> pluginLoadMap = new HashSet<>();
+
     public static void loadPlugin(Context context, String moduleName, Callback callback) {
+        if (pluginLoadMap.contains(moduleName)) {
+            callback.onSuccess();
+            return;
+        }
         String modulePath = PluginModulePathMapper.getModulePath(moduleName);
         PluginModuleLoader.getInstance().load(context, modulePath, new Callback() {
             @Override
