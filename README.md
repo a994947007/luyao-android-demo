@@ -17,6 +17,7 @@ https://packages.aliyun.com/maven
 # ASM字节码插桩库
 https://github.com/a994947007/android-demo-asm-log
 
-# 插件化 plugin-module-loader + 组件化 plugin-annotations & plugin-compiler
+# 插件化 
+plugin-module-loader + 组件化 plugin-annotations & plugin-compiler
 plugin-module为插件化测试模块，需要单独将该模块编译成apk，由于是本地测试不涉及server下载插件的过程
 因此将插件放在android磁盘
