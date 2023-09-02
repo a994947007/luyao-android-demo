@@ -14,6 +14,7 @@ import com.jny.common.load.PageErrorCallback;
 import com.jny.react_native.MyReactApplication;
 import com.luyao.android.demo.download.download.DownloadServiceImpl;
 import com.luyao.android.demo.download.download.LuDownload;
+import com.luyao.android.demo.plugin_module_loader.hook.AMSHookerManager;
 
 public class MyApplication extends MyReactApplication {
     @Override

@@ -14,6 +14,7 @@ import com.hc.android_demo.fragment.TestFrameWorkFragment;
 import com.hc.base.activity.ContentActivityManager;
 import com.hc.base.activity.LuActivity;
 import com.jny.android.demo.arouter_annotations.ARouter;
+import com.luyao.android.demo.plugin_module_loader.hook.AMSHookerManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,6 +36,9 @@ public class MainActivity extends LuActivity {
         setFragment(R.id.navigation_view);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> setFragment(item.getItemId()));
+
+        AMSHookerManager.getInstance().init(this);
+        AMSHookerManager.getInstance().hook();
     }
 
     @Override

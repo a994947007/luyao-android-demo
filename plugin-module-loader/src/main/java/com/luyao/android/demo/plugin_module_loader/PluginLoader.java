@@ -6,9 +6,7 @@ import android.util.Log;
 import com.jny.android.demo.plugin.PluginInit;
 import com.jny.android.demo.plugin.PluginUtils;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 public class PluginLoader {
@@ -29,6 +27,7 @@ public class PluginLoader {
                 if (modulePluginInit != null) {
                     modulePluginInit.execute();
                     callback.onSuccess();
+                    pluginLoadMap.add(moduleName);
                 }
             }
 

@@ -32,7 +32,8 @@ public class PluginTestFragment extends SimpleRecyclerFragment {
     {
         addItem("appPlugin", this::onClickAppPlugin);
         addItem("dialogPlugin", this::onClickDialogPlugin);
-        addItem("pluginModulePlugin", this::onClickPluginModulePlugin);
+        addItem("插件化-pluginModulePlugin", this::onClickPluginModulePlugin);
+        addItem("插件化-启动activity组件", this::onClickPluginModuleActivity);
     }
 
     @Override
@@ -41,6 +42,20 @@ public class PluginTestFragment extends SimpleRecyclerFragment {
         ((Activity)getContext()).getWindow().setNavigationBarColor(ViewUtils.getColor(R.color.bottom_nav_color));
         ((Activity)getContext()).getWindow().setStatusBarColor(ViewUtils.getColor(R.color.bottom_nav_color));
         ((Activity)getContext()).getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+    }
+
+    private void onClickPluginModuleActivity() {
+        PluginLoader.loadPlugin(getContext(), "plugin-module", new Callback() {
+            @Override
+            public void onSuccess() {
+                PluginCenter.get(PluginModulePlugin.class).startPluginActivity(getContext());
+            }
+
+            @Override
+            public void onError() {
+                ToastUtils.show("show plugin-module plugin error");
+            }
+        });
     }
 
     private void onClickDialogPlugin() {
