@@ -7,6 +7,7 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
+import com.android.demo.rxandroid.observer.Consumer;
 import com.hc.android_demo.R;
 import com.hc.android_demo.fragment.base.SimpleRecyclerFragment;
 import com.hc.util.ToastUtils;
@@ -45,17 +46,12 @@ public class PluginTestFragment extends SimpleRecyclerFragment {
     }
 
     private void onClickPluginModuleActivity() {
-        PluginLoader.loadPlugin(getContext(), "plugin-module", new Callback() {
-            @Override
-            public void onSuccess() {
-                PluginCenter.get(PluginModulePlugin.class).startPluginActivity(getContext());
-            }
-
-            @Override
-            public void onError() {
-                ToastUtils.show("show plugin-module plugin error");
-            }
-        });
+        PluginLoader.loadPlugin("plugin-module")
+                        .subscribe(aBoolean ->
+                                    PluginCenter.get(PluginModulePlugin.class).startPluginActivity(getContext()
+                                ),
+                                throwable -> ToastUtils.show("show plugin-module plugin error")
+                        );
     }
 
     private void onClickDialogPlugin() {
@@ -67,14 +63,14 @@ public class PluginTestFragment extends SimpleRecyclerFragment {
     }
 
     private void onClickPluginModulePlugin() {
-        PluginLoader.loadPlugin(getContext(), "plugin-module", new Callback() {
+        PluginLoader.loadPlugin("plugin-module", new Callback() {
             @Override
             public void onSuccess() {
                 PluginCenter.get(PluginModulePlugin.class).testPlugin();
             }
 
             @Override
-            public void onError() {
+            public void onError(Throwable r) {
                 ToastUtils.show("show plugin-module plugin error");
             }
         });
