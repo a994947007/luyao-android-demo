@@ -4,18 +4,27 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Handler;
 
+import com.luyao.android.demo.plugin_module_loader.PluginModulePathMapper;
 import com.luyao.android.demo.plugin_module_loader.hook.AMSHookerManager;
 import com.luyao.android.demo.plugin_module_loader.hook.AbstractAMSHooker;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class StartActivityAPI30Hooker extends AbstractAMSHooker {
 
     private static final String ACTUAL_INTENT_ARG = "ACTUAL_INTENT_ARG";
+    private static final String HOOK_METHOD = "startActivity";
+
+    private static final String ACTIVITY_CALLBACK_FIELD = "ACTIVITY_CALLBACK_FIELD";
+    private static final String INTENT_FIELD = "INTENT_FIELD";
+
+    private static final String LAUNCH_ACTIVITY_ITEM = "android.app.servertransaction.LaunchActivityItem";
+
+    private final Map<String, Field> fieldCache = new HashMap<>();
 
     public StartActivityAPI30Hooker(Chain chain) {
         super(chain);
@@ -38,20 +47,23 @@ public class StartActivityAPI30Hooker extends AbstractAMSHooker {
             Object activitySingletonProxy = Proxy.newProxyInstance(Thread.currentThread().getClass().getClassLoader(),
                     new Class[]{iActivityTaskManager},
                     (proxy, method, args) -> {
-                        if ("startActivity".equals(method.getName()) && args != null && args.length != 0) {
-                            int i = 0;
-                            for (; i < args.length; i++) {
+                        if (HOOK_METHOD.equals(method.getName()) && args != null && args.length != 0) {
+                            int index = -1;
+                            for (int i = 0; i < args.length; i++) {
                                 if (args[i] instanceof Intent) {
+                                    index = i;
                                     break;
                                 }
                             }
-                            Intent intent = (Intent) args[i];
-                            String className = intent.getComponent().getClassName();
-                            if ("com.luyao.android.demo.plugin_module.PluginTestActivity".equals(className)) {
-                                Intent proxyIntent = new Intent();
-                                proxyIntent.setClassName(AMSHookerManager.getInstance().getContext(), ProxyActivity.class.getName());
-                                proxyIntent.putExtra(ACTUAL_INTENT_ARG, intent);
-                                args[i] = proxyIntent;
+                            if (index != -1) {
+                                Intent intent = (Intent) args[index];
+                                String className = intent.getComponent().getClassName();
+                                if (PluginModulePathMapper.contains(className)) {
+                                    Intent proxyIntent = new Intent();
+                                    proxyIntent.setClassName(AMSHookerManager.getInstance().getContext(), ProxyActivity.class.getName());
+                                    proxyIntent.putExtra(ACTUAL_INTENT_ARG, intent);
+                                    args[index] = proxyIntent;
+                                }
                             }
                         }
                         return method.invoke(activitySingleton, args);
@@ -81,16 +93,24 @@ public class StartActivityAPI30Hooker extends AbstractAMSHooker {
                 if (msg.what == 159) {
                     Object item = msg.obj;
                     try {
-                        Class<?> clientTransactionClass = Class.forName("android.app.servertransaction.ClientTransaction");
-                        Field activityCallbacksField = clientTransactionClass.getDeclaredField("mActivityCallbacks");
-                        activityCallbacksField.setAccessible(true);
+                        if (fieldCache.get(ACTIVITY_CALLBACK_FIELD) == null) {
+                            Class<?> clientTransactionClass = Class.forName("android.app.servertransaction.ClientTransaction");
+                            Field activityCallbacksField = clientTransactionClass.getDeclaredField("mActivityCallbacks");
+                            activityCallbacksField.setAccessible(true);
+                            fieldCache.put(ACTIVITY_CALLBACK_FIELD, activityCallbacksField);
+                        }
+                        Field activityCallbacksField = fieldCache.get(ACTIVITY_CALLBACK_FIELD);
                         List<Object> callbacks = (List<Object>) activityCallbacksField.get(item);
                         if (callbacks != null) {
                             for (Object callback : callbacks) {
-                                if (callback.getClass().getName().equals("android.app.servertransaction.LaunchActivityItem")) {
+                                if (callback.getClass().getName().equals(LAUNCH_ACTIVITY_ITEM)) {
                                     try {
-                                        Field intentField = callback.getClass().getDeclaredField("mIntent");
-                                        intentField.setAccessible(true);
+                                        if (fieldCache.get(INTENT_FIELD) == null) {
+                                            Field intentField = callback.getClass().getDeclaredField("mIntent");
+                                            intentField.setAccessible(true);
+                                            fieldCache.put(INTENT_FIELD, intentField);
+                                        }
+                                        Field intentField = fieldCache.get(INTENT_FIELD);
                                         Intent proxyIntent = (Intent) intentField.get(callback);
                                         Intent actualIntent = proxyIntent.getParcelableExtra(ACTUAL_INTENT_ARG);
                                         if (actualIntent != null) {
@@ -102,11 +122,7 @@ public class StartActivityAPI30Hooker extends AbstractAMSHooker {
                                 }
                             }
                         }
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (NoSuchFieldException e) {
-                        e.printStackTrace();
-                    } catch (IllegalAccessException e) {
+                    } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException e) {
                         e.printStackTrace();
                     }
                 }
@@ -137,15 +153,18 @@ public class StartActivityAPI30Hooker extends AbstractAMSHooker {
                     new Class[]{iPackageManagerClassName},
                     (proxy, method, args) -> {
                         if ("getActivityInfo".equals(method.getName())) {
-                            int i = 0;
-                            for (; i < args.length; i++) {
+                            int index = -1;
+                            for (int i = 0; i < args.length; i++) {
                                 if (args[i] instanceof ComponentName) {
+                                    index = i;
                                     break;
                                 }
                             }
-                            ComponentName componentName = new ComponentName(AMSHookerManager.getInstance().getContext().getPackageName(),
-                                    ProxyActivity.class.getName());
-                            args[i] = componentName;
+                            if (index != -1) {
+                                ComponentName componentName = new ComponentName(AMSHookerManager.getInstance().getContext().getPackageName(),
+                                        ProxyActivity.class.getName());
+                                args[index] = componentName;
+                            }
                         }
                         return method.invoke(sPackageManager, args);
                     });
