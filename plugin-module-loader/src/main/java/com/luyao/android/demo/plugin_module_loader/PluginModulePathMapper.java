@@ -1,5 +1,7 @@
 package com.luyao.android.demo.plugin_module_loader;
 
+import androidx.annotation.Nullable;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -29,5 +31,15 @@ public class PluginModulePathMapper {
             }
         }
         return false;
+    }
+
+    @Nullable
+    public static PluginConfig getPluginConfig(String className) {
+        for (PluginConfig value : modulePathMap.values()) {
+            if (className.startsWith(value.modulePackage)) {
+                return value;
+            }
+        }
+        return null;
     }
 }

@@ -1,4 +1,4 @@
-package com.luyao.android.demo.plugin_module_loader.hook.activity;
+package com.luyao.android.demo.plugin_module_loader.hook.service;
 
 import com.luyao.android.demo.plugin_module_loader.hook.AbstractAMSHooker;
 
