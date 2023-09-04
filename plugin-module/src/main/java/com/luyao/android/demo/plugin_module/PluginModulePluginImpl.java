@@ -20,6 +20,21 @@ public class PluginModulePluginImpl implements PluginModulePlugin {
     }
 
     @Override
+    public void startPluginActivity2(Context context) {
+        context.startActivity(new Intent(context, PluginTestActivity2.class));
+    }
+
+    @Override
+    public void startPluginActivity3(Context context) {
+        context.startActivity(new Intent(context, PluginTestActivity3.class));
+    }
+
+    @Override
+    public void startPluginActivity4(Context context) {
+        context.startActivity(new Intent(context, PluginTestActivity4.class));
+    }
+
+    @Override
     public boolean isAvailable() {
         return true;
     }

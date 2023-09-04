@@ -4,6 +4,18 @@
 
     <application>
         <activity
+            android:name=".PluginTestActivity4"
+            android:exported="false" />
+        <activity
+            android:name=".PluginTestActivity3"
+            android:exported="false" />
+        <activity
+            android:name=".PluginBaseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PluginTestActivity2"
+            android:exported="false" />
+        <activity
             android:name=".PluginTestActivity"
             android:exported="true">
             <intent-filter>

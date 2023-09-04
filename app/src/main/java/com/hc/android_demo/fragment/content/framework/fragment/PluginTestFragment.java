@@ -35,6 +35,9 @@ public class PluginTestFragment extends SimpleRecyclerFragment {
         addItem("dialogPlugin", this::onClickDialogPlugin);
         addItem("插件化-pluginModulePlugin", this::onClickPluginModulePlugin);
         addItem("插件化-启动activity组件", this::onClickPluginModuleActivity);
+        addItem("插件化-启动activity2组件", this::onClickPluginModuleActivity2);
+        addItem("插件化-启动activity3组件", this::onClickPluginModuleActivity3);
+        addItem("插件化-启动activity4组件", this::onClickPluginModuleActivity4);
     }
 
     @Override
@@ -43,6 +46,33 @@ public class PluginTestFragment extends SimpleRecyclerFragment {
         ((Activity)getContext()).getWindow().setNavigationBarColor(ViewUtils.getColor(R.color.bottom_nav_color));
         ((Activity)getContext()).getWindow().setStatusBarColor(ViewUtils.getColor(R.color.bottom_nav_color));
         ((Activity)getContext()).getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+    }
+
+    private void onClickPluginModuleActivity4() {
+        PluginLoader.loadPlugin("plugin-module")
+                .subscribe(aBoolean ->
+                                PluginCenter.get(PluginModulePlugin.class).startPluginActivity4(getContext()
+                                ),
+                        throwable -> ToastUtils.show("show plugin-module plugin error")
+                );
+    }
+
+    private void onClickPluginModuleActivity3() {
+        PluginLoader.loadPlugin("plugin-module")
+                .subscribe(aBoolean ->
+                                PluginCenter.get(PluginModulePlugin.class).startPluginActivity3(getContext()
+                                ),
+                        throwable -> ToastUtils.show("show plugin-module plugin error")
+                );
+    }
+
+    private void onClickPluginModuleActivity2() {
+        PluginLoader.loadPlugin("plugin-module")
+                .subscribe(aBoolean ->
+                                PluginCenter.get(PluginModulePlugin.class).startPluginActivity2(getContext()
+                                ),
+                        throwable -> ToastUtils.show("show plugin-module plugin error")
+                );
     }
 
     private void onClickPluginModuleActivity() {

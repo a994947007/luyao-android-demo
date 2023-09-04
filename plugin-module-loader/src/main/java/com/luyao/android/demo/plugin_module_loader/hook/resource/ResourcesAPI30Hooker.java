@@ -9,11 +9,11 @@ import android.content.pm.ActivityInfo;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.ContextThemeWrapper;
 
 import com.luyao.android.demo.plugin_module_loader.PluginConfig;
 import com.luyao.android.demo.plugin_module_loader.PluginModulePathMapper;
-import com.luyao.android.demo.plugin_module_loader.R;
 import com.luyao.android.demo.plugin_module_loader.hook.AMSHookerManager;
 import com.luyao.android.demo.plugin_module_loader.hook.AbstractAMSHooker;
 
@@ -85,8 +85,9 @@ public class ResourcesAPI30Hooker extends AbstractAMSHooker {
                 mResourcesField.setAccessible(true);
                 Resources resources = loadResources(activity.getClass().getName());
                 if (resources != null) {
-                    mResourcesField.set((ContextThemeWrapper)activity, resources);
+                    mResourcesField.set(activity, resources);
                 }
+                Log.d("Abc", "bc");
             } catch (NoSuchFieldException e) {
                 e.printStackTrace();
             } catch (IllegalAccessException e) {
@@ -98,6 +99,7 @@ public class ResourcesAPI30Hooker extends AbstractAMSHooker {
             try {
                 AssetManager assetManager = AssetManager.class.newInstance();
                 Method addAssetPathMethod = AssetManager.class.getMethod("addAssetPath", String.class);
+                addAssetPathMethod.setAccessible(true);
                 PluginConfig pluginConfig = PluginModulePathMapper.getPluginConfig(className);
                 if (pluginConfig != null) {
                     addAssetPathMethod.invoke(assetManager, pluginConfig.modulePath);

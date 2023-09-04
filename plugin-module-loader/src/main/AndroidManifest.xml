@@ -8,7 +8,7 @@
         <activity
             android:name="com.luyao.android.demo.plugin_module_loader.hook.activity.ProxyActivity"
             android:exported="true"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/Theme.AppCompat" />
     </application>
 
 </manifest>
