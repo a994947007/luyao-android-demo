@@ -25,6 +25,7 @@
         <activity
             android:name=".fragment.content.framework.activity.SingleTaskActivity"
             android:launchMode="singleTask"
+            android:taskAffinity="com.hc.android_demo.task1"
             android:exported="false" />
         <activity
             android:name=".fragment.content.framework.activity.SingleTopActivity"
