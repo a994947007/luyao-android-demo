@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
@@ -53,6 +54,33 @@ public class ResourcesAPI30Hooker extends AbstractAMSHooker {
 
         public InstrumentationProxy(Instrumentation instrumentation) {
             this.proxy = instrumentation;
+        }
+
+        public ActivityResult execStartActivity(
+                Context who, IBinder contextThread, IBinder token, Activity target,
+                Intent intent, int requestCode, Bundle options) {
+            ActivityResult result = null;
+            Class<?> clazz = Instrumentation.class;
+            try {
+                Method method = clazz.getDeclaredMethod("execStartActivity", Context.class,                // 后续都是方法的参数类型
+                        IBinder.class,
+                        IBinder.class,
+                        Activity.class,
+                        Intent.class,
+                        int.class,
+                        Bundle.class);
+                method.setAccessible(true);
+                result = (ActivityResult) method.invoke(proxy, who,                             // 后续都是传入 execStartActivity 方法的参数
+                        contextThread,
+                        token,
+                        target,
+                        intent,
+                        requestCode,
+                        options);
+            } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            return result;
         }
 
         @Override

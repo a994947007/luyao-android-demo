@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.hc.android_demo.R;
 import com.hc.android_demo.fragment.base.SimpleRecyclerFragment;
+import com.hc.android_demo.fragment.content.framework.activity.SingleTopActivity;
 import com.hc.base.activity.Constants;
 import com.hc.base.activity.ContentActivity;
 import com.hc.util.ViewUtils;
@@ -37,6 +38,7 @@ public class TestFrameWorkFragment extends SimpleRecyclerFragment {
         addItem("动态主题", this::onClickDynamicThemeFragment);
         addItem("自定义Mvps+MVI架构", this::onClickMVITestFragment);
         addItem("组件化-plugin的使用", this::onClickPluginTestFragment);
+        addItem("Activity luanchMode", this::onClickActivityLuanchMode);
     }
 
     private TestFrameWorkFragment() { }
@@ -60,6 +62,10 @@ public class TestFrameWorkFragment extends SimpleRecyclerFragment {
 
     private void onClickPluginTestFragment() {
         startContentActivity(FragmentConstants.PLUGIN_TEST_FRAGMENT_ID);
+    }
+
+    private void onClickActivityLuanchMode() {
+        startActivity(new Intent(getActivity(), SingleTopActivity.class));
     }
 
     private void onClickDynamicThemeFragment() {
