@@ -64,7 +64,7 @@ public class PerformanceFragment extends SimpleRecyclerFragment {
         return items;
     }
 
-    private void addItem(String key, Runnable runnable) {
+    protected void addItem(String key, Runnable runnable) {
         items.add(new Pair<>(key, runnable));
     }
 }

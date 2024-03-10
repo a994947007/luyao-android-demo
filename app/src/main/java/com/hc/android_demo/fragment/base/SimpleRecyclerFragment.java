@@ -28,7 +28,7 @@ public class SimpleRecyclerFragment extends RecyclerFragment {
             return;
         }
         List<Pair<String, Runnable>> items = bind();
-        if (items != null && items.size() > 0) {
+        if (items != null && items.size() > 0 && mItems != items) {
             mItems.addAll(items);
         }
         isAdded = true;
@@ -46,6 +46,10 @@ public class SimpleRecyclerFragment extends RecyclerFragment {
     }
 
     protected List<Pair<String, Runnable>> bind() {
-        return null;
+        return mItems;
+    }
+
+    protected void addItem(String key, Runnable runnable) {
+        mItems.add(new Pair<>(key, runnable));
     }
 }

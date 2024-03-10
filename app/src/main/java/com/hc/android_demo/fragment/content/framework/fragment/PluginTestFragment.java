@@ -106,7 +106,7 @@ public class PluginTestFragment extends SimpleRecyclerFragment {
         });
     }
 
-    private void addItem(String key, Runnable runnable) {
+    protected void addItem(String key, Runnable runnable) {
         items.add(new Pair<>(key, runnable));
     }
 

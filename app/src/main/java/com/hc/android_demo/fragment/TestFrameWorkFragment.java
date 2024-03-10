@@ -39,6 +39,7 @@ public class TestFrameWorkFragment extends SimpleRecyclerFragment {
         addItem("自定义Mvps+MVI架构", this::onClickMVITestFragment);
         addItem("组件化-plugin的使用", this::onClickPluginTestFragment);
         addItem("Activity luanchMode", this::onClickActivityLuanchMode);
+        addItem("协程的使用", this::onClickCoroutineTest);
     }
 
     private TestFrameWorkFragment() { }
@@ -58,6 +59,10 @@ public class TestFrameWorkFragment extends SimpleRecyclerFragment {
     @Override
     protected List<Pair<String, Runnable>> bind() {
         return items;
+    }
+
+    private void onClickCoroutineTest() {
+        startContentActivity(FragmentConstants.COROUTINE_TEST_FRAGMENT_ID);
     }
 
     private void onClickPluginTestFragment() {
@@ -115,7 +120,7 @@ public class TestFrameWorkFragment extends SimpleRecyclerFragment {
         startContentActivity(FragmentConstants.MVP_TEST_FRAGMENT_ID);
     }
 
-    private void addItem(String key, Runnable runnable) {
+    protected void addItem(String key, Runnable runnable) {
         items.add(new Pair<>(key, runnable));
     }
 

@@ -88,7 +88,7 @@ public class DynamicFragment extends SimpleRecyclerFragment {
         ActivityUtils.startContentActivity((LuActivity) getActivity(), "/" + FragmentConstants.DYNAMIC + "/" + id);
     }
 
-    private void addItem(String key, Runnable runnable) {
+    protected void addItem(String key, Runnable runnable) {
         items.add(new Pair<>(key, runnable));
     }
 
