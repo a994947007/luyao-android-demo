@@ -33,6 +33,9 @@ class CoroutineTestFragment: SimpleRecyclerFragment() {
         addItem("作用域-LifecycleScope", this::onLifecycleScope)
         addItem("启动方式-launch", this::onLaunchTest)
         addItem("启动方式-async", this::onAsyncTest)
+        addItem("分阶段任务（任务A之后，再任务B、C）", this::onJoinTest)
+        addItem("分阶段任务（任务A之后，再任务B、C），async", this::onAsyncJoinTest)
+        addItem("分阶段请求（请求A之后，再请求B、C）", this::onAsyncAwaitTest)
     }
 
     private fun onCoroutineHelloWord() {
@@ -128,9 +131,64 @@ class CoroutineTestFragment: SimpleRecyclerFragment() {
             // 只能作为子协程使用
             val deffer = mainScope.async {
                 Log.d(TAG, "async的方式启动协程")
+                "async result"
             }
-            // 需要手动调用
-            deffer.await()
+            // 需要手动调用，才能获取返回值
+            Log.d(TAG, deffer.await())
+        }
+    }
+
+    private fun onJoinTest() {
+        mainScope.launch {
+            mainScope.launch {
+                Log.d(TAG, "TasKA:" + System.currentTimeMillis())
+                delay(2000)
+            }.join()
+            mainScope.launch {
+                Log.d(TAG, "TasKB:" + System.currentTimeMillis())
+            }
+            mainScope.launch {
+                Log.d(TAG, "TasKC:" + System.currentTimeMillis())
+            }
+        }
+    }
+
+    private fun onAsyncJoinTest()  {
+        mainScope.launch {
+            val defferA = mainScope.async {
+                Log.d(TAG, "TasKA:" + System.currentTimeMillis())
+                delay(2000)
+            }
+            defferA.join()
+            val defferB = mainScope.async {
+                Log.d(TAG, "TasKB:" + System.currentTimeMillis())
+            }
+            val defferC = mainScope.async {
+                Log.d(TAG, "TasKC:" + System.currentTimeMillis())
+            }
+        }
+    }
+
+    private fun onAsyncAwaitTest() {
+        mainScope.launch {
+            val defferA = mainScope.async {
+                Log.d(TAG, "TasKA:" + System.currentTimeMillis())
+                delay(2000)
+                "TaskA result"
+            }
+            Log.d(TAG, defferA.await() + ":" + System.currentTimeMillis())
+            val defferB = mainScope.async {
+                Log.d(TAG, "TasKB:" + System.currentTimeMillis())
+                delay(200)
+                "TaskB result"
+            }
+            val defferC = mainScope.async {
+                Log.d(TAG, "TasKC:" + System.currentTimeMillis())
+                delay(200)
+                "TaskC result"
+            }
+            Log.d(TAG, defferB.await() + ":" + System.currentTimeMillis())
+            Log.d(TAG, defferC.await() + ":" + System.currentTimeMillis())
         }
     }
 
