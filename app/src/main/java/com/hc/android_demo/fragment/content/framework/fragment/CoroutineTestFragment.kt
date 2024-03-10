@@ -99,10 +99,16 @@ class CoroutineTestFragment: SimpleRecyclerFragment() {
         }
     }
 
+    /**
+     * viewModel作用域
+     */
     private fun onViewModelScope() {
         viewModel.refreshUserNameText()
     }
 
+    /**
+     * lifecycle作用域
+     */
     private fun onLifecycleScope() {
         lifecycleScope.launch {
             Log.d(TAG, "作用域：$this，线程名: ${Thread.currentThread().name}")
