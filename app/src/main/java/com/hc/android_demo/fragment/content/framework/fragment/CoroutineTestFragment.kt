@@ -32,6 +32,7 @@ class CoroutineTestFragment: SimpleRecyclerFragment() {
         addItem("作用域-ViewModelScope", this::onViewModelScope)
         addItem("作用域-LifecycleScope", this::onLifecycleScope)
         addItem("启动方式-launch", this::onLaunchTest)
+        addItem("启动方式-async", this::onAsyncTest)
     }
 
     private fun onCoroutineHelloWord() {
@@ -122,12 +123,13 @@ class CoroutineTestFragment: SimpleRecyclerFragment() {
         }
     }
 
-    private fun onDefferTest() {
+    private fun onAsyncTest() {
         mainScope.launch {
             // 只能作为子协程使用
             val deffer = mainScope.async {
                 Log.d(TAG, "async的方式启动协程")
             }
+            // 需要手动调用
             deffer.await()
         }
     }
