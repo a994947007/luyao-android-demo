@@ -23,6 +23,7 @@ android {
             annotationProcessorOptions {
                 arguments = [moduleName: 'app']
                 arguments += [packageNameForAPT: 'com.hc.android_demo']
+                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
     }

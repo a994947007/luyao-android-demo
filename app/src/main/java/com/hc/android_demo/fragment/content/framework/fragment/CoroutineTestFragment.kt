@@ -31,6 +31,7 @@ class CoroutineTestFragment: SimpleRecyclerFragment() {
         addItem("作用域-MainScope", this::onMainScope)
         addItem("作用域-ViewModelScope", this::onViewModelScope)
         addItem("作用域-LifecycleScope", this::onLifecycleScope)
+        addItem("启动方式-launch", this::onLaunchTest)
     }
 
     private fun onCoroutineHelloWord() {
@@ -112,6 +113,22 @@ class CoroutineTestFragment: SimpleRecyclerFragment() {
     private fun onLifecycleScope() {
         lifecycleScope.launch {
             Log.d(TAG, "作用域：$this，线程名: ${Thread.currentThread().name}")
+        }
+    }
+
+    private fun onLaunchTest() {
+        mainScope.launch {
+            Log.d(TAG, "launch的方式启动协程")
+        }
+    }
+
+    private fun onDefferTest() {
+        mainScope.launch {
+            // 只能作为子协程使用
+            val deffer = mainScope.async {
+                Log.d(TAG, "async的方式启动协程")
+            }
+            deffer.await()
         }
     }
 
