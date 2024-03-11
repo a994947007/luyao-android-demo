@@ -36,6 +36,10 @@ class CoroutineTestFragment: SimpleRecyclerFragment() {
         addItem("分阶段任务（任务A之后，再任务B、C）", this::onJoinTest)
         addItem("分阶段任务（任务A之后，再任务B、C），async", this::onAsyncJoinTest)
         addItem("分阶段请求（请求A之后，再请求B、C）", this::onAsyncAwaitTest)
+        addItem("启动模式-DEFAULT", this::onStartDefault)
+        addItem("启动模式-ATOMIC", this::onStartAtomic)
+        addItem("启动模式-LAZY", this::onStartLazy)
+        addItem("启动模式-UNDISPATCHED", this::onStartUnDispatched)
     }
 
     private fun onCoroutineHelloWord() {
@@ -189,6 +193,63 @@ class CoroutineTestFragment: SimpleRecyclerFragment() {
             }
             Log.d(TAG, defferB.await() + ":" + System.currentTimeMillis())
             Log.d(TAG, defferC.await() + ":" + System.currentTimeMillis())
+        }
+    }
+
+    /**
+     * 协程创建后，立即开始调度，如果协程被取消，则直接进入取消响应状态
+     */
+    private fun onStartDefault() {
+        mainScope.launch {
+            val job = mainScope.launch(start = CoroutineStart.DEFAULT) {
+                Log.d(TAG, "协程没有被取消")
+                delay(50)
+            }
+            job.cancel()
+            Log.d(TAG, "协程被取消")
+        }
+    }
+
+    /**
+     * 协程创建后，立即开始调度，如果cancel，则需要等到执行到第一个挂起点时才取消（遇到suspend函数）
+     */
+    private fun onStartAtomic() {
+        mainScope.launch {
+            val job = mainScope.launch(start = CoroutineStart.ATOMIC) {
+                Log.d(TAG, "协程没有被取消")
+                delay(50)
+            }
+            job.cancel()
+            Log.d(TAG, "协程被取消")
+        }
+    }
+
+    /**
+     * 协程创建后不会立即开始调度，只有调用start、join、await函数时才开始调度，在此之前如果被取消，就不会继续调度
+     */
+    private fun onStartLazy() {
+        mainScope.launch {
+            val job = mainScope.launch(start = CoroutineStart.LAZY) {
+                Log.d(TAG, "协程没有被取消")
+                delay(50)
+            }
+            job.cancel()
+            Log.d(TAG, "协程被取消")
+        }
+    }
+
+    /**
+     * 协程创建后立即在当前函数调用栈中执行，直到遇到第一个挂起点
+     */
+    private fun onStartUnDispatched() {
+        mainScope.launch {
+            // context是无效的
+            val job = mainScope.launch(start = CoroutineStart.UNDISPATCHED, context = Dispatchers.IO) {
+                Log.d(TAG, "协程没有被取消")
+                delay(50)
+            }
+            job.cancel()
+            Log.d(TAG, "协程被取消")
         }
     }
 
