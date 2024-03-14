@@ -8,6 +8,7 @@ import com.hc.util.ToastUtils
 import com.jny.android.demo.arouter_annotations.ARouter
 import com.jny.common.fragment.FragmentConstants
 import kotlinx.coroutines.*
+import java.lang.RuntimeException
 import kotlin.coroutines.*
 
 /**
@@ -17,6 +18,8 @@ import kotlin.coroutines.*
 class CoroutineTestFragment: SimpleRecyclerFragment() {
 
     private var mainScope: CoroutineScope = CoroutineScope(Dispatchers.Main)
+    private var defaultScope: CoroutineScope = CoroutineScope(Dispatchers.Default)
+    private var ioScope: CoroutineScope = CoroutineScope(Dispatchers.IO)
     private var mainScope2 = MainScope()
     private var globalJob: Job? = null
     private var viewModel = CoroutineTestViewModel()
@@ -40,6 +43,14 @@ class CoroutineTestFragment: SimpleRecyclerFragment() {
         addItem("启动模式-ATOMIC", this::onStartAtomic)
         addItem("启动模式-LAZY", this::onStartLazy)
         addItem("启动模式-UNDISPATCHED", this::onStartUnDispatched)
+        addItem("作用域-coroutineScope", this::onCoroutineScope)
+        addItem("作用域-supervisorScope", this::onSupervisorScope)
+        addItem("CPU密集型任务取消-直接cancel", this::onCancelDefaultJob)
+        addItem("CPU密集型任务取消-isActive标记位判断取消", this::onIsActiveDefaultJob)
+        addItem("CPU密集型任务取消-ensureActive取消", this::onEnsureActiveDefaultJob)
+        addItem("CPU密集型任务取消-yield", this::onYieldDefaultJob)
+/*        addItem("协程资源释放-try_finally", this::onYieldDefaultJob)
+        addItem("协程资源释放-use", this::onYieldDefaultJob)*/
     }
 
     private fun onCoroutineHelloWord() {
@@ -133,7 +144,7 @@ class CoroutineTestFragment: SimpleRecyclerFragment() {
     private fun onAsyncTest() {
         mainScope.launch {
             // 只能作为子协程使用
-            val deffer = mainScope.async {
+            val deffer = async {
                 Log.d(TAG, "async的方式启动协程")
                 "async result"
             }
@@ -144,14 +155,14 @@ class CoroutineTestFragment: SimpleRecyclerFragment() {
 
     private fun onJoinTest() {
         mainScope.launch {
-            mainScope.launch {
+            launch {
                 Log.d(TAG, "TasKA:" + System.currentTimeMillis())
                 delay(2000)
             }.join()
-            mainScope.launch {
+            launch {
                 Log.d(TAG, "TasKB:" + System.currentTimeMillis())
             }
-            mainScope.launch {
+            launch {
                 Log.d(TAG, "TasKC:" + System.currentTimeMillis())
             }
         }
@@ -159,15 +170,15 @@ class CoroutineTestFragment: SimpleRecyclerFragment() {
 
     private fun onAsyncJoinTest()  {
         mainScope.launch {
-            val defferA = mainScope.async {
+            val defferA = async {
                 Log.d(TAG, "TasKA:" + System.currentTimeMillis())
                 delay(2000)
             }
             defferA.join()
-            val defferB = mainScope.async {
+            val defferB = async {
                 Log.d(TAG, "TasKB:" + System.currentTimeMillis())
             }
-            val defferC = mainScope.async {
+            val defferC = async {
                 Log.d(TAG, "TasKC:" + System.currentTimeMillis())
             }
         }
@@ -175,18 +186,18 @@ class CoroutineTestFragment: SimpleRecyclerFragment() {
 
     private fun onAsyncAwaitTest() {
         mainScope.launch {
-            val defferA = mainScope.async {
+            val defferA = async {
                 Log.d(TAG, "TasKA:" + System.currentTimeMillis())
                 delay(2000)
                 "TaskA result"
             }
             Log.d(TAG, defferA.await() + ":" + System.currentTimeMillis())
-            val defferB = mainScope.async {
+            val defferB = async {
                 Log.d(TAG, "TasKB:" + System.currentTimeMillis())
                 delay(200)
                 "TaskB result"
             }
-            val defferC = mainScope.async {
+            val defferC = async {
                 Log.d(TAG, "TasKC:" + System.currentTimeMillis())
                 delay(200)
                 "TaskC result"
@@ -201,7 +212,7 @@ class CoroutineTestFragment: SimpleRecyclerFragment() {
      */
     private fun onStartDefault() {
         mainScope.launch {
-            val job = mainScope.launch(start = CoroutineStart.DEFAULT) {
+            val job = launch(start = CoroutineStart.DEFAULT) {
                 Log.d(TAG, "协程没有被取消")
                 delay(50)
             }
@@ -215,7 +226,7 @@ class CoroutineTestFragment: SimpleRecyclerFragment() {
      */
     private fun onStartAtomic() {
         mainScope.launch {
-            val job = mainScope.launch(start = CoroutineStart.ATOMIC) {
+            val job = launch(start = CoroutineStart.ATOMIC) {
                 Log.d(TAG, "协程没有被取消")
                 delay(50)
             }
@@ -229,7 +240,7 @@ class CoroutineTestFragment: SimpleRecyclerFragment() {
      */
     private fun onStartLazy() {
         mainScope.launch {
-            val job = mainScope.launch(start = CoroutineStart.LAZY) {
+            val job = launch(start = CoroutineStart.LAZY) {
                 Log.d(TAG, "协程没有被取消")
                 delay(50)
             }
@@ -253,6 +264,125 @@ class CoroutineTestFragment: SimpleRecyclerFragment() {
         }
     }
 
+    private fun onCoroutineScope() {
+        mainScope.launch(Dispatchers.IO) {
+            coroutineScope {
+                launch {
+                    delay(400)
+                    Log.d(TAG, "job1 end")
+                }
+
+                launch {
+                    delay(200)
+                    Log.d(TAG, "job2 end")
+                    throw RuntimeException()
+                }
+            }
+        }
+    }
+
+    private fun onSupervisorScope() {
+        mainScope.launch(Dispatchers.IO) {
+            supervisorScope {
+                launch {
+                    delay(400)
+                    Log.d(TAG, "job1 end")
+                }
+
+                launch {
+                    delay(200)
+                    Log.d(TAG, "job2 end")
+                    throw RuntimeException()
+                }
+            }
+        }
+    }
+
+    /**
+     * 这段程序应该在打印2次时被取消，实际上没有取消成功
+     */
+    private fun onCancelDefaultJob() {
+        defaultScope.launch {
+            val startTime = System.currentTimeMillis()
+            val job = launch {
+                var nextPrintTime = startTime
+                var i = 0
+                while (i < 5) {
+                    if (System.currentTimeMillis() >= nextPrintTime) {
+                        Log.d(TAG, "job: i ${i++}")
+                        nextPrintTime += 500
+                    }
+                }
+            }
+            delay(1300)
+            Log.d(TAG, "waiting")
+            job.cancelAndJoin()
+            Log.d(TAG, "quited")
+        }
+    }
+
+    private fun onIsActiveDefaultJob() {
+        defaultScope.launch {
+            val startTime = System.currentTimeMillis()
+            val job = launch {
+                var nextPrintTime = startTime
+                var i = 0
+                while (i < 5 && isActive) {
+                    if (System.currentTimeMillis() >= nextPrintTime) {
+                        Log.d(TAG, "job: i ${i++}")
+                        nextPrintTime += 500
+                    }
+                }
+            }
+            delay(1300)
+            Log.d(TAG, "waiting")
+            job.cancelAndJoin()
+            Log.d(TAG, "quited")
+        }
+    }
+
+    private fun onEnsureActiveDefaultJob() {
+        defaultScope.launch {
+            val startTime = System.currentTimeMillis()
+            val job = launch {
+                var nextPrintTime = startTime
+                var i = 0
+                while (i < 5) {
+                    ensureActive()
+                    if (System.currentTimeMillis() >= nextPrintTime) {
+                        Log.d(TAG, "job: i ${i++}")
+                        nextPrintTime += 500
+                    }
+                }
+            }
+            delay(1300)
+            Log.d(TAG, "waiting")
+            job.cancelAndJoin()
+            Log.d(TAG, "quited")
+        }
+    }
+
+    private fun onYieldDefaultJob() {
+        defaultScope.launch {
+            val startTime = System.currentTimeMillis()
+            val job = launch {
+                var nextPrintTime = startTime
+                var i = 0
+                while (i < 5) {
+                    yield() // 这里yield之后，有机会执行到cancel
+                    if (System.currentTimeMillis() >= nextPrintTime) {
+                        Log.d(TAG, "job: i ${i++}")
+                        nextPrintTime += 500
+                    }
+                }
+            }
+            delay(1300)
+            Log.d(TAG, "waiting")
+            job.cancelAndJoin()
+            Log.d(TAG, "quited")
+        }
+    }
+
     private suspend fun fetchData(): String {
         return withContext(Dispatchers.IO) {
             delay(500)
@@ -265,6 +395,7 @@ class CoroutineTestFragment: SimpleRecyclerFragment() {
         mainScope.cancel()
         globalJob?.cancel()
         mainScope2.cancel()
+        defaultScope.cancel()
     }
 
     companion object {
