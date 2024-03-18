@@ -8,6 +8,9 @@ import com.hc.util.ToastUtils
 import com.jny.android.demo.arouter_annotations.ARouter
 import com.jny.common.fragment.FragmentConstants
 import kotlinx.coroutines.*
+import java.io.BufferedReader
+import java.io.File
+import java.io.FileInputStream
 import java.lang.RuntimeException
 import kotlin.coroutines.*
 
@@ -49,8 +52,11 @@ class CoroutineTestFragment: SimpleRecyclerFragment() {
         addItem("CPU密集型任务取消-isActive标记位判断取消", this::onIsActiveDefaultJob)
         addItem("CPU密集型任务取消-ensureActive取消", this::onEnsureActiveDefaultJob)
         addItem("CPU密集型任务取消-yield", this::onYieldDefaultJob)
-/*        addItem("协程资源释放-try_finally", this::onYieldDefaultJob)
-        addItem("协程资源释放-use", this::onYieldDefaultJob)*/
+        addItem("协程资源释放-try_finally", this::onTryFinallyJob)
+        addItem("协程资源释放-use", this::onUseClosable)
+        addItem("协程已经cancel后又在finally中运行别的协程", this::onNonCancelable)
+        addItem("协程超时任务", this::onWithTimeout)
+        addItem("协程超时任务-超时返回默认Null", this::onWithTimeoutOrNull)
     }
 
     private fun onCoroutineHelloWord() {
@@ -380,6 +386,65 @@ class CoroutineTestFragment: SimpleRecyclerFragment() {
             Log.d(TAG, "waiting")
             job.cancelAndJoin()
             Log.d(TAG, "quited")
+        }
+    }
+
+    private fun onTryFinallyJob() {
+        ioScope.launch {
+            try {
+                val res = fetchData()
+                Log.d(TAG, res)
+            } finally {
+                Log.d(TAG, "这里释放数据")
+            }
+        }
+    }
+
+    private fun onUseClosable() {
+        val br = FileInputStream(File(""))
+        br.use {
+            br.read()
+            // xxx
+        }
+    }
+
+    private fun onNonCancelable() {
+        val job = ioScope.launch {
+            try {
+                ioScope.launch {
+                    Log.d(TAG, "delay 500")
+                    delay(500)
+                }
+            } finally {
+                withContext(NonCancellable) {
+                    Log.d(TAG, "onNonCancelable finally start")
+                    delay(500)
+                    Log.d(TAG, "onNonCancelable finally end")
+                }
+            }
+        }
+        job.cancel()
+    }
+
+    private fun onWithTimeout() {
+        defaultScope.launch {
+            withTimeout(500) {
+                Log.d(TAG, "start")
+                delay(1000)
+                Log.d(TAG, "end")
+            }
+        }
+    }
+
+    private fun onWithTimeoutOrNull() {
+        defaultScope.launch {
+            val res = withTimeoutOrNull(500) {
+                Log.d(TAG, "start")
+                delay(1000)
+                Log.d(TAG, "end")
+                "res"
+            }
+            Log.d(TAG, "$res")
         }
     }
 
