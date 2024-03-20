@@ -12,7 +12,7 @@ import java.net.URL
 
 fun DownloadService.downloadImageFlow(url: URL): Flow<Bitmap> {
     return flow {
-        val bitmap = LuDownload.getInstance().downloadService.downloadImage(url)
+        val bitmap = downloadImage(url)
             ?: throw IOException("Download image exception")
         emit(bitmap)
     }.flowOn(Dispatchers.IO)
