@@ -11,6 +11,7 @@ import kotlinx.coroutines.*
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileInputStream
+import java.lang.IllegalArgumentException
 import java.lang.RuntimeException
 import kotlin.coroutines.*
 
@@ -57,6 +58,9 @@ class CoroutineTestFragment: SimpleRecyclerFragment() {
         addItem("协程已经cancel后又在finally中运行别的协程", this::onNonCancelable)
         addItem("协程超时任务", this::onWithTimeout)
         addItem("协程超时任务-超时返回默认Null", this::onWithTimeoutOrNull)
+        addItem("协程异常-发生异常，其他兄弟协程也取消", this::onCancelByJob)
+        addItem("协程异常-发生异常，其他兄弟协程不取消", this::onCancelBySupervisorJob)
+        addItem("协程异常-异常处理器", this::onCoroutineExceptionHandler)
     }
 
     private fun onCoroutineHelloWord() {
@@ -288,14 +292,17 @@ class CoroutineTestFragment: SimpleRecyclerFragment() {
     }
 
     private fun onSupervisorScope() {
+        val handler = CoroutineExceptionHandler{_, exc ->
+            Log.d(TAG, "Caught $exc")
+        }
         mainScope.launch(Dispatchers.IO) {
             supervisorScope {
-                launch {
+                launch(handler) {
                     delay(400)
                     Log.d(TAG, "job1 end")
                 }
 
-                launch {
+                launch(handler) {
                     delay(200)
                     Log.d(TAG, "job2 end")
                     throw RuntimeException()
@@ -445,6 +452,50 @@ class CoroutineTestFragment: SimpleRecyclerFragment() {
                 "res"
             }
             Log.d(TAG, "$res")
+        }
+    }
+
+    private fun onCancelByJob() {
+        val handler = CoroutineExceptionHandler{_, exc ->
+            Log.d(TAG, "Caught $exc")
+        }
+        val scope = CoroutineScope(Job() + Dispatchers.IO + handler)
+        scope.launch {
+            Log.d(TAG, "job1")
+            delay(200)
+            throw RuntimeException()
+        }
+        scope.launch {
+            delay(500)
+            Log.d(TAG, "job2")
+        }
+    }
+
+    private fun onCancelBySupervisorJob() {
+        // 如果不设置ExceptionHandler会把异常抛出去，程序会crash
+        val handler = CoroutineExceptionHandler{_, exc ->
+            Log.d(TAG, "Caught $exc")
+        }
+        val scope = CoroutineScope(SupervisorJob() + handler)
+        scope.launch { // 这里也有加上SupervisorJob
+            launch(SupervisorJob()) {
+                Log.d(TAG, "job1")
+                delay(200)
+                throw IllegalArgumentException()
+            }
+            launch(SupervisorJob()) {
+                delay(500)
+                Log.d(TAG, "job2")
+            }
+        }
+    }
+
+    private fun onCoroutineExceptionHandler() {
+        val handler = CoroutineExceptionHandler{_, exc ->
+            Log.d(TAG, "Caught $exc")
+        }
+        ioScope.launch(SupervisorJob() + handler) {
+            throw RuntimeException()
         }
     }
 
