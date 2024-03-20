@@ -40,6 +40,7 @@ public class TestFrameWorkFragment extends SimpleRecyclerFragment {
         addItem("组件化-plugin的使用", this::onClickPluginTestFragment);
         addItem("Activity luanchMode", this::onClickActivityLuanchMode);
         addItem("协程的使用", this::onClickCoroutineTest);
+        addItem("Flow的使用", this::onClickFlowTest);
     }
 
     private TestFrameWorkFragment() { }
@@ -59,6 +60,10 @@ public class TestFrameWorkFragment extends SimpleRecyclerFragment {
     @Override
     protected List<Pair<String, Runnable>> bind() {
         return items;
+    }
+
+    private void onClickFlowTest() {
+        startContentActivity(FragmentConstants.FLOW_TEST_FRAGMENT_ID);
     }
 
     private void onClickCoroutineTest() {
