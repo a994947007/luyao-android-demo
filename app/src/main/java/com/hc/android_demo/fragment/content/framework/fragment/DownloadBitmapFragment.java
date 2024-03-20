@@ -1,6 +1,7 @@
 package com.hc.android_demo.fragment.content.framework.fragment;
 
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,13 +14,17 @@ import androidx.fragment.app.Fragment;
 
 import com.hc.android_demo.R;
 import com.hc.base.autoservice.AutoServiceManager;
+import com.hc.util.ToastUtils;
 import com.jny.android.demo.arouter_annotations.ARouter;
 import com.android.demo.rxandroid.observable.Observable;
 import com.android.demo.rxandroid.schedule.Schedules;
+import com.jny.android.demo.base_util.Utils;
 import com.jny.common.fragment.FragmentConstants;
+import com.luyao.android.demo.download.core.DownloadCallback;
 import com.luyao.android.demo.download.download.DownloadService;
 import com.luyao.android.demo.download.download.LuDownload;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -48,23 +53,26 @@ public class DownloadBitmapFragment extends Fragment {
         DownloadService downloadService = LuDownload.getInstance().getDownloadService();
         try {
 
+/*
             Observable.just(new URL(IMAGE_URL1))
                     .map(downloadService::downloadImage)
                     .subscribeOn(Schedules.IO)
                     .observeOn(Schedules.MAIN)
                     .subscribe(bitmap -> imageView1.setImageDrawable(new BitmapDrawable(getResources(), bitmap)));
+*/
 
             downloadService.downloadImageObservable(new URL(IMAGE_URL2))
                     .observeOn(Schedules.MAIN)
                     .subscribe(bitmap -> imageView2.setImageDrawable(new BitmapDrawable(getResources(), bitmap)));
-
-/*            downloadService.observeDownloadFile(getLifecycle(), IMAGE_URL1)
+/*
+            downloadService.observeDownloadFile(getLifecycle(), IMAGE_URL1)
                     .observeOn(Schedules.MAIN)
                     .subscribe(resultPath -> {
                         Uri uri = Uri.fromFile(new File(resultPath));
                         imageView1.setImageURI(uri);
-                    });*/
-/*            downloadService.downloadFile(getLifecycle(), IMAGE_URL1, new DownloadCallback() {
+                    });
+            */
+            downloadService.downloadFile(getLifecycle(), IMAGE_URL1, new DownloadCallback() {
                 @Override
                 public void onStart() {
                     Utils.runOnUITread(() -> ToastUtils.show("开始下载"));
@@ -89,7 +97,7 @@ public class DownloadBitmapFragment extends Fragment {
 
                 }
             });
-        */
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

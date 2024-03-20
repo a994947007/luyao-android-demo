@@ -1,12 +1,15 @@
 package com.hc.android_demo.fragment.content.framework.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.lifecycle.lifecycleScope
 import com.hc.android_demo.R
+import com.hc.android_demo.fragment.content.coroutine.State
+import com.hc.android_demo.fragment.content.coroutine.downloadFileFlow
 import com.hc.android_demo.fragment.content.coroutine.downloadImageFlow
 import com.hc.base.fragment.LuFragment
 import com.jny.android.demo.arouter_annotations.ARouter
@@ -47,6 +50,16 @@ class DownloadBitmapFlowFragment: LuFragment() {
                 .downloadImageFlow(URL(IMAGE_URL1))
                 .collect {
                     imageView1.setImageBitmap(it)
+                }
+        }
+
+        lifecycleScope.launch {
+            LuDownload.getInstance().downloadService
+                .downloadFileFlow(IMAGE_URL2)
+                .collect {
+                    if (it is State.Success) {
+                        Log.d("DownloadBitmap", it.url)
+                    }
                 }
         }
     }
