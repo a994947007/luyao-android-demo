@@ -31,6 +31,10 @@ dependencies {
         implementation v
     }
 
+    rootProject.retrofit.each { k, v ->
+        implementation v
+    }
+
     api rootProject.rxAndroid
     api rootProject.gson
     api rootProject.fresco

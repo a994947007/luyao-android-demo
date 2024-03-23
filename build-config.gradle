@@ -36,6 +36,12 @@ ext {
     leakcanary = 'com.squareup.leakcanary:leakcanary-android:2.5'
     multidex = 'com.android.support:multidex:1.0.1'
 
+    /************************* retrofit **********************/
+    retrofit = [
+            core : 'com.squareup.retrofit2:retrofit:2.9.0',
+            gson : 'com.squareup.retrofit2:converter-gson:2.9.0',
+    ]
+
     /************************* asm publish **********************/
     PUBLISH_GROUP_ID = 'com.android.demo'
     PUBLISH_ARTIFACT_ID = 'asmLogPluginTest'

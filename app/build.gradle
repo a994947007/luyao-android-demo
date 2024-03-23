@@ -53,6 +53,9 @@ dependencies {
     rootProject.commonDependencies.each { k, v ->
         implementation v
     }
+    rootProject.retrofit.each { k, v ->
+        implementation v
+    }
     implementation rootProject.reactNative
     implementation rootProject.legacy
     implementation rootProject.rxAndroid

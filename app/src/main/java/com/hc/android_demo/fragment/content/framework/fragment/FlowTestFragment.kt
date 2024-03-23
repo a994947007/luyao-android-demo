@@ -12,6 +12,7 @@ class FlowTestFragment: SimpleRecyclerFragment() {
     init {
         addItem("Flow下载", this::onDownloadFlow)
         addItem("Flow与Room", this::onClickRoomFlow)
+        addItem("Flow与Retrofit", this::onRetrofitFlow)
     }
 
     private fun onDownloadFlow() {
@@ -20,6 +21,10 @@ class FlowTestFragment: SimpleRecyclerFragment() {
 
     private fun onClickRoomFlow() {
         startContentActivity(FragmentConstants.ROOM_FLOW_TEST_FRAGMENT_ID)
+    }
+
+    private fun onRetrofitFlow() {
+        startContentActivity(FragmentConstants.RETROFIT_FLOW_TEST_FRAGMENT_ID)
     }
 
     override fun startContentActivity(id: String) {
