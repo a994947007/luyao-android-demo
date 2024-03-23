@@ -2,13 +2,9 @@ package com.hc.android_demo.fragment.content.coroutine
 
 import android.graphics.Bitmap
 import android.util.Log
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LifecycleRegistry
 import com.luyao.android.demo.download.core.DownloadCallback
 import com.luyao.android.demo.download.download.DownloadService
 import com.luyao.android.demo.download.process.DownloadCenter
-import com.luyao.android.demo.download.process.DownloadDisposable
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.*
@@ -52,17 +48,4 @@ fun DownloadService.downloadFileFlow(url: String): Flow<State> {
 sealed class State {
     data class Success(val url: String): State()
     data class Progress(val percent: Float): State()
-}
-
-class LifecycleDefault: LifecycleOwner {
-
-    private val lifecycleRegistry: LifecycleRegistry = LifecycleRegistry(this)
-
-    override fun getLifecycle(): Lifecycle {
-        return lifecycleRegistry
-    }
-
-    fun dispatchState(event: Lifecycle.Event) {
-        lifecycleRegistry.handleLifecycleEvent(event)
-    }
 }
