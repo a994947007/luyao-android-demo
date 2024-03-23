@@ -1,13 +1,13 @@
 ext {
-    compileSdkVersion = 30
+    compileSdkVersion = 32
     buildToolsVersion = "30.0.2"
     applicationId = "com.hc.android_demo"
     minSdkVersion = 21
-    targetSdkVersion = 30
+    targetSdkVersion = 32
     androidxVersion = "1.2.0"
     autoServiceDependency = 'com.google.auto.service:auto-service:1.0-rc7'
     reactVersion = "0.67.4"
-    roomVersion = "2.3.0"
+    roomVersion = "2.5.0"
     versionCode = 1
     versionName = "1.0"
     rxAndroid = 'com.android.demo:rxAndroid:2.4@aar'
@@ -23,6 +23,7 @@ ext {
     okhttp = 'com.squareup.okhttp3:okhttp:3.10.0'
     androidRoom = "androidx.room:room-runtime:$roomVersion"
     androidRoomAnnationProcessor = "androidx.room:room-compiler:$roomVersion"
+    androidRoomKtx = "androidx.room:room-ktx:$roomVersion"
     viewPager2 = 'androidx.viewpager2:viewpager2:1.0.0'
     recyclerView = 'androidx.recyclerview:recyclerview:1.1.0'
     coordinatorlayout = 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'

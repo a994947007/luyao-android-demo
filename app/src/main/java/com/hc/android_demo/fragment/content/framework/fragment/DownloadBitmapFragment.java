@@ -53,13 +53,13 @@ public class DownloadBitmapFragment extends Fragment {
         DownloadService downloadService = LuDownload.getInstance().getDownloadService();
         try {
 
-/*
+
             Observable.just(new URL(IMAGE_URL1))
                     .map(downloadService::downloadImage)
                     .subscribeOn(Schedules.IO)
                     .observeOn(Schedules.MAIN)
                     .subscribe(bitmap -> imageView1.setImageDrawable(new BitmapDrawable(getResources(), bitmap)));
-*/
+
 
             downloadService.downloadImageObservable(new URL(IMAGE_URL2))
                     .observeOn(Schedules.MAIN)
@@ -72,7 +72,7 @@ public class DownloadBitmapFragment extends Fragment {
                         imageView1.setImageURI(uri);
                     });
             */
-            downloadService.downloadFile(getLifecycle(), IMAGE_URL1, new DownloadCallback() {
+/*            downloadService.downloadFile(getLifecycle(), IMAGE_URL1, new DownloadCallback() {
                 @Override
                 public void onStart() {
                     Utils.runOnUITread(() -> ToastUtils.show("开始下载"));
@@ -96,7 +96,7 @@ public class DownloadBitmapFragment extends Fragment {
                 public void onError(Throwable r) {
 
                 }
-            });
+            });*/
 
         } catch (MalformedURLException e) {
             e.printStackTrace();

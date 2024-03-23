@@ -3,11 +3,10 @@ apply from: 'build-config.gradle'
 
 buildscript {
     repositories {
-        google()
-        jcenter()
-        maven {
-            url 'https://maven.aliyun.com/repository/public'
-        }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin/' }
+        maven { url 'https://maven.aliyun.com/repository/central/' }
+        maven { url 'https://maven.aliyun.com/repository/public/' }
+        maven { url 'https://maven.aliyun.com/repository/google/' }
         maven {
             credentials {
                 username '633402a80bdb33a273af19d9'
@@ -22,6 +21,8 @@ buildscript {
             }
             url 'https://packages.aliyun.com/maven/repository/2286124-snapshot-J8DIRD/'
         }
+        google()
+        jcenter()
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.0.0"
@@ -42,10 +43,10 @@ println(reactNativeDist)
 
 allprojects {
     repositories {
-        google()
-        jcenter()
-        mavenCentral()
-        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin/' }
+        maven { url 'https://maven.aliyun.com/repository/central/' }
+        maven { url 'https://maven.aliyun.com/repository/public/' }
+        maven { url 'https://maven.aliyun.com/repository/google/' }
         maven { url 'https://developer.huawei.com/repo/' }
         maven { url "https://jitpack.io" }
         maven {
@@ -56,10 +57,6 @@ allprojects {
         maven {
             // Android JSC is installed from npm
             url(reactNativeDist)
-        }
-
-        maven {
-            url 'https://maven.aliyun.com/repository/public'
         }
         maven {
             credentials {
@@ -75,6 +72,9 @@ allprojects {
             }
             url 'https://packages.aliyun.com/maven/repository/2286124-snapshot-J8DIRD/'
         }
+        google()
+        jcenter()
+        mavenCentral()
     }
 }
 

@@ -10,11 +10,16 @@ import com.jny.common.fragment.FragmentConstants
 @ARouter(path = FragmentConstants.FLOW_TEST_FRAGMENT_ID, group = FragmentConstants.FRAMEWORK)
 class FlowTestFragment: SimpleRecyclerFragment() {
     init {
-        addItem("协程下载", this::onDownloadFlow)
+        addItem("Flow下载", this::onDownloadFlow)
+        addItem("Flow与Room", this::onClickRoomFlow)
     }
 
     private fun onDownloadFlow() {
         startContentActivity(FragmentConstants.DOWNLOAD_FLOW_TEST_FRAGMENT_ID)
+    }
+
+    private fun onClickRoomFlow() {
+        startContentActivity(FragmentConstants.ROOM_FLOW_TEST_FRAGMENT_ID)
     }
 
     override fun startContentActivity(id: String) {
