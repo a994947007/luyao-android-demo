@@ -45,5 +45,13 @@ class RetrofitFlowFragment: LuFragment() {
                 imageView1.setImageURI(it.userModelList[0].avatar)
             }
         }
+
+        lifecycleScope.launch {
+            Singleton.get(TestApi::class.java)
+                .getUser()
+                .collect {
+                    imageView2.setImageURI(it.data.avatar)
+                }
+        }
     }
 }

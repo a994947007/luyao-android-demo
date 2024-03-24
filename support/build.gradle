@@ -40,6 +40,10 @@ dependencies {
         implementation v
     }
 
+    rootProject.retrofit.each { k, v ->
+        implementation v
+    }
+
     annotationProcessor rootProject.autoServiceDependency
     implementation rootProject.autoServiceDependency
 

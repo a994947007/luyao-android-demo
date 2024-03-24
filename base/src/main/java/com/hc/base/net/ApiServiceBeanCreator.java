@@ -1,5 +1,6 @@
 package com.hc.base.net;
 
+import com.hc.support.retrofit.FlowCallAdapterFactory;
 import com.hc.support.singleton.BeanCreator;
 
 import okhttp3.OkHttpClient;
@@ -12,6 +13,7 @@ public class ApiServiceBeanCreator implements BeanCreator {
             .baseUrl("https://reqres.in/")
             .client(new OkHttpClient.Builder().build())
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(FlowCallAdapterFactory.create())
             .build();
 
     @Override
