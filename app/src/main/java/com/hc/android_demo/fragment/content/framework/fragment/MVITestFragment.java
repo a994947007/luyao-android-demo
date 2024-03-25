@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.hc.android_demo.R;
-import com.hc.android_demo.fragment.content.mvi.UserPresenter;
+import com.hc.android_demo.fragment.content.mvi.v1.UserPresenter;
 import com.hc.support.mvi.ActionBus;
 import com.hc.support.mvps.Presenter;
 import com.jny.android.demo.arouter_annotations.ARouter;
