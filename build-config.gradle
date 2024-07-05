@@ -1,9 +1,9 @@
 ext {
-    compileSdkVersion = 32
+    compileSdkVersion = 33
     buildToolsVersion = "30.0.2"
     applicationId = "com.hc.android_demo"
     minSdkVersion = 21
-    targetSdkVersion = 32
+    targetSdkVersion = 33
     androidxVersion = "1.2.0"
     autoServiceDependency = 'com.google.auto.service:auto-service:1.0-rc7'
     reactVersion = "0.67.4"
@@ -33,7 +33,7 @@ ext {
     fresco = 'com.facebook.fresco:fresco:2.6.0'
     reactNative = "com.facebook.react:react-native:$reactVersion"
     legacy = 'androidx.legacy:legacy-support-v4:1.0.0'
-    leakcanary = 'com.squareup.leakcanary:leakcanary-android:2.5'
+    leakcanary = 'com.squareup.leakcanary:leakcanary-android:2.7'
     multidex = 'com.android.support:multidex:1.0.1'
 
     /************************* retrofit **********************/

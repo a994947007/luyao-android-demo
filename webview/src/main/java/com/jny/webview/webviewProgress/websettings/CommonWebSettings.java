@@ -1,5 +1,6 @@
 package com.jny.webview.webviewProgress.websettings;
 
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 public class CommonWebSettings {
@@ -22,7 +23,7 @@ public class CommonWebSettings {
     public void initSettings(WebView webView) {
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setDatabaseEnabled(true);
-        webView.getSettings().setAppCacheEnabled(true);
+        webView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
         webView.getSettings().setLoadsImagesAutomatically(true);
         webView.getSettings().setAllowFileAccess(true); // 允许加载本地文件 html
     }

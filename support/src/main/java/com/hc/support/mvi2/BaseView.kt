@@ -13,11 +13,12 @@ abstract class BaseView<T: UIState, VM : BaseViewModelV2<T>> : IView<T, VM> {
 
     override fun onCreateView(rootView: View) {
         rootView.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
-            override fun onViewAttachedToWindow(v: View?) {
 
+            override fun onViewAttachedToWindow(v: View) {
+                TODO("Not yet implemented")
             }
 
-            override fun onViewDetachedFromWindow(v: View?) {
+            override fun onViewDetachedFromWindow(v: View) {
                 viewScope.cancel()
             }
         })
