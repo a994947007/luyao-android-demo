@@ -73,6 +73,7 @@ public class CustomViewFragment extends SimpleRecyclerFragment {
         items.add(new Pair<>("RippleDrawable的使用", this::onClickRippleDrawable));
         items.add(new Pair<>("自定义Span的使用", this::onClickCustomSpanFragment));
         items.add(new Pair<>("将TextView转换成bitmap，绘制到surfaceView上", this::onClickSurfaceViewDrawTextView));
+        items.add(new Pair<>("直接使用StaticLayout，将TextView绘制到SurfaceView上", this:: onClickStaticLayoutToSurfaceView));
     }
 
     @Override
@@ -93,6 +94,10 @@ public class CustomViewFragment extends SimpleRecyclerFragment {
             ((Activity)getContext()).getWindow().setStatusBarColor(ViewUtils.getColor(R.color.bottom_nav_color));
             ((Activity)getContext()).getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
+    }
+
+    private void onClickStaticLayoutToSurfaceView() {
+        startContentActivity(FragmentConstants.STATIC_LAYOUT_TO_SURFACE_VIEW);
     }
 
     private void onClickSurfaceViewDrawTextView() {
