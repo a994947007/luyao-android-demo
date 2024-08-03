@@ -24,7 +24,6 @@ import com.hc.nested_recycler_fragment.RecyclerNestedScrollActivity;
 import com.hc.recyclerView.RecyclerActivity;
 import com.hc.util.ActivityUtils;
 import com.hc.util.ViewUtils;
-import com.jny.android.demo.arouter_api.RouterManager;
 import com.jny.common.fragment.FragmentConstants;
 import com.jny.common.webview.WebViewService;
 import com.jny.webview.webviewProgress.constants.Constants;
@@ -73,6 +72,7 @@ public class CustomViewFragment extends SimpleRecyclerFragment {
         items.add(new Pair<>("悬浮小窗", this::onClickFloatWindow));
         items.add(new Pair<>("RippleDrawable的使用", this::onClickRippleDrawable));
         items.add(new Pair<>("自定义Span的使用", this::onClickCustomSpanFragment));
+        items.add(new Pair<>("将TextView转换成bitmap，绘制到surfaceView上", this::onClickSurfaceViewDrawTextView));
     }
 
     @Override
@@ -93,6 +93,10 @@ public class CustomViewFragment extends SimpleRecyclerFragment {
             ((Activity)getContext()).getWindow().setStatusBarColor(ViewUtils.getColor(R.color.bottom_nav_color));
             ((Activity)getContext()).getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
+    }
+
+    private void onClickSurfaceViewDrawTextView() {
+        startContentActivity(FragmentConstants.SURFACE_VIEW_DRAW_TEXT_VIEW);
     }
 
     private void onClickCustomSpanFragment() {
