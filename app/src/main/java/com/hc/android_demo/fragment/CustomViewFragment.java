@@ -72,6 +72,7 @@ public class CustomViewFragment extends SimpleRecyclerFragment {
         items.add(new Pair<>("background mutate使用测试", this::onClickBackgroundMutateFragment));
         items.add(new Pair<>("悬浮小窗", this::onClickFloatWindow));
         items.add(new Pair<>("RippleDrawable的使用", this::onClickRippleDrawable));
+        items.add(new Pair<>("自定义Span的使用", this::onClickCustomSpanFragment));
     }
 
     @Override
@@ -92,6 +93,10 @@ public class CustomViewFragment extends SimpleRecyclerFragment {
             ((Activity)getContext()).getWindow().setStatusBarColor(ViewUtils.getColor(R.color.bottom_nav_color));
             ((Activity)getContext()).getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
+    }
+
+    private void onClickCustomSpanFragment() {
+        startContentActivity(FragmentConstants.CUSTOM_SPAN_FRAGMENT);
     }
 
     private void onClickRippleDrawable() {
