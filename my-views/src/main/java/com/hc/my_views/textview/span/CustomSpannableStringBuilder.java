@@ -3,17 +3,17 @@ package com.hc.my_views.textview.span;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpannableStringBuilder {
+public class CustomSpannableStringBuilder {
 
     private final StringBuilder textBuilder = new StringBuilder();
     private final List<SpanItem> spanList = new ArrayList<>();
 
-    public SpannableStringBuilder appendText(String text) {
+    public CustomSpannableStringBuilder appendText(String text) {
         textBuilder.append(text);
         return this;
     }
 
-    public SpannableStringBuilder addSpan(Span span, int startIndex, int endIndex) {
+    public CustomSpannableStringBuilder addSpan(Span span, int startIndex, int endIndex) {
         if (!checkSpan(span, startIndex, endIndex)) {
             return this;
         }

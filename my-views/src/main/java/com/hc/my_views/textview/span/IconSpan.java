@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.text.TextPaint;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,6 +31,16 @@ public class IconSpan implements ReplacementSpan{
         }
 
         return rect.right;
+    }
+
+    @Override
+    public void updateDrawState(TextPaint tp) {
+
+    }
+
+    @Override
+    public void reset(TextPaint tp) {
+
     }
 
     @Override

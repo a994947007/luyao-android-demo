@@ -14,6 +14,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.hc.android_demo.R
 import com.hc.base.fragment.LuFragment
+import com.hc.my_views.textview.CustomTextView
+import com.hc.my_views.textview.span.ColorSpan
+import com.hc.my_views.textview.span.CustomSpannableStringBuilder
 import com.jny.android.demo.arouter_annotations.ARouter
 import com.jny.common.fragment.FragmentConstants
 
@@ -25,6 +28,7 @@ import com.jny.common.fragment.FragmentConstants
 class CustomSpanFragment : LuFragment() {
 
     private lateinit var customSpanTextView: TextView
+    private lateinit var customTextView: CustomTextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,7 +41,9 @@ class CustomSpanFragment : LuFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         customSpanTextView = view.findViewById(R.id.text_view_custom_span)
+        customTextView = view.findViewById(R.id.text_view_custom_text_view)
         customSpanTextView()
+        customTextView()
     }
 
     /**
@@ -81,5 +87,12 @@ class CustomSpanFragment : LuFragment() {
         )
 
         customSpanTextView.text = text
+    }
+
+    private fun customTextView() {
+        val spannableStringBuilder = CustomSpannableStringBuilder()
+        spannableStringBuilder.appendText("abcdef");
+        spannableStringBuilder.addSpan(ColorSpan(Color.RED), 1, 2)
+        customTextView.setText(spannableStringBuilder)
     }
 }
