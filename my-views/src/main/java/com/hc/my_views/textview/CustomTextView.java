@@ -139,12 +139,12 @@ public class CustomTextView extends View {
         }
         int startTextIndex = 0;
         float x = 0;
+        float textWidth = getMeasuredWidth();
+        float xBaseline = (getWidth() >> 1) -  textWidth/ 2;
+        Paint.FontMetrics fontMetrics = paint.getFontMetrics();
+        float yBaseline = (getHeight() >> 1) - (fontMetrics.ascent + fontMetrics.descent)/2;
         for (int i = 0; i < text.length(); i++) {
             List<SpanItem> spanItems = spanItemMap.get(i);
-            float textWidth = getMeasuredWidth();
-            float xBaseline = (getWidth() >> 1) -  textWidth/ 2;
-            Paint.FontMetrics fontMetrics = paint.getFontMetrics();
-            float yBaseline = (getHeight() >> 1) - (fontMetrics.ascent + fontMetrics.descent)/2;
             if (spanItems != null) {
                 String str = text.substring(startTextIndex, i);
                 canvas.save();
@@ -155,7 +155,7 @@ public class CustomTextView extends View {
                     str = text.substring(spanItem.startIndex, spanItem.endIndex);
                     Span span = spanItem.span;
                     if (span instanceof ReplacementSpan) {
-                        ((ReplacementSpan) spanItem.span).draw(canvas, str, spanItem.startIndex, spanItem.endIndex, x, 0, 0, 0, paint);
+                        ((ReplacementSpan) spanItem.span).draw(canvas, str, spanItem.startIndex, spanItem.endIndex, x, 0, 0, getMeasuredHeight(), paint);
                         x += ((ReplacementSpan) spanItem.span).getSize(paint, str, spanItem.startIndex, spanItem.endIndex, fontMetrics);
                     } else {
                         canvas.save();
@@ -168,12 +168,12 @@ public class CustomTextView extends View {
                     startTextIndex = spanItem.endIndex;
                 }
             }
-            if (startTextIndex != text.length()) {
-                String str = text.substring(startTextIndex);
-                canvas.save();
-                canvas.drawText(str, x, yBaseline, paint);
-                canvas.restore();
-            }
+        }
+        if (startTextIndex != text.length()) {
+            String str = text.substring(startTextIndex);
+            canvas.save();
+            canvas.drawText(str, x, yBaseline, paint);
+            canvas.restore();
         }
     }
 }

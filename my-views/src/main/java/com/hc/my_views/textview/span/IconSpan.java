@@ -4,17 +4,21 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.text.TextPaint;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class IconSpan implements ReplacementSpan{
+import com.hc.util.ViewUtils;
 
-    private Drawable drawable;
+public class IconSpan extends BaseReplacementSpan{
+
+    private final Drawable drawable;
 
     public IconSpan(Drawable drawable) {
         this.drawable = drawable;
+        int width = drawable.getIntrinsicWidth();
+        int height = drawable.getIntrinsicHeight();
+        this.drawable.setBounds(0, 0, ViewUtils.dp2px(15),ViewUtils.dp2px(15));
     }
 
     @Override
@@ -31,16 +35,6 @@ public class IconSpan implements ReplacementSpan{
         }
 
         return rect.right;
-    }
-
-    @Override
-    public void updateDrawState(TextPaint tp) {
-
-    }
-
-    @Override
-    public void reset(TextPaint tp) {
-
     }
 
     @Override

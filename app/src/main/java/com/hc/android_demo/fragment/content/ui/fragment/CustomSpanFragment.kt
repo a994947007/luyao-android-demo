@@ -6,17 +6,21 @@ import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
+import android.text.style.ImageSpan
 import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.hc.android_demo.R
 import com.hc.base.fragment.LuFragment
 import com.hc.my_views.textview.CustomTextView
 import com.hc.my_views.textview.span.ColorSpan
 import com.hc.my_views.textview.span.CustomSpannableStringBuilder
+import com.hc.my_views.textview.span.IconSpan
+import com.hc.util.ViewUtils
 import com.jny.android.demo.arouter_annotations.ARouter
 import com.jny.common.fragment.FragmentConstants
 
@@ -66,7 +70,7 @@ class CustomSpanFragment : LuFragment() {
             2, // end
             Spannable.SPAN_INCLUSIVE_INCLUSIVE
         )
-        text.insert(1, "a")
+/*        text.insert(1, "a")
         text.insert(3, "b")
         text.insert(0, "c")
         text.insert(4, "d")
@@ -84,15 +88,28 @@ class CustomSpanFragment : LuFragment() {
             4,
             8,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
+        )*/
 
+        context?.let {
+            ContextCompat.getDrawable(it, R.drawable.img2)
+        }?.let {
+            it.setBounds(0, 0, ViewUtils.dp2px(15f), ViewUtils.dp2px(15f))
+            text.setSpan(
+                ImageSpan(it),
+                3,4,
+                Spannable.SPAN_INCLUSIVE_EXCLUSIVE
+            )
+        }
         customSpanTextView.text = text
     }
 
     private fun customTextView() {
         val spannableStringBuilder = CustomSpannableStringBuilder()
-        spannableStringBuilder.appendText("abcdef");
+        spannableStringBuilder.appendText("abcdefff")
         spannableStringBuilder.addSpan(ColorSpan(Color.RED), 1, 2)
+        context?.apply {
+            spannableStringBuilder.addSpan(IconSpan(ContextCompat.getDrawable(this, R.drawable.img2)),3, 4)
+        }
         customTextView.setText(spannableStringBuilder)
     }
 }
