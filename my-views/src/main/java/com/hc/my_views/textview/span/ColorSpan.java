@@ -1,11 +1,12 @@
 package com.hc.my_views.textview.span;
 
 import android.text.TextPaint;
+import android.text.style.CharacterStyle;
+import android.text.style.UpdateAppearance;
 
-public class ColorSpan implements Span {
+public class ColorSpan extends CharacterStyle implements UpdateAppearance {
 
     private int color;
-    private int originalColor;
 
     public ColorSpan(int color) {
         this.color = color;
@@ -13,12 +14,6 @@ public class ColorSpan implements Span {
 
     @Override
     public void updateDrawState(TextPaint tp) {
-        originalColor = tp.getColor();
         tp.setColor(color);
-    }
-
-    @Override
-    public void reset(TextPaint tp) {
-        tp.setColor(originalColor);
     }
 }

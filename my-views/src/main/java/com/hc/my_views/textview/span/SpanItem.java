@@ -1,13 +1,15 @@
 package com.hc.my_views.textview.span;
 
+import android.text.style.CharacterStyle;
+
 public class SpanItem {
 
-    public Span span;
+    public CharacterStyle span;
     public int startIndex;
     public int endIndex;
 
     public SpanItem(
-            Span span,
+            CharacterStyle span,
             int startIndex,
             int endIndex
     ) {

@@ -1,50 +1,37 @@
 package com.hc.my_views.textview.span;
 
-import android.graphics.Canvas;
+import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.text.style.ImageSpan;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.hc.util.ViewUtils;
-
-public class IconSpan extends BaseReplacementSpan{
+public class IconSpan extends ImageSpan {
 
     private final Drawable drawable;
 
     public IconSpan(Drawable drawable) {
-        this.drawable = drawable;
-        int width = drawable.getIntrinsicWidth();
-        int height = drawable.getIntrinsicHeight();
-        this.drawable.setBounds(0, 0, ViewUtils.dp2px(15),ViewUtils.dp2px(15));
-    }
-
-    @Override
-    public int getSize(@NonNull Paint paint, CharSequence text, int start, int end, @Nullable Paint.FontMetrics fm) {
-        Drawable d = this.drawable;
-        Rect rect = d.getBounds();
-
-        if (fm != null) {
-            fm.ascent = -rect.bottom;
-            fm.descent = 0;
-
-            fm.top = fm.ascent;
-            fm.bottom = 0;
+        super(drawable);
+        if (drawable instanceof BitmapDrawable) {
+            Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+            drawable.setBounds(0, 0, bitmap.getWidth(), bitmap.getHeight());
         }
-
-        return rect.right;
+        this.drawable = drawable;
     }
 
     @Override
-    public void draw(@NonNull Canvas canvas, CharSequence text, int start, int end, float x, int top, int y, int bottom, @NonNull Paint paint) {
-            Drawable b = this.drawable;
-            canvas.save();
+    public int getSize(@NonNull Paint paint, CharSequence text, int start, int end, @Nullable Paint.FontMetricsInt fm) {
+        int lineHeight = fm.bottom - fm.top;
+        Rect bounds = drawable.getBounds();
+        int bitmapWidth = bounds.width();
+        int bitmapHeight = bounds.height();
 
-            int transY = bottom - b.getBounds().bottom;
-            canvas.translate(x, transY);
-            b.draw(canvas);
-            canvas.restore();
+        int resultWidth = (int) ((float)lineHeight * bitmapWidth / bitmapHeight);
+        bounds.set(new Rect(0, 0, resultWidth, lineHeight));
+        return resultWidth;
     }
 }

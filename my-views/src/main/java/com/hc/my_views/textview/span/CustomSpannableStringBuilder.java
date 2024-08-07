@@ -1,5 +1,8 @@
 package com.hc.my_views.textview.span;
 
+import android.text.style.CharacterStyle;
+import android.text.style.ReplacementSpan;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +16,7 @@ public class CustomSpannableStringBuilder {
         return this;
     }
 
-    public CustomSpannableStringBuilder addSpan(Span span, int startIndex, int endIndex) {
+    public CustomSpannableStringBuilder addSpan(CharacterStyle span, int startIndex, int endIndex) {
         if (!checkSpan(span, startIndex, endIndex)) {
             return this;
         }
@@ -28,7 +31,7 @@ public class CustomSpannableStringBuilder {
     /**
      * ReplacementSpan 不支持覆盖到已有Span位置
      */
-    private boolean checkSpan(Span span, int startIndex, int endIndex) {
+    private boolean checkSpan(CharacterStyle span, int startIndex, int endIndex) {
         if (!(span instanceof ReplacementSpan)) {
             return true;
         }

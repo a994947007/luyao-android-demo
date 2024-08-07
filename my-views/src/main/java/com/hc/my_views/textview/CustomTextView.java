@@ -4,13 +4,13 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.text.TextPaint;
+import android.text.style.CharacterStyle;
+import android.text.style.ReplacementSpan;
 import android.util.AttributeSet;
 import android.view.View;
 
 import androidx.annotation.Nullable;
 
-import com.hc.my_views.textview.span.ReplacementSpan;
-import com.hc.my_views.textview.span.Span;
 import com.hc.my_views.textview.span.SpanItem;
 import com.hc.my_views.textview.span.CustomSpannableStringBuilder;
 import com.hc.util.ViewUtils;
@@ -32,8 +32,10 @@ public class CustomTextView extends View {
     private final List<SpanItem> spanList = new ArrayList<>();
     private final List<SpanItem> replacementSpans = new ArrayList<>();
     private final Map<Integer, List<SpanItem>> spanItemMap = new HashMap<>();
-    private TextPaint paint;
+    private TextPaint textPaint;
     private int textSize;
+    private TextPaint workPaint;
+    private Map<Integer, List<SpanItem>> remainItems = new HashMap<>();
 
     public CustomTextView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
@@ -49,13 +51,15 @@ public class CustomTextView extends View {
     }
 
     private void init() {
-        paint = new TextPaint();
-        paint.setAntiAlias(true);
-        paint.setDither(true);
+        textPaint = new TextPaint();
+        textPaint.setAntiAlias(true);
+        textPaint.setDither(true);
         if (textSize == 0) {
             textSize = ViewUtils.dp2px(15);
         }
-        paint.setTextSize(textSize);
+        textPaint.setTextSize(textSize);
+        workPaint = new TextPaint();
+        workPaint.set(textPaint);
     }
 
     public void setTextSize(int textSize) {
@@ -106,25 +110,25 @@ public class CustomTextView extends View {
         int measureTextWidth = 0;
         int measureTextHeight = 0;
         if (text != null) {
-            Paint.FontMetrics fontMetrics = paint.getFontMetrics();
-            measureTextHeight = (int) (fontMetrics.bottom - fontMetrics.top);
+            Paint.FontMetricsInt fontMetricsInt = workPaint.getFontMetricsInt();
+            measureTextHeight = fontMetricsInt.bottom - fontMetricsInt.top;
             int textIndex = 0;
             for (SpanItem replacementSpan : replacementSpans) {
                 String str = text.substring(textIndex, replacementSpan.startIndex);
                 // 加上span之前的
                 if (!TextUtils.isEmpty(str)) {
-                    measureTextWidth += (int) paint.measureText(str);
+                    measureTextWidth += (int) workPaint.measureText(str);
                 }
                 // 加上span的宽度
                 measureTextWidth += ((ReplacementSpan) replacementSpan.span)
-                        .getSize(paint, text, replacementSpan.startIndex, replacementSpan.endIndex, fontMetrics);
+                        .getSize(workPaint, text, replacementSpan.startIndex, replacementSpan.endIndex, fontMetricsInt);
                 textIndex = replacementSpan.endIndex;
             }
             // 加上最后一个span的宽度
             if (textIndex != text.length()) {
                 String str = text.substring(textIndex);
                 if (!TextUtils.isEmpty(str)) {
-                    measureTextWidth += (int) paint.measureText(str);
+                    measureTextWidth += (int) workPaint.measureText(str);
                 }
             }
         }
@@ -137,13 +141,35 @@ public class CustomTextView extends View {
         if (text == null) {
             return;
         }
+        TextPaint paint = workPaint;
+        resetPaint(paint);
         int startTextIndex = 0;
         float x = 0;
         float textWidth = getMeasuredWidth();
         float xBaseline = (getWidth() >> 1) -  textWidth/ 2;
-        Paint.FontMetrics fontMetrics = paint.getFontMetrics();
-        float yBaseline = (getHeight() >> 1) - (fontMetrics.ascent + fontMetrics.descent)/2;
+        Paint.FontMetricsInt fontMetricsInt = paint.getFontMetricsInt();
+        float yBaseline = (getHeight() >> 1) - (float) (fontMetricsInt.ascent + fontMetricsInt.descent) /2;
         for (int i = 0; i < text.length(); i++) {
+            List<SpanItem> remainSpanItems = remainItems.get(i);
+            if (remainSpanItems != null && !remainSpanItems.isEmpty()) {
+                // 先把之前的绘制了
+                String str = text.substring(startTextIndex, i);
+                canvas.save();
+                canvas.drawText(str, x, yBaseline, paint);
+                canvas.restore();
+                x += paint.measureText(str);
+                startTextIndex = i;
+                // 再重置状态
+                resetPaint(paint);
+                remainItems.remove(i);
+                for (Map.Entry<Integer, List<SpanItem>> spanItemEntry : remainItems.entrySet() ) {
+                    List<SpanItem> spanItems = spanItemEntry.getValue();
+                    for (SpanItem spanItem : spanItems) {
+                        spanItem.span.updateDrawState(paint);
+                    }
+                }
+            }
+
             List<SpanItem> spanItems = spanItemMap.get(i);
             if (spanItems != null) {
                 String str = text.substring(startTextIndex, i);
@@ -151,29 +177,50 @@ public class CustomTextView extends View {
                 canvas.drawText(str, x, yBaseline, paint);
                 canvas.restore();
                 x += paint.measureText(str);
+                startTextIndex = i;
                 for (SpanItem spanItem : spanItems) {
                     str = text.substring(spanItem.startIndex, spanItem.endIndex);
-                    Span span = spanItem.span;
+                    CharacterStyle span = spanItem.span;
                     if (span instanceof ReplacementSpan) {
+                        int spainWidth = ((ReplacementSpan) spanItem.span).getSize(workPaint, str, spanItem.startIndex, spanItem.endIndex, fontMetricsInt);
                         ((ReplacementSpan) spanItem.span).draw(canvas, str, spanItem.startIndex, spanItem.endIndex, x, 0, 0, getMeasuredHeight(), paint);
-                        x += ((ReplacementSpan) spanItem.span).getSize(paint, str, spanItem.startIndex, spanItem.endIndex, fontMetrics);
+                        x += spainWidth;
+                        startTextIndex = spanItem.endIndex;
                     } else {
-                        canvas.save();
                         span.updateDrawState(paint);
-                        canvas.drawText(str, x, yBaseline, paint);
-                        canvas.restore();
-                        span.reset(paint);
-                        x += paint.measureText(str);
+                        putSpanItem(remainItems, spanItem.endIndex, spanItem);
                     }
-                    startTextIndex = spanItem.endIndex;
                 }
             }
         }
         if (startTextIndex != text.length()) {
             String str = text.substring(startTextIndex);
             canvas.save();
-            canvas.drawText(str, x, yBaseline, paint);
+            canvas.drawText(str, x, yBaseline, workPaint);
             canvas.restore();
+        }
+    }
+
+    private void resetPaint(TextPaint paint) {
+        paint.set(textPaint);
+    }
+
+    private void putSpanItem(Map<Integer, List<SpanItem>> spanItemMap, Integer index, SpanItem spanItem) {
+        List<SpanItem> spanItems = spanItemMap.get(index);
+        if (spanItems == null) {
+            spanItems = new ArrayList<>();
+        }
+        spanItems.add(spanItem);
+        spanItemMap.put(index, spanItems);
+    }
+
+    private void removeSpanItem(Map<Integer, List<SpanItem>> spanItemMap, Integer index, SpanItem spanItem) {
+        List<SpanItem> spanItems = spanItemMap.get(index);
+        if (spanItems != null) {
+            spanItems.remove(spanItem);
+            if (spanItems.isEmpty()) {
+                spanItemMap.remove(index);
+            }
         }
     }
 }
