@@ -5,6 +5,9 @@ import android.graphics.Color
 import android.graphics.PixelFormat
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.text.Layout
+import android.text.StaticLayout
+import android.text.TextPaint
 import android.view.LayoutInflater
 import android.view.SurfaceHolder
 import android.view.SurfaceView
@@ -42,6 +45,12 @@ class CustomBitmapSpanFragment: LuFragment() {
         val canvas = Canvas(bitmap)
         textView.layout(0, 0, 200, 200)
         textView.draw(canvas)
+
+        bitmap2 = Bitmap.createBitmap(200, 200, Bitmap.Config.ARGB_8888)
+        val staticLayout = StaticLayout("嘿嘿嘿", textView.paint, 200, Layout.Alignment.ALIGN_CENTER, 1f, 0f, false)
+        val canvas2 = Canvas(bitmap2)
+        staticLayout.draw(canvas2)
+
         surfaceView.setZOrderOnTop(true)
         surfaceView.viewTreeObserver.addOnGlobalLayoutListener {
             holder = surfaceView.holder
@@ -57,6 +66,7 @@ class CustomBitmapSpanFragment: LuFragment() {
     private var th: Thread? = null
     private lateinit var bitmap: Bitmap
     private var running = false
+    private lateinit var bitmap2: Bitmap
 
     private val runnable by lazy {
         Runnable {
@@ -69,6 +79,9 @@ class CustomBitmapSpanFragment: LuFragment() {
                             c?.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
                             // 绘制Bitmap
                             c?.drawBitmap(bitmap, 0f, 0f, null) // 参数为(Bitmap, x, y, Paint)
+
+                            c?.translate(0f, 200f)
+                            c?.drawBitmap(bitmap2, 0f, 0f, null)
                         }
                     }
                 } finally {
