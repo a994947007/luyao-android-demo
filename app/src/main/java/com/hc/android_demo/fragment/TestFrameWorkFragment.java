@@ -41,6 +41,7 @@ public class TestFrameWorkFragment extends SimpleRecyclerFragment {
         addItem("Activity luanchMode", this::onClickActivityLuanchMode);
         addItem("协程的使用", this::onClickCoroutineTest);
         addItem("Flow的使用", this::onClickFlowTest);
+        addItem("xml中配置深浅色", this::onClickLightDarkTest);
     }
 
     private TestFrameWorkFragment() { }
@@ -60,6 +61,10 @@ public class TestFrameWorkFragment extends SimpleRecyclerFragment {
     @Override
     protected List<Pair<String, Runnable>> bind() {
         return items;
+    }
+
+    private void onClickLightDarkTest() {
+        startContentActivity(FragmentConstants.LIGHT_DARK_TEST_FRAGMENT_ID);
     }
 
     private void onClickFlowTest() {
