@@ -45,7 +45,7 @@ public class StitchingAnimationTestFragment extends Fragment {
             Rect fromPosition = new Rect();
             imgView.getGlobalVisibleRect(fromPosition);
             params.putParcelable(Constants.FROM_RECT_PARAMS_ID, fromPosition);
-            ActivityUtils.startStitchingActivity((LuActivity) getActivity(), FragmentConstants.STITCHING_IMAGE_FRAGMENT_ID, params);
+            ActivityUtils.startStitchingActivity((LuActivity) getActivity(), "/" + FragmentConstants.CUSTOM_VIEW + "/" + FragmentConstants.STITCHING_IMAGE_FRAGMENT_ID, params);
         });
         textureView = view.findViewById(R.id.textureView);
         mPlayer = new LuSurfaceTexturePlayer(textureView, videoPath, 0);
@@ -55,7 +55,7 @@ public class StitchingAnimationTestFragment extends Fragment {
             Rect fromPosition = new Rect();
             textureView.getGlobalVisibleRect(fromPosition);
             params.putParcelable(Constants.FROM_RECT_PARAMS_ID, fromPosition);
-            ActivityUtils.startStitchingActivity((LuActivity) getActivity(), FragmentConstants.STITCHING_TEXTURE_VIDEO_FRAGMENT_ID, params);
+            ActivityUtils.startStitchingActivity((LuActivity) getActivity(), "/" + FragmentConstants.CUSTOM_VIEW + "/" + FragmentConstants.STITCHING_TEXTURE_VIDEO_FRAGMENT_ID, params);
         });
     }
 

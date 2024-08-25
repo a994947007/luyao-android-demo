@@ -55,6 +55,7 @@ public class StitchingImageFragment extends BaseFragment {
                         @Override
                         public void onAnimationEnd(Animator animation) {
                             getActivity().finish();
+                            getActivity().overridePendingTransition(0, 0);
                         }
                     });
                     stitchingAnimation.addCollapseUpdateListener(animation -> {
