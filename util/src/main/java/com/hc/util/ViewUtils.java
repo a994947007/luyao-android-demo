@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
+import android.view.View;
 import android.view.ViewConfiguration;
+import android.view.ViewTreeObserver;
 
 import androidx.annotation.ColorRes;
 import androidx.annotation.StringRes;
@@ -96,5 +98,18 @@ public class ViewUtils {
     public static int getDisplayHeight(Context context) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         return displayMetrics.heightPixels;
+    }
+
+    public static void addOnGlobalLayoutListener(View view, ViewTreeObserver.OnGlobalLayoutListener globalListener) {
+        ViewTreeObserver observer = view.getViewTreeObserver();
+        observer.addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        observer.removeOnGlobalLayoutListener(this);
+                        globalListener.onGlobalLayout();
+                    }
+                }
+        );
     }
 }
