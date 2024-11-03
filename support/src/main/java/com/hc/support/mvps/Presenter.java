@@ -152,6 +152,32 @@ public class Presenter implements ViewBinder{
         return res;
     }
 
+    protected <T> Reference<T> injectRef(Class<?> clazz) {
+        T res = (T) contextWrapper.get(clazz);
+        if (res == null) {
+            throw new IllegalArgumentException("inject bean is null");
+        }
+        return new Reference<T>() {
+            @Override
+            public T get() {
+                return res;
+            }
+        };
+    }
+
+    protected <T> Reference<T> injectRef(String key) {
+        T res = (T) contextWrapper.get(key);
+        if (res == null) {
+            throw new IllegalArgumentException("inject bean is null");
+        }
+        return new Reference<T>() {
+            @Override
+            public T get() {
+                return res;
+            }
+        };
+    }
+
     protected <T> T inject(String key) {
         T res = (T) contextWrapper.get(key);
         if (res == null) {
