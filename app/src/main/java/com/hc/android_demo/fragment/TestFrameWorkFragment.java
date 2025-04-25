@@ -42,6 +42,7 @@ public class TestFrameWorkFragment extends SimpleRecyclerFragment {
         addItem("协程的使用", this::onClickCoroutineTest);
         addItem("Flow的使用", this::onClickFlowTest);
         addItem("xml中配置深浅色", this::onClickLightDarkTest);
+        addItem("bean observer刷新", this::onClickBeanObserverFragment);
     }
 
     private TestFrameWorkFragment() { }
@@ -61,6 +62,10 @@ public class TestFrameWorkFragment extends SimpleRecyclerFragment {
     @Override
     protected List<Pair<String, Runnable>> bind() {
         return items;
+    }
+
+    private void onClickBeanObserverFragment() {
+        startContentActivity(FragmentConstants.BEAN_OBSERVER_FRAGMENT_ID);
     }
 
     private void onClickLightDarkTest() {
