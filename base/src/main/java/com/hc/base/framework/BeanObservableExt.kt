@@ -9,7 +9,11 @@ fun <T: Syncable> T.observable(): Observable<T> {
     }
     val rxObservable = DefaultRxObservable<T>()
     RxObservableManager.addRxObservable(this, rxObservable)
-    return rxObservable.observable()
+    return rxObservable.observable().apply {
+        doOnDispose {
+            RxObservableManager.removeRxObservable(this@observable)
+        }
+    }
 }
 
 fun <T: Syncable> T.notifyChanged() {
