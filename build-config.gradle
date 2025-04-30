@@ -10,7 +10,7 @@ ext {
     roomVersion = "2.5.0"
     versionCode = 1
     versionName = "1.0"
-    rxAndroid = 'com.android.demo:rxAndroid:2.5@aar'
+    rxAndroid = 'com.android.demo:rxAndroid:2.7@aar'
     download = 'com.android.demo:download:1.4@aar'
 
     routerAnnotation = ':arouter-annotations'

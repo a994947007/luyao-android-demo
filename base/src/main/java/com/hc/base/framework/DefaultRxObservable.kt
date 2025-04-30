@@ -8,10 +8,19 @@ class DefaultRxObservable<T>: RxObservable<T> {
     private val subject = PublishSubject.create<T>()
 
     override fun observable(): Observable<T> {
-        return subject.observeOn(Schedules.MAIN)
+        return subject.hide()
     }
 
     override fun notifyChanged(bean: T) {
         subject.onNext(bean)
     }
+}
+
+object EmptyRxObservable: RxObservable<Syncable> {
+    override fun notifyChanged(bean: Syncable) {}
+
+    override fun observable(): Observable<Syncable> {
+        return Observable.create {  }
+    }
+
 }
