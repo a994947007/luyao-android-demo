@@ -16,10 +16,10 @@ class DefaultRxObservable<T>: RxObservable<T> {
     }
 }
 
-object EmptyRxObservable: RxObservable<Syncable> {
-    override fun notifyChanged(bean: Syncable) {}
+object EmptyRxObservable: RxObservable<Any> {
+    override fun notifyChanged(bean: Any) {}
 
-    override fun observable(): Observable<Syncable> {
+    override fun observable(): Observable<Any> {
         return Observable.create {  }
     }
 

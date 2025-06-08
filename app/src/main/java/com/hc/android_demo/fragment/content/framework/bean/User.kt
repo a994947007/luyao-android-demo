@@ -7,10 +7,18 @@ data class User(
     var username: String,
     var name: String,
     var isLogin: Boolean = false
-): Syncable {
+) {
+}
 
+class UserSyncable(val user: User): Syncable<User>{
     override fun key(): String {
-        return id
+        return user.id
+    }
+
+    override fun onSync(target: User) {
+        user.username = target.username
+        user.isLogin = target.isLogin
+        user.name = target.name
     }
 
 }
