@@ -76,6 +76,7 @@ public class CustomViewFragment extends SimpleRecyclerFragment {
         items.add(new Pair<>("将TextView转换成bitmap，绘制到surfaceView上", this::onClickSurfaceViewDrawTextView));
         items.add(new Pair<>("表情字符处理", this::onClickEmojiTestFragment));
         items.add(new Pair<>("评论互动区", this::onClickItemInteractiveElements));
+        items.add(new Pair<>("recyclerView中某个具体item的动画", this::onClickRecyclerItemAnimator));
     }
 
     @Override
@@ -96,6 +97,10 @@ public class CustomViewFragment extends SimpleRecyclerFragment {
             ((Activity)getContext()).getWindow().setStatusBarColor(ViewUtils.getColor(R.color.bottom_nav_color));
             ((Activity)getContext()).getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
+    }
+
+    private void onClickRecyclerItemAnimator() {
+        startContentActivity(FragmentConstants.RECYCLER_ITEM_ANIMATOR);
     }
 
     private void onClickItemInteractiveElements() {
