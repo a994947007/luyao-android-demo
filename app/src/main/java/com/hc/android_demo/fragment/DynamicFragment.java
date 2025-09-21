@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment;
 
 import com.hc.android_demo.R;
 import com.hc.android_demo.fragment.base.SimpleRecyclerFragment;
+import com.hc.android_demo.fragment.content.dynamic.activity.ComposeActivity;
+import com.hc.base.activity.ContentActivity;
 import com.hc.base.activity.LuActivity;
 import com.hc.util.ActivityUtils;
 import com.hc.util.ViewUtils;
@@ -34,6 +36,8 @@ public class DynamicFragment extends SimpleRecyclerFragment {
         addItem("Native导出卡片+双列瀑布流", this::onClickNativeCardListRNView);
         addItem("toWritableMap", this::onClickToWritableMap);
         addItem("NestedScrollView wrap Fragment View不能撑满布局的问题", this::onClickWrapFragmentViewFragment);
+        addItem("直接打开一个compose的activity", this::onClickHelloWorldCompose);
+        addItem("打开一个普通的activity嵌套compose的fragment", this::onClickActivityComposeActivity);
     }
 
     private DynamicFragment() { }
@@ -50,6 +54,15 @@ public class DynamicFragment extends SimpleRecyclerFragment {
             ((Activity)getContext()).getWindow().setStatusBarColor(ViewUtils.getColor(R.color.bottom_nav_color));
             ((Activity)getContext()).getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
+    }
+
+    private void onClickHelloWorldCompose() {
+        Intent intent = new Intent(this.getActivity(), ComposeActivity.class);
+        getActivity().startActivity(intent);
+    }
+
+    private void onClickActivityComposeActivity() {
+        ActivityUtils.startContentActivity((LuActivity) getActivity(), "/" + FragmentConstants.APP_DYNAMIC + "/" + FragmentConstants.JETPACK_COMPOSE_HELLO_WORLD_ID);
     }
 
     private void onClickNativeCardListRNView() {

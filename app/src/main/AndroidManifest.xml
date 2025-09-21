@@ -23,6 +23,9 @@
             android:launchMode="singleInstance"
             android:exported="false" />
         <activity
+            android:name="com.hc.android_demo.fragment.content.dynamic.activity.ComposeActivity"
+            android:exported="false" />
+        <activity
             android:name=".fragment.content.framework.activity.SingleTaskActivity"
             android:launchMode="singleTask"
             android:taskAffinity="com.hc.android_demo.task1"

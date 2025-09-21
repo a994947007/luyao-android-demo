@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
     id 'kotlin-kapt'
     id 'com.android.demo.plugin'
 }
@@ -46,6 +45,10 @@ android {
     }
     buildFeatures{
         dataBinding = true
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.1.0-rc02" // 使用与 Kotlin 1.6.10 兼容的版本
     }
 }
 
@@ -54,6 +57,9 @@ dependencies {
         implementation v
     }
     rootProject.retrofit.each { k, v ->
+        implementation v
+    }
+    rootProject.composeLib.each { k, v ->
         implementation v
     }
     implementation rootProject.reactNative
