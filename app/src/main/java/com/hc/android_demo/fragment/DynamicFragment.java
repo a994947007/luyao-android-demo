@@ -38,6 +38,7 @@ public class DynamicFragment extends SimpleRecyclerFragment {
         addItem("NestedScrollView wrap Fragment View不能撑满布局的问题", this::onClickWrapFragmentViewFragment);
         addItem("直接打开一个compose的activity", this::onClickHelloWorldCompose);
         addItem("打开一个普通的activity嵌套compose的fragment", this::onClickActivityComposeActivity);
+        addItem("部分view使用compose", this::onClickComposeView);
     }
 
     private DynamicFragment() { }
@@ -63,6 +64,10 @@ public class DynamicFragment extends SimpleRecyclerFragment {
 
     private void onClickActivityComposeActivity() {
         ActivityUtils.startContentActivity((LuActivity) getActivity(), "/" + FragmentConstants.APP_DYNAMIC + "/" + FragmentConstants.JETPACK_COMPOSE_HELLO_WORLD_ID);
+    }
+
+    private void onClickComposeView() {
+        ActivityUtils.startContentActivity((LuActivity) getActivity(), "/" + FragmentConstants.APP_DYNAMIC + "/" + FragmentConstants.JETPACK_COMPOSE_VIEW_ID);
     }
 
     private void onClickNativeCardListRNView() {
